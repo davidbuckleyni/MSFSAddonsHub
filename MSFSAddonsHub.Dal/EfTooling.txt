@@ -1,0 +1,13 @@
+﻿
+Be in Default Warehouse.Domain Project
+
+Add-Migration 1 -OutputDir "Data/Migrations" -Context MSFSAddonDBContext
+
+
+ than one DbContext was found. Specify which one to use. Use the '-Context' parameter for PowerShell commands and the '--context' parameter for dotnet commands.
+Update-Database -Context WarehouseDBContext
+
+ 
+
+
+Pm< Script-Migration -Context WarehouseDBContext
