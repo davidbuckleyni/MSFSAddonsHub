@@ -18,6 +18,6 @@ For plugin authors this windows software and mac will allow them to upload to ou
   * **Automatic Downloads**
  Tired of waiting for your downloads to happen MSFS Download Manager will download the add-ons for you, what if you use add on linker I here you say don't worry we will provide a setting for you to tell us your mod linker and the path that you installed it two.
  
-    * **Versions**
+   * **Versions**
  This system will keep track of old plugins you have used should you wish to revert.
  
