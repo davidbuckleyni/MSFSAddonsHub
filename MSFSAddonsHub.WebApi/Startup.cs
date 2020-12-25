@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MSFSAddonsHub.Dal;
+using MSFSAddonsHub.Dal.BL;
+using MSFSAddonsHub.WebApi.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,9 @@ namespace MSFSAddonsHub.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
             services.AddDbContext<MSFSAddonDBContext>(options =>
            options.UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
@@ -62,6 +67,8 @@ namespace MSFSAddonsHub.WebApi
                     }
                 });
             });
+            services.AddScoped<IUserService, UserService>();
+
             services.AddControllers();
           
         }
