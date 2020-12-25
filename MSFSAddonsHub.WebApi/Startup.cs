@@ -32,7 +32,7 @@ namespace MSFSAddonsHub.WebApi
            options.UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Warehouse Crm", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MSFS Addons", Version = "v1" });
                 //   c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 //Expose XML comments in doc.
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -63,10 +63,7 @@ namespace MSFSAddonsHub.WebApi
                 });
             });
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MSFSAddonsHub.WebApi", Version = "v1" });
-            });
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
