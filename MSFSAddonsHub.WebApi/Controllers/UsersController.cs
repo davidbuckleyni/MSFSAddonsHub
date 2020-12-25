@@ -36,13 +36,6 @@ namespace MSFSAddonsHub.WebApi.Controllers
             return HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
     }
 
-    [HttpGet]
-    [Route("user/GetAll")]
-    public IActionResult GetAll()
-    {
-        var users = _userService.GetAll();
-        return Ok(users);
-    }
 
     [AllowAnonymous]
     [HttpPost("authenticate")]

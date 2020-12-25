@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MSFSAddonsHub.Dal.Models;
 using System;
 
 namespace MSFSAddonsHub.Dal
 {
-    public class MSFSAddonDBContext :DbContext
+    public class MSFSAddonDBContext : IdentityDbContext<IdentityUser>
     {
         public MSFSAddonDBContext(DbContextOptions<MSFSAddonDBContext> options)
         : base(options)

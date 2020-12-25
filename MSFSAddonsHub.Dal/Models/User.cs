@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace MSFSAddonsHub.Dal.Models{
+namespace MSFSAddonsHub.Dal.Models
+{
     public class User
     {
 
-        public enum UserTypeEnum
-        {
-            Customer=1,
-            Agent=2,
-            Manager=3,
-            Accounts=4,
-            Admin=5
-
-        }
+  
         public int Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

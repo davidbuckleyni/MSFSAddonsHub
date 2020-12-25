@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,11 +33,13 @@ namespace MSFSAddonsHub.WebApi
         {
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
+            services.AddTransient<MSFSContextSeedData>();
 
             services.AddDbContext<MSFSAddonDBContext>(options =>
            options.UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
-            services.AddSwaggerGen(c => {
+            services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MSFS Addons", Version = "v1" });
                 //   c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 //Expose XML comments in doc.
@@ -68,24 +71,28 @@ namespace MSFSAddonsHub.WebApi
                 });
             });
             services.AddScoped<IUserService, UserService>();
-
+            
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<MSFSAddonDBContext>();
             services.AddControllers();
           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MSFSContextSeedData seeder)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-               }
+            }
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MSFSAddonsHub.WebApi v1"));
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+         //   seeder.SeedAdminUser();
 
             app.UseAuthorization();
 

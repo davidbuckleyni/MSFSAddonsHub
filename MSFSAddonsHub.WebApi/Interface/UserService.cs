@@ -5,8 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
- 
- 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MSFSAddonsHub.Dal.BL;
@@ -17,22 +16,26 @@ namespace MSFSAddonsHub.WebApi.Services {
         AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress);
         AuthenticateResponse RefreshToken(string token, string ipAddress);
         bool RevokeToken(string token, string ipAddress);
-        IEnumerable<User> GetAll();
-        User GetById(int id);
+ 
     }
 
 
     public class UserService : IUserService {
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
-        {
-            new User { Id=1, Username="David",Password="Test12345" }
-        };
+
+        private readonly UserManager<IdentityUser> _userManager;
+
+        private readonly SignInManager<IdentityUser> _signInManager;
 
         private readonly AppSettings _appSettings;
-
-        public UserService(IOptions<AppSettings> appSettings) {
+        private List<User> _users = new List<User>();
+        
+        public UserService(IOptions<AppSettings> appSettings, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager) {
             _appSettings = appSettings.Value;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            
+
         }
         public AuthenticateResponse RefreshToken(string token, string ipAddress) {
             var user = _users.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
@@ -87,30 +90,42 @@ namespace MSFSAddonsHub.WebApi.Services {
                 };
             }
         }
-        public AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress) {
-            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+        public   AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress) {
+            //var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-            // return null if user not found
-            if (user == null)
-                return null;
+            var user = _userManager.Users.Where(w=>w.UserName ==model.Username ).FirstOrDefault();
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            var result =  _signInManager.PasswordSignInAsync(user.Email, model.Password, true, lockoutOnFailure: false);
+
+            User users = new User();
+            users.Username = user.Email;
+            users.Password = model.Password;
+            if (result.Result.Succeeded)
+            {
+                // return null if user not found
+                if (user == null)
+                    return null;
+            }
 
             // authentication successful so generate jwt and refresh tokens
-            var jwtToken = generateJwtToken(user);
+            var jwtToken = generateJwtToken(users);
           //  var refreshToken = generateRefreshToken(ipAddress);
 
             // save refresh token
             //user.RefreshTokens.Add(refreshToken);
 
-            return new AuthenticateResponse(user, jwtToken, null);
+            return new AuthenticateResponse(users, jwtToken, null);
 
         }
 
 
-        public User GetById(int id) {
-            return _users.Where(w=>w.Id==id).FirstOrDefault();
+        public IdentityUser GetById(string id) {
+            return _userManager.Users.Where(w=>w.Id==id).FirstOrDefault();
         }
-        public IEnumerable<User> GetAll() {
-            return _users;
+        public IEnumerable<IdentityUser> GetAll() {
+            return (IEnumerable<IdentityUser>)_userManager.Users;
         }
 
         public bool RevokeToken(string token, string ipAddress) {
