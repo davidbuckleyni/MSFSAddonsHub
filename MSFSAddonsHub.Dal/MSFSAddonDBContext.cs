@@ -16,7 +16,18 @@ namespace MSFSAddonsHub.Dal
 
         public DbSet<AddOnDetails> Category { get; set; }
 
+        public DbSet<Subscriber> Subscriber { get; set; }
 
-    public DbSet<DownloadManager> DownloadManager { get; set; }
+ 
+        public DbSet<DownloadManager> DownloadManager { get; set; }
+
+
+        public void AddSubscriber (Subscriber sub)
+
+        {
+            this.Add(sub);
+            this.SaveChanges();
+
+        }
     }
 }

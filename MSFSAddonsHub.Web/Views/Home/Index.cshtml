@@ -1,8 +1,36 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model MSFSAddonsHub.Dal.Models.SubscriberVM
+@{
+
+ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<img src="~/images/comingSoon.png" style=" position: absolute;  top: 0px;  left: 0px;" />
+<div style="display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 180vh;">
+
+    <p style="color:#ffffff;font-weight:bold;font-size:20px;"><i>MSFS ADDONS Hub</p>	 <br>
+
+    <!-- <font size="4px"><p style="color:#444444"><font color="#0776BC" style="font-weight: bold">FS</font><font style="font-weight: bold">Realistic</font> brings a whole new world of immersion into <b>Microsoft Flight Simulator 2020</b><br> by adding a long list of visual and sound effects </p>
+    </font>-->
+    <font size="3px">
+        <p style="color:#ffffff;font-weight:bold;font-size:15px;">
+            Be the first to know when we are ready!<br>
+            Subscribe for development updates below
+        </p>
+    </font>
+    <form action="" method="post">
+        <input type="text" name="email" placeholder=" Email" size="30" style="line-height: 25px;border-radius: 5px;border:1px solid #A9A9A9;margin-top: 1px;"> <input class="button" value="Subscribe" type="submit">
+    </form>
+    <br><br><br>
+    <!--
+                 <div style="display:none">
+        <p style="float: left;color:#444444"><a href="https://www.youtube.com/watch?v=aBv4i_r9cWU&t=160s" target="_blank"  style="text-decoration: none;color:#0776BC;font-weight:bold"><img src="YouTube_logo.png" height="20px"></a> Watch this <a href="https://www.youtube.com/watch?v=aBv4i_r9cWU&t=160s" target="_blank"  style="text-decoration: none;color:#0776BC;font-weight:bold">XPRealistic review</a> and get a sneak preview on what is cooking</p>
+    </div>-->
 </div>
+
+

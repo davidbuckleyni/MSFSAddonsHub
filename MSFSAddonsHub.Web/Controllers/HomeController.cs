@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MSFSAddonsHub.Dal;
+using MSFSAddonsHub.Dal.Models;
 using MSFSAddonsHub.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -12,16 +14,18 @@ namespace MSFSAddonsHub.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly MSFSAddonDBContext _context;
+        public HomeController(ILogger<HomeController> logger,MSFSAddonDBContext context)
         {
-            _logger = logger;
+        _context = context;      
+        _logger = logger;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+       
 
         public IActionResult Privacy()
         {

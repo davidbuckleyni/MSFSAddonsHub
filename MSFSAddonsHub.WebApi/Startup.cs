@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.BL;
+using MSFSAddonsHub.WebApi.Interface;
 using MSFSAddonsHub.WebApi.Services;
 using System;
 using System.Collections.Generic;
@@ -71,7 +73,8 @@ namespace MSFSAddonsHub.WebApi
                 });
             });
             services.AddScoped<IUserService, UserService>();
-            
+            services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MSFSAddonDBContext>();
             services.AddControllers();

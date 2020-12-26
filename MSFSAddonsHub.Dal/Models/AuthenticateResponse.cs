@@ -21,7 +21,7 @@ namespace MSFSAddonsHub.Dal.Models
 
         public AuthenticateResponse(User user, string jwtToken, string refreshToken)
         {
-            Id = user.Id;
+         
             FirstName = user.FirstName;
             LastName = user.LastName;
             Username = user.Username;
