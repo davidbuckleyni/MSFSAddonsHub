@@ -84,6 +84,8 @@ namespace MSFSAddonsHub.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MSFSContextSeedData seeder)
         {
+            seeder.SeedAdminUser();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -94,8 +96,6 @@ namespace MSFSAddonsHub.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-         //   seeder.SeedAdminUser();
 
             app.UseAuthorization();
 

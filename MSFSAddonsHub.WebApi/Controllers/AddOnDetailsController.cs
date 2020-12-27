@@ -21,16 +21,16 @@ namespace MSFSAddonsHub.WebApi.Controllers
 
         [HttpGet]
         [Route("AddOns/GetAll")]
-        public IEnumerable<AddOnDetails> GetAllAddonDetails()
+        public IEnumerable<Addons> GetAllAddonDetails()
         {
-            return _context.AddonDetails.ToList();
+            return _context.Addons.ToList();
         }
 
         [HttpGet]
         [Route("AddOns/GetAllAddonDetailsById")]
-        public IEnumerable<AddOnDetails> GetAllAddonDetailsById(int Id)
+        public IEnumerable<Addons> GetAllAddonDetailsById(int Id)
         {
-            return _context.AddonDetails.Where(w=>w.Id==Id &&w.isActive ==true && w.isDeleted==false).ToList();
+            return _context.Addons.Where(w=>w.Id==Id &&w.isActive ==true && w.isDeleted==false).ToList();
         }
 
      

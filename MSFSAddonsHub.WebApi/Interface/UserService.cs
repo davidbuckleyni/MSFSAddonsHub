@@ -69,7 +69,7 @@ namespace MSFSAddonsHub.WebApi.Services {
             var tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.FirstName.ToString())
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -97,11 +97,12 @@ namespace MSFSAddonsHub.WebApi.Services {
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result =  _signInManager.PasswordSignInAsync(user.Email, model.Password, true, lockoutOnFailure: false);
+            var result =  _signInManager.PasswordSignInAsync(model.Username, model.Password, true, lockoutOnFailure: false);
 
             User users = new User();
-            users.Username = user.Email;
+            users.Username = model.Username;
             users.Password = model.Password;
+          
             if (result.Result.Succeeded)
             {
                 // return null if user not found

@@ -12,14 +12,22 @@ using System.Threading.Tasks;
 using MSFSAddonsHub.Dal.Models;
 using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using NToastNotify;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace MSFSAddonsHub.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            _hostingEnvironment = hostingEnvironment;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -27,43 +35,76 @@ namespace MSFSAddonsHub.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AppConfig.WebRootPath = _hostingEnvironment.WebRootPath;
+            AppConfig.ContentRootPath = _hostingEnvironment.ContentRootPath;
+
             services.AddControllersWithViews();
+            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+            {
+                ProgressBar = false,
+                PositionClass = ToastPositions.TopRight,
+                ToastClass = "alert",
+
+            });
+           
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+                config.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                config.User.RequireUniqueEmail = true;
+
+            })
+             .AddRoles<IdentityRole>()
+             .AddEntityFrameworkStores<MSFSAddonDBContext>()
+             .AddDefaultTokenProviders()
+             .AddDefaultUI()
+             .AddRoles<IdentityRole>();
+ 
+
+            services.AddSession(opts =>
+            {
+                opts.Cookie.IsEssential = true; // make the session cookie Essential
+            });
+
             services.AddDbContext<MSFSAddonDBContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddSwaggerGen(c =>
+            services.AddControllers(config => {
+                // using Microsoft.AspNetCore.Mvc.Authorization;
+                // using Microsoft.AspNetCore.Authorization;
+                var policy = new AuthorizationPolicyBuilder()
+                                 .RequireAuthenticatedUser()
+                                 .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+            services.Configure<IdentityOptions>(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Warehouse Crm", Version = "v1" });
-                //   c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-                //Expose XML comments in doc.
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description =
-                        "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
-        
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            },
-                            Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header
-                        },
-                        new List<string>()
-                    }
-                });
+
+                // Default Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+
+            });
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Identity.Cookie";
+                config.LoginPath = "/Identity/Account/Login";
+            });
+
+            services.AddAuthorization(options =>
+   options.AddPolicy("TwoFactorEnabled",
+       x => x.RequireClaim("amr", "mfa")));
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             });
         }
 
@@ -78,28 +119,32 @@ namespace MSFSAddonsHub.Web
             {
                 app.UseDeveloperExceptionPage();
 
-                
+
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-        app.UseSwagger();
 
-        // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-        // specifying the Swagger JSON endpoint.
-        app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
-
-        app.UseRouting();
+            app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
+
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+             name: "areas",
+             pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
+
 }
