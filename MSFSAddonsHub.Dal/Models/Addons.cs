@@ -17,7 +17,12 @@ namespace MSFSAddonsHub.Dal.Models
 
         public string DownloadUrl { get; set; }
 
+        public bool isZipFile { get; set; }
+        public bool isJsonFile { get; set; }
+        public string DownloadJson { get; set; }
         public int Category { get; set; }
+
+
 
         public bool isActive { get; set; }
 

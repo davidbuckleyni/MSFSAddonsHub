@@ -33,10 +33,10 @@ namespace MSFSAddonsHub.BL
 
         }
 
-        public async Task<List<Addons>> GetAllAddons()
+        public async Task<List<AddonsViewModel>> GetAllAddons()
         {
             string requestUri = string.Format(MSFSAddonClientConstants.GetAllAddons);
-            List<Addons> _result = new List<Addons>();
+            List<AddonsViewModel> _result = new List<AddonsViewModel>();
 
             HttpResponseMessage responseMessage = await client.PostAsync(requestUri, baseContent);
 
@@ -45,7 +45,7 @@ namespace MSFSAddonsHub.BL
                 var byteArray = await responseMessage.Content.ReadAsByteArrayAsync();
 
                 var content = Encoding.UTF8.GetString(byteArray, 0, byteArray.Length);
-                _result = JsonConvert.DeserializeObject<List<Addons>>(content);
+                _result = JsonConvert.DeserializeObject<List<AddonsViewModel>>(content);
             }
 
 

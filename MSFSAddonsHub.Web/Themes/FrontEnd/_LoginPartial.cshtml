@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager< MSFSAddonsHub.Dal.Models.ApplicationUser> SignInManager
 @inject UserManager<MSFSAddonsHub.Dal.Models.ApplicationUser> UserManager
-    ApplicationUser
+ 
     <ul class="navbar-nav">
         @if (SignInManager.IsSignedIn(User)) {
             <li class="nav-item">

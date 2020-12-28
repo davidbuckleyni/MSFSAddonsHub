@@ -14,12 +14,14 @@ namespace MSFSAddonsHub.Dal
         {
         }
         public DbSet<Addons> Addons{ get; set; }
+        public DbSet<UserAddon> UserAddons { get; set; }
 
         public DbSet<Category> Category { get; set; }
 
         public DbSet<Subscriber> Subscriber { get; set; }
-
- 
+        public DbSet<MyDashBoard> MyDashBoard { get; set; }
+        public DbSet<Credits> Credits { get; set; }
+        public DbSet<UserSettings> UserSettings { get; set; }
         public DbSet<DownloadManager> DownloadManager { get; set; }
 
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }

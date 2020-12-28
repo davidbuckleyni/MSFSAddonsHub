@@ -35,6 +35,9 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DownloadJson")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DownloadUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -54,6 +57,12 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isJsonFile")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isZipFile")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -171,6 +180,48 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Credits", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("Balance")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Teir")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Total")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Credits");
+                });
+
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.DownloadManager", b =>
                 {
                     b.Property<int>("Id")
@@ -204,6 +255,33 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.ToTable("DownloadManager");
                 });
 
+            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.MyDashBoard", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("AboutMe")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MyDashBoard");
+                });
+
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Subscriber", b =>
                 {
                     b.Property<int>("Id")
@@ -235,6 +313,77 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subscriber");
+                });
+
+            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.UserAddon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("AddONId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AddonCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ThumbNail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddonCategoryId");
+
+                    b.ToTable("UserAddons");
+                });
+
+            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.UserSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<bool>("ChatOnOff")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ColorTheme")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("EmailNotificaitons")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("FontSize")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Langague")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserSettings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -366,6 +515,15 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.UserAddon", b =>
+                {
+                    b.HasOne("MSFSAddonsHub.Dal.Models.Category", "AddonCategory")
+                        .WithMany()
+                        .HasForeignKey("AddonCategoryId");
+
+                    b.Navigation("AddonCategory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

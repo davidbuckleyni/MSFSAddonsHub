@@ -70,14 +70,7 @@ namespace MSFSAddonsHub.Web
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllers(config => {
-                // using Microsoft.AspNetCore.Mvc.Authorization;
-                // using Microsoft.AspNetCore.Authorization;
-                var policy = new AuthorizationPolicyBuilder()
-                                 .RequireAuthenticatedUser()
-                                 .Build();
-                config.Filters.Add(new AuthorizeFilter(policy));
-            });
+            
             services.Configure<IdentityOptions>(options =>
             {
 
@@ -99,7 +92,13 @@ namespace MSFSAddonsHub.Web
        x => x.RequireClaim("amr", "mfa")));
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
+            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+            {
+                ProgressBar = false,
+                PositionClass = ToastPositions.TopRight,
+                ToastClass = "alert",
 
+            });
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
