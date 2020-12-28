@@ -4,7 +4,7 @@
 	var owl = $('.owl-carousel-icons');
 	owl.owlCarousel({
 		margin: 25,
-		loop: true,
+		loop: false,
 		nav: true,
 		autoplay: true,
 		dots: false,

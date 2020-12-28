@@ -22,10 +22,10 @@ namespace MSFSAddonsHub.Dal.Models
 
         public int FontSize { get; set; }
 
-        public bool ChatOnOff { get; set; }
+        public bool? ChatOnOff { get; set; }
 
 
-        public bool EmailNotificaitons { get; set; }
+        public bool? EmailNotificaitons { get; set; }
 
         public ThemeType ColorTheme { get; set; }
 

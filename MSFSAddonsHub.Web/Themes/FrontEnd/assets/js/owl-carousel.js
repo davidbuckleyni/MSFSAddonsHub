@@ -4,7 +4,7 @@
 	var owl = $('.owl-carousel-icons');
 	owl.owlCarousel({
 		margin: 25,
-		loop: true,
+		loop: false,
 		nav: true,
 		autoplay: true,
 		dots: false,
@@ -25,7 +25,7 @@
 	// ______________Owl-carousel-icons2
 	var owl = $('.owl-carousel-icons2');
 	owl.owlCarousel({
-		loop: true,
+		loop: false,
 		rewind: false,
 		margin: 25,
 		animateIn: 'fadeInDowm',
@@ -57,7 +57,7 @@
 	var owl = $('.owl-carousel-icons3');
 	owl.owlCarousel({
 		margin: 25,
-		loop: true,
+		loop: false,
 		nav: false,
 		dots: false,
 		autoplay: true,
@@ -78,7 +78,7 @@
 	var owl = $('.owl-carousel-icons4');
 	owl.owlCarousel({
 		margin: 25,
-		loop: true,
+		loop: false,
 		nav: false,
 		dots: false,
 		autoplay: true,
@@ -98,7 +98,7 @@
 	// ______________Owl-carousel-icons5
 	var owl = $('.owl-carousel-icons5');
 	owl.owlCarousel({
-		loop: true,
+		loop: false,
 		rewind: false,
 		margin: 25,
 		animateIn: 'fadeInDowm',
@@ -130,7 +130,7 @@
 	var owl = $('.owl-carousel-icons6');
 	owl.owlCarousel({
 		margin: 25,
-		loop: true,
+		loop: false,
 		nav: false,
 		dots: false,
 		autoplay: true,
@@ -151,7 +151,7 @@
 	var owl = $('.owl-carousel-icons7');
 	owl.owlCarousel({
 		margin: 25,
-		loop: true,
+		loop: false,
 		nav: false,
 		dots: false,
 		autoplay: true,
@@ -171,7 +171,7 @@
 	var owl = $('.testimonial-owl-carousel2');
 	owl.owlCarousel({
 		margin: 25,
-		loop: true,
+		loop: false,
 		nav: false,
 		autoplay: true,
 		dots: false,
@@ -188,7 +188,7 @@
 	var owl = $('.testimonial-owl-carousel3');
 	owl.owlCarousel({
 		margin: 25,
-		loop: true,
+		loop: false,
 		nav: false,
 		autoplay: true,
 		dots: true,
@@ -203,7 +203,7 @@
 	var owl = $('.testimonial-owl-carousel4');
 	owl.owlCarousel({
 		margin: 25,
-		loop: true,
+		loop: false,
 		nav: false,
 		autoplay: true,
 		dots: true,
@@ -217,7 +217,7 @@
 	// ______________Testimonial-owl-carousel
 	var owl = $('.testimonial-owl-carousel');
 	owl.owlCarousel({
-		loop: true,
+		loop: false,
 		rewind: false,
 		margin: 25,
 		autoplay: true,
@@ -240,7 +240,7 @@
 	// ______________Client-carousel
 	var owl = $('.client-carousel');
 	owl.owlCarousel({
-		loop: true,
+		loop: false,
 		rewind: false,
 		margin: 25,
 		animateIn: 'fadeInDowm',
@@ -271,7 +271,7 @@
 	var owl = $('.bannner-owl-carousel');
 	owl.owlCarousel({
 		margin: 0,
-		loop: true,
+		loop: false,
 		nav: false,
 		autoplay: true,
 		dots: false,
@@ -305,7 +305,7 @@
 	var owl = $('.banner-carousel');
 	owl.owlCarousel({
 		margin: 25,
-		loop: true,
+		loop: false,
 		nav: false,
 		autoplay: true,
 		dots: true,

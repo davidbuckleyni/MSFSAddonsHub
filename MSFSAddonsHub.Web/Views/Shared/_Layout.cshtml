@@ -30,6 +30,11 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+            
+            Test List 
+            
+            @await Component.InvokeAsync("AddonsView")
+
         </main>
     </div>
     <footer class="footer border-top text-muted">

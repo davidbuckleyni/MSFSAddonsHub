@@ -1,56 +1,59 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using System.IO
+@using Microsoft.AspNetCore.Identity
+@using MSFSAddonsHub.Dal.Models
 @inject SignInManager<MSFSAddonsHub.Dal.Models.ApplicationUser>	SignInManager
 	@inject UserManager<MSFSAddonsHub.Dal.Models.ApplicationUser> 	UserManager
 	
 	<html lang="en">
-	<head>
-		<!-- Meta data -->
-		<meta charset="UTF-8">
-		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <head>
+        <!-- Meta data -->
+        <meta charset="UTF-8">
+        <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 
-		<meta name="keywords" content="msfs, addons, notifications" />
-		<title>MSFS Addon Hub - @ViewData["Title"] , For all your MSFS Addon notifications.</title>
-		<!-- Favicon -->
-		<link rel="icon" href="images/brand/favicon.ico" type="image/x-icon" />
-		<link rel="shortcut icon" type="image/x-icon" href="images/brand/favicon.ico" />
+        <meta name="keywords" content="msfs, addons, notifications" />
+        <title>MSFS Addon Hub - @ViewData["Title"] , For all your MSFS Addon notifications.</title>
+        <!-- Favicon -->
+        <link rel="icon" href="images/brand/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="images/brand/favicon.ico" />
 
-		<!-- Title -->
-		<title>Templist - HTML5 Premium Digital goods marketplace directory jquery css responsive website Template</title>
+        <!-- Title -->
+        <title>Templist - HTML5 Premium Digital goods marketplace directory jquery css responsive website Template</title>
 
-		<!-- Bootstrap css -->
-		<link href="plugins/bootstrap-4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- Bootstrap css -->
+        <link href="plugins/bootstrap-4.3.1/css/bootstrap.min.css" rel="stylesheet" />
 
-		<!-- Style css -->
-		<link href="css/style.css" rel="stylesheet" />
-		<link href="css/skin-modes.css" rel="stylesheet" />
+        <!-- Style css -->
+        <link href="css/style.css" rel="stylesheet" />
+        <link href="css/skin-modes.css" rel="stylesheet" />
 
-		<!-- Font-awesome  css -->
-		<link href="css/icons.css" rel="stylesheet" />
+        <!-- Font-awesome  css -->
+        <link href="css/icons.css" rel="stylesheet" />
 
-		<!--Select2 css-->
-		<link href="plugins/select2/select2.min.css" rel="stylesheet" />
+        <!--Select2 css-->
+        <link href="plugins/select2/select2.min.css" rel="stylesheet" />
 
-		<!-- Cookie css -->
-		<link href="plugins/cookie/cookie.css" rel="stylesheet">
+        <!-- Cookie css -->
+        <link href="plugins/cookie/cookie.css" rel="stylesheet">
 
-		<!-- Owl Theme css-->
-		<link href="plugins/owl-carousel/owl.carousel.css" rel="stylesheet" />
+        <!-- Owl Theme css-->
+        <link href="plugins/owl-carousel/owl.carousel.css" rel="stylesheet" />
 
-		<!-- Custom scroll bar css-->
-		<link href="plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+        <!-- Custom scroll bar css-->
+        <link href="plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet" />
 
-		<!-- Auto Complete css -->
-		<link href="plugins/autocomplete/jquery.autocomplete.css" rel="stylesheet">
+        <!-- Auto Complete css -->
+        <link href="plugins/autocomplete/jquery.autocomplete.css" rel="stylesheet">
 
-		<!--Image-tooltip css-->
-		<link href="plugins/image-tooltip/image-tooltip.css" rel="stylesheet" />
+        <!--Image-tooltip css-->
+        <link href="plugins/image-tooltip/image-tooltip.css" rel="stylesheet" />
 
-		<!-- Color Skin css -->
-		<link id="theme" rel="stylesheet" type="text/css" media="all" href="~/color-skins/color6.css" />
+        <!-- Color Skin css -->
+        <link id="theme" rel="stylesheet" type="text/css" media="all" href="~/color-skins/color6.css" />
 
-	</head>
+ 
+    </head>
 
     <body class="headerstyle1">
         @await Component.InvokeAsync("NToastNotify")
@@ -262,214 +265,13 @@
         <!--Section-->
 
         @await Html.PartialAsync("_LattestAddons.cshtml")
-        <!--Section-->
-        <section class="sptb">
-            <div class="container">
-                <div class="section-title center-block text-center">
-                    <h2>Why Choose Us?</h2>
-                    <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                </div>
-                <div class="item-all-cat center-block text-center">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-12">
-                            <div class="card mb-lg-0">
-                                <div class="card-body">
-                                    <div class="status-info text-center">
-                                        <div class="status-img mb-5">
-                                            <i class="las la-hands-helping la-4x text-primary"></i>
-                                        </div>
-                                        <h3 class="mt-2 mb-2 ">User Friendly</h3>
-                                        <p class="text-muted mb-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12">
-                            <div class="card mb-lg-0">
-                                <div class="card-body">
-                                    <div class="status-info text-center">
-                                        <div class="status-img mb-5">
-                                            <i class="las la-cart-plus la-4x text-secondary"></i>
-                                        </div>
-                                        <h3 class="mt-2 mb-2 ">Easily Buy & Sell </h3>
-                                        <p class="text-muted mb-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12">
-                            <div class="card mb-0">
-                                <div class="card-body">
-                                    <div class="status-info text-center">
-                                        <div class="status-img mb-5">
-                                            <i class="las la-certificate la-4x text-info"></i>
-                                        </div>
-                                        <h3 class="mt-2 mb-2 ">100% Responsive Rate</h3>
-                                        <p class="text-muted mb-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section><!--/Section-->
-        <!--Section-->
-        <section class="sptb cover-image sptb-tab bg-background2" data-image-src="images/banners/banner3.jpg">
-            <div class="container">
-                <div class="section-title center-block text-center">
-                    <h2 class="text-white position-relative">Testimonials</h2>
-                    <p class="text-white position-relative">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="myCarousel" class="owl-carousel testimonial-owl-carousel">
-                            <div class="item text-center">
-                                <div class="row">
-                                    <div class="col-xl-8 col-md-12 d-block mx-auto">
-                                        <div class="testimonia">
-                                            <div class="owl-controls clickable">
-                                                <div class="owl-pagination">
-                                                    <div class="owl-page active">
-                                                        <span class=""></span>
-                                                    </div>
-                                                    <div class="owl-page ">
-                                                        <span class=""></span>
-                                                    </div>
-                                                    <div class="owl-page">
-                                                        <span class=""></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h3 class="title">Elizabeth</h3>
-                                            <span class="post">Web Developer</span>
-                                            <div class="rating-stars mb-3">
-                                                <input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value" value="4">
-                                                <div class="rating-stars-container">
-                                                    <div class="rating-star sm">
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="rating-star sm">
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="rating-star sm">
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="rating-star sm">
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <div class="rating-star sm">
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p class="text-white-80">
-                                                <i class="fa fa-quote-left"></i>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                                            </p>
-                                        </div>
-                                        <a href="testimonial.html" class="btn ripple  btn-secondary btn-lg">View all Testimonials</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item text-center">
-                                <div class="row">
-                                    <div class="col-xl-8 col-md-12 d-block mx-auto">
-                                        <div class="testimonia">
-                                            <div class="owl-controls clickable">
-                                                <div class="owl-pagination">
-                                                    <div class="owl-page ">
-                                                        <span class=""></span>
-                                                    </div>
-                                                    <div class="owl-page active">
-                                                        <span class=""></span>
-                                                    </div>
-                                                    <div class="owl-page">
-                                                        <span class=""></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="testimonia-data">
-                                                <h3 class="title">williamson</h3>
-                                                <span class="post">Web Developer</span>
-                                                <div class="rating-stars mb-3">
-                                                    <input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value" value="3">
-                                                    <div class="rating-stars-container">
-                                                        <div class="rating-star sm">
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <div class="rating-star sm">
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <div class="rating-star sm">
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <div class="rating-star sm">
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <div class="rating-star sm">
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p class="text-white-80"><i class="fa fa-quote-left"></i>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. </p>
-                                        </div>
-                                        <a href="testimonial.html" class="btn ripple  btn-secondary btn-lg">View all Testimonials</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item text-center">
-                                <div class="row">
-                                    <div class="col-xl-8 col-md-12 d-block mx-auto">
-                                        <div class="testimonia">
-                                            <div class="owl-controls clickable">
-                                                <div class="owl-pagination">
-                                                    <div class="owl-page ">
-                                                        <span class=""></span>
-                                                    </div>
-                                                    <div class="owl-page">
-                                                        <span class=""></span>
-                                                    </div>
-                                                    <div class="owl-page active">
-                                                        <span class=""></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="testimonia-data">
-                                                <h3 class="title">Sophie Carr</h3>
-                                                <span class="post">Web Developer</span>
-                                                <div class="rating-stars mb-3">
-                                                    <input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value" value="3">
-                                                    <div class="rating-stars-container">
-                                                        <div class="rating-star sm">
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <div class="rating-star sm">
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <div class="rating-star sm">
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <div class="rating-star sm">
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                        <div class="rating-star sm">
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p class="text-white-80"><i class="fa fa-quote-left"></i>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                                        </div>
-                                        <a href="testimonial.html" class="btn ripple  btn-secondary btn-lg">View all Testimonials</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section><!--/Section-->
+    
+                
+ 
+            
+    @await Component.InvokeAsync("AddonsView")
+
+     
         <!--Section-->
         <section class="sptb">
             <div class="container">
@@ -495,7 +297,7 @@
             <div class="container">
                 <div class="section-title center-block text-center">
                     <h2>News</h2>
-                    <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                    <p>Getting ready for Launch we not quite there yet!.</p>
                 </div>
                 <div id="defaultCarousel" class="owl-carousel Card-owlcarousel owl-carousel-icons">
                     <div class="item">
@@ -511,8 +313,8 @@
                                         <a href="#"><i class="fa fa-comment-o mr-2"></i>4 Comments</a>
                                     </div>
                                 </div>
-                                <a href="blog-details.html" class="text-dark"><h3 class="font-weight-semibold">Nemo ipsam voluptatem</h3></a>
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat </p>
+                                <a href="blog-details.html" class="text-dark"><h3 class="font-weight-semibold">Welcome to the new way to manage your sim downloads</h3></a>
+                                <p>While was primary Built for msfs the hub will be usefull for any buding pilot in wanting to manage their add-ons </p>
                                 <div class="d-flex align-items-center pt-2 mt-auto">
                                     <img src="images/users/male/5.jpg" class="avatar brround avatar-md mr-3" alt="avatar-img">
                                     <div>
@@ -527,182 +329,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="card mb-0">
-                            <div class="item7-card-img">
-                                <a href="#"></a>
-                                <img src="images/media/0-2.jpg" alt="img" class="cover-image">
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="item7-card-desc d-flex mb-2">
-                                    <a href="#"><i class="fa fa-calendar-o mr-2"></i>Nov-28-2020</a>
-                                    <div class="ml-auto">
-                                        <a href="#"><i class="fa fa-comment-o mr-2"></i>2 Comments</a>
-                                    </div>
-                                </div>
-                                <a href="blog-details.html" class="text-dark"><h3 class="font-weight-semibold">Sed ut perspiciatis iste</h3></a>
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat </p>
-                                <div class="d-flex align-items-center pt-2 mt-auto">
-                                    <img src="images/users/male/7.jpg" class="avatar brround avatar-md mr-3" alt="avatar-img">
-                                    <div>
-                                        <a href="profile.html" class="text-default">Tanner Mallari</a>
-                                        <small class="d-block text-muted">2 days ago</small>
-                                    </div>
-                                    <div class="ml-auto text-muted">
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-thumbs-o-up"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card mb-0">
-                            <div class="item7-card-img">
-                                <a href="#"></a>
-                                <img src="images/media/0-3.jpg" alt="img" class="cover-image">
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="item7-card-desc d-flex mb-2">
-                                    <a href="#"><i class="fa fa-calendar-o mr-2"></i>Nov-19-2020</a>
-                                    <div class="ml-auto">
-                                        <a href="#"><i class="fa fa-comment-o text-muted mr-2"></i>8 Comments</a>
-                                    </div>
-                                </div>
-                                <a href="blog-details.html" class="text-dark"><h3 class="font-weight-semibold">At vero accusamus et iusto</h3></a>
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat </p>
-                                <div class="d-flex align-items-center pt-2 mt-auto">
-                                    <img src="images/users/female/15.jpg" class="avatar brround avatar-md mr-3" alt="avatar-img">
-                                    <div>
-                                        <a href="profile.html" class="text-default">Aracely Bashore</a>
-                                        <small class="d-block text-muted">5 days ago</small>
-                                    </div>
-                                    <div class="ml-auto text-muted">
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-thumbs-o-up"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card mb-0">
-                            <div class="item7-card-img">
-                                <a href="#"></a>
-                                <img src="images/media/0-4.jpg" alt="img" class="cover-image">
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="item7-card-desc d-flex mb-2">
-                                    <a href="#"><i class="fa fa-calendar-o mr-2"></i>Dec-03-2020</a>
-                                    <div class="ml-auto">
-                                        <a href="#"><i class="fa fa-comment-o mr-2"></i>4 Comments</a>
-                                    </div>
-                                </div>
-                                <a href="blog-details.html" class="text-dark"><h3 class="font-weight-semibold">Excepteur occaecat cupidatat</h3></a>
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat </p>
-                                <div class="d-flex align-items-center pt-2 mt-auto">
-                                    <img src="images/users/male/15.jpg" class="avatar brround avatar-md mr-3" alt="avatar-img">
-                                    <div>
-                                        <a href="profile.html" class="text-default">Royal Hamblin</a>
-                                        <small class="d-block text-muted">10 days ago</small>
-                                    </div>
-                                    <div class="ml-auto text-muted">
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-thumbs-o-up"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card mb-0">
-                            <div class="item7-card-img">
-                                <a href="#"></a>
-                                <img src="images/media/0-5.jpg" alt="img" class="cover-image">
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="item7-card-desc d-flex mb-2">
-                                    <a href="#"><i class="fa fa-calendar-o mr-2"></i>Nov-28-2020</a>
-                                    <div class="ml-auto">
-                                        <a href="#"><i class="fa fa-comment-o mr-2"></i>2 Comments</a>
-                                    </div>
-                                </div>
-                                <a href="blog-details.html" class="text-dark"><h3 class="font-weight-semibold">Sed perspiciatis omnis iste</h3></a>
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat </p>
-                                <div class="d-flex align-items-center pt-2 mt-auto">
-                                    <img src="images/users/female/5.jpg" class="avatar brround avatar-md mr-3" alt="avatar-img">
-                                    <div>
-                                        <a href="profile.html" class="text-default">Rosita Chatmon</a>
-                                        <small class="d-block text-muted">10 days ago</small>
-                                    </div>
-                                    <div class="ml-auto text-muted">
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-thumbs-o-up"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card mb-0">
-                            <div class="item7-card-img">
-                                <a href="#"></a>
-                                <img src="images/media/0-6.jpg" alt="img" class="cover-image">
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="item7-card-desc d-flex mb-2">
-                                    <a href="#"><i class="fa fa-calendar-o mr-2"></i>Nov-19-2020</a>
-                                    <div class="ml-auto">
-                                        <a href="#"><i class="fa fa-comment-o text-muted mr-2"></i>8 Comments</a>
-                                    </div>
-                                </div>
-                                <a href="blog-details.html" class="text-dark"><h3 class="font-weight-semibold">At vero accusamus et iusto</h3></a>
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat </p>
-                                <div class="d-flex align-items-center pt-2 mt-auto">
-                                    <img src="images/users/male/6.jpg" class="avatar brround avatar-md mr-3" alt="avatar-img">
-                                    <div>
-                                        <a href="profile.html" class="text-default">Loyd Nolf</a>
-                                        <small class="d-block text-muted">15 days ago</small>
-                                    </div>
-                                    <div class="ml-auto text-muted">
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-thumbs-o-up"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card mb-0">
-                            <div class="item7-card-img">
-                                <a href="#"></a>
-                                <img src="images/media/0-7.jpg" alt="img" class="cover-image">
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="item7-card-desc d-flex mb-2">
-                                    <a href="#"><i class="fa fa-calendar-o mr-2"></i>Nov-19-2020</a>
-                                    <div class="ml-auto">
-                                        <a href="#"><i class="fa fa-comment-o text-muted mr-2"></i>8 Comments</a>
-                                    </div>
-                                </div>
-                                <a href="blog-details.html" class="text-dark"><h3 class="font-weight-semibold">Excepteur occaecat cupidatat</h3></a>
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat </p>
-                                <div class="d-flex align-items-center pt-2 mt-auto">
-                                    <img src="images/users/female/15.jpg" class="avatar brround avatar-md mr-3" alt="avatar-img">
-                                    <div>
-                                        <a href="profile.html" class="text-default">Aracely Bashore</a>
-                                        <small class="d-block text-muted">5 days ago</small>
-                                    </div>
-                                    <div class="ml-auto text-muted">
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-thumbs-o-up"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
+                </div>
+                   
         </section><!--/Section-->
         <!--Section-->
         <section>
@@ -733,27 +362,11 @@
                         <div class="row">
                             <div class="col-lg-3 col-md-12">
                                 <h6>About</h6>
-                                <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet numquam iure provident voluptate essequasi, veritatis totam voluptas nostrum.Lorem ipsum dolor sit amet, consectetur </p>
+                                <hr class="deep-purple text-primary accent-2 mb-4 mt-0 d-inline-block mx-auto">
                                 <ul class="list-unstyled list-inline mt-3">
                                     <li class="list-inline-item">
                                         <a class="btn ripple btn-floating btn-sm mx-1">
                                             <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="btn ripple btn-floating btn-sm mx-1">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="btn ripple btn-floating btn-sm mx-1">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="btn ripple btn-floating btn-sm mx-1">
-                                            <i class="fa fa-linkedin"></i>
                                         </a>
                                     </li>
                                 </ul>
@@ -775,18 +388,11 @@
                                 <h6>Contact</h6>
                                 <hr class="deep-purple  text-primary accent-2 mb-4 mt-0 d-inline-block mx-auto">
                                 <ul class="footer-conatct list-unstyled mb-0 contact-footer">
+                                  
                                     <li>
-                                        <a href="#"><i class="fa fa-home mr-3 text-white"></i>  22 S. Rock Creek StreetSan Carlos, Uniontown CA 94070, USA</a>
+                                        <a href="#"><i class="fa fa-envelope mr-3 text-white"></i> info@msfsaddonhub.com</a>
                                     </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-envelope mr-3 text-white"></i> info12323@example.com</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-phone mr-3 text-white"></i> + 01 234 567 88</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-print mr-3 text-white"></i> + 01 234 567 89</a>
-                                    </li>
+                                   
                                 </ul>
                             </div>
                             <div class="col-lg-4 col-md-12">
@@ -799,16 +405,7 @@
                                         <button type="button" class="btn ripple  btn-primary br-tr-3  br-br-3"> Subscribe </button>
                                     </div>
                                 </div>
-                                <h6 class="mb-0 mt-5">Payments</h6>
-                                <hr class="deep-purple  text-primary accent-2 mb-2 mt-3 d-inline-block mx-auto">
-                                <div class="clearfix"></div>
-                                <ul class="footer-payments">
-                                    <li class="pl-0"><a href="javascript:;"><i class="fa fa-cc-amex" aria-hidden="true"></i></a></li>
-                                    <li><a href="javascript:;"><i class="fa fa-cc-visa" aria-hidden="true"></i></a></li>
-                                    <li><a href="javascript:;"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></a></li>
-                                    <li><a href="javascript:;"><i class="fa fa-cc-mastercard" aria-hidden="true"></i></a></li>
-                                    <li><a href="javascript:;"><i class="fa fa-cc-paypal" aria-hidden="true"></i></a></li>
-                                </ul>
+                               
                             </div>
                         </div>
                     </div>
@@ -817,7 +414,15 @@
                     <div class="container">
                         <div class="row d-flex">
                             <div class="col-lg-12 col-sm-12 mt-3 mb-3 text-center">
-                                Copyright © 2020 <a href="#" class="fs-14 text-primary">MSFSAddonHub.Com</a>. Developer By Novatroop 77
+                                Copyright © 2020 <a href="#" class="fs-14 text-primary">MSFSAddonHub.Com</a>. Developed By Novatroop77
+                                                 <version>
+                                                     Made with  <i class="fa fa-heart" style="color:red">  </i> with .net core @System.Environment.Version
+                                                     Version : @AppConfig.Version
+
+                                                     Date: @File.GetLastWriteTime(@System.Reflection.Assembly.GetExecutingAssembly().Location)
+
+
+                                                 </version>
                             </div>
                         </div>
                     </div>
@@ -860,7 +465,7 @@
 
         <!--Select2 js -->
         <script src="plugins/select2/select2.full.min.js"></script>
-        <script src="~/js/select2.js"></script>
+        <script src="js/select2.js"></script>
 
         <!-- Cookie js -->
         <script src="plugins/cookie/jquery.ihavecookies.js"></script>
@@ -874,7 +479,7 @@
         <script src="plugins/autocomplete/autocomplete.js"></script>
 
         <!-- sticky js-->
-        <script src="~/js/sticky.js"></script>
+        <script src="js/sticky.js"></script>
 
         <!-- Image-tooltip js -->
         <script src="plugins/image-tooltip/image-tooltip.js"></script>

@@ -8,18 +8,22 @@ namespace MSFSAddonsHub.Dal.Models
     {
 
         public int Id{ get; set; }
-        public Guid TeannatId { get; set; }
-        public int ParentId { get; set; }
+        public Guid? TeannatId { get; set; }
 
-        public string CategoryId { get; set; }
+        public string Name { get; set; }
 
-        public bool isActive { get; set; }
+        public string Description { get; set; }
+        public int? ParentId { get; set; }
 
-        public bool isDeleted { get; set; }
+        
 
-        public DateTime CreatedDate { get; set; }
+        public bool? isActive { get; set; }
 
-        public string CreatedBy { get; set; }
+        public bool? isDeleted { get; set; }
+
+        public DateTime? CreatedDate { get; set; }
+
+        public string? CreatedBy { get; set; }
 
     }
 }

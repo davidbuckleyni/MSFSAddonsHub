@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MSFSAddonsHub.Dal.Models
 {
-   public  class MyDashBoard
+   public  class MyDashBoardViewModel
     {
 
         public enum ProfileType
@@ -20,12 +20,12 @@ namespace MSFSAddonsHub.Dal.Models
         public int Id { get; set; }
 
         public int Type { get; set; }
-        public Guid? TeannatId { get; set; }
-        public string? FirstName { get; set; }
+        public Guid TeannatId { get; set; }
+        public string FirstName { get; set; }
 
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
 
-        public string? AboutMe { get; set; }
+        public string AboutMe { get; set; }
 
     }
 }

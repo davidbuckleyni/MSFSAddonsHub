@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201228212336_6")]
+    partial class _6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +28,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("Category")
+                    b.Property<int>("Category")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -53,16 +55,16 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("isActive")
+                    b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isDeleted")
+                    b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isJsonFile")
+                    b.Property<bool>("isJsonFile")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isZipFile")
+                    b.Property<bool>("isZipFile")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -154,28 +156,25 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ParentId")
+                    b.Property<int>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<Guid?>("TeannatId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("isActive")
+                    b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isDeleted")
+                    b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -211,13 +210,13 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<int>("Total")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("isActive")
+                    b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isAdmin")
+                    b.Property<bool>("isAdmin")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isDeleted")
+                    b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -247,10 +246,10 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<Guid?>("TeannatId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("isActive")
+                    b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isDeleted")
+                    b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -304,13 +303,13 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<DateTime>("GPDRReqestDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("GpdrRemoval")
+                    b.Property<bool>("GpdrRemoval")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isActive")
+                    b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isDeleted")
+                    b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -346,10 +345,10 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<string>("ThumbNail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("isActive")
+                    b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isDeleted")
+                    b.Property<bool>("isDeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -366,7 +365,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<bool?>("ChatOnOff")
+                    b.Property<bool>("ChatOnOff")
                         .HasColumnType("bit");
 
                     b.Property<int>("ColorTheme")
@@ -375,7 +374,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("EmailNotificaitons")
+                    b.Property<bool>("EmailNotificaitons")
                         .HasColumnType("bit");
 
                     b.Property<int>("FontSize")

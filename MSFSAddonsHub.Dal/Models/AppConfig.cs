@@ -12,7 +12,8 @@ namespace MSFSAddonsHub.Dal.Models
         public static string WebRootPath { get; set; }
 
         public static string ContentRootPath { get; set; }
- 
+
+        public  const string Version = "1.0.1";
 
     }
 }
