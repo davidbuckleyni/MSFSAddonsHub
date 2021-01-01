@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MSFSAddonsHub.Dal.Models;
 
 namespace MSFSAddonsHub.WebApi
 {
@@ -35,7 +36,7 @@ namespace MSFSAddonsHub.WebApi
         {
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
-            services.AddTransient<MSFSContextSeedData>();
+         //   services.AddTransient<MSFSContextSeedData>();
 
             services.AddDbContext<MSFSAddonDBContext>(options =>
            options.UseSqlServer(
@@ -74,17 +75,17 @@ namespace MSFSAddonsHub.WebApi
             });
             services.AddScoped<IUserService, UserService>();
             services.AddTransient<IEmailSender, EmailSender>();
-
-            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MSFSAddonDBContext>();
             services.AddControllers();
           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MSFSContextSeedData seeder)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            seeder.SeedAdminUser();
+            //seeder.SeedAdminUser();
 
             if (env.IsDevelopment())
             {

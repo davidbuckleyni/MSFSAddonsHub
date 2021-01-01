@@ -23,14 +23,14 @@ namespace MSFSAddonsHub.WebApi.Services {
     public class UserService : IUserService {
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
 
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         private readonly AppSettings _appSettings;
         private List<User> _users = new List<User>();
         
-        public UserService(IOptions<AppSettings> appSettings, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager) {
+        public UserService(IOptions<AppSettings> appSettings, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) {
             _appSettings = appSettings.Value;
             _userManager = userManager;
             _signInManager = signInManager;

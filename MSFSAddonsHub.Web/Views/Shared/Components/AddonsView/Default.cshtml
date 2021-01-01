@@ -1,9 +1,32 @@
-﻿@page
-@model MSFSAddonsHub.Dal.Models.Addons
-@{
+﻿@model List<MSFSAddonsHub.Dal.Models.Addons>
+<div class="version-history panel-collapse collapse in" aria-expanded="true" id="version-history">
+<table class="table borderless">
+    <thead>
+    <tr>
+        <th>Version</th>
+        <th>Downloads</th>
+        <th>Last updated</th>
+        <th aria-hidden="true" abbr="Deprecation Information"></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                <a href="/packages/Microsoft.AspNetCore.App.Ref/5.0.0-rc.2.20475.17" title="@item.Version">
+                    @item.Version
+                </a>
+            </td>
+            <td>
+                @item.TotalDownloads
+            </td>
+            <td>
+                <span data-datetime="2020-10-13T14:38:26.8870000">@item.CreatedDate</span>
+            </td>
+
+        </tr>
 
 
-}
-
-
-Add ons View List Test this should be inside the view 
+    }
+    </thead></table>
+</div>
