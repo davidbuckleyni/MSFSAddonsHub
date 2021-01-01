@@ -9,8 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using MSFSAddons.Models.Models;
 
-namespace MSFSAddonsHub.BL
+namespace MSFSAddonsHub.Dal
 {
+
 
     public class MSFSAddonClient
     {

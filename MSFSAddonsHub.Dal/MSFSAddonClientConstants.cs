@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSFSAddonsHub.BL
+namespace MSFSAddonsHub.Dal
 {
   public static   class MSFSAddonClientConstants
     {
