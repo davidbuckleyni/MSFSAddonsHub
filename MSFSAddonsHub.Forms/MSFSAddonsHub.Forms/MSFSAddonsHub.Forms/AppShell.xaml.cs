@@ -11,7 +11,7 @@ namespace MSFSAddonsHub.Forms
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(MainMenu), typeof(MainMenu));
+            Routing.RegisterRoute(nameof(AddonsPage), typeof(AddonsPage));
 
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));

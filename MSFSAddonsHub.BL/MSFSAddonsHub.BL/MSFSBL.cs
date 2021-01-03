@@ -8,6 +8,11 @@ namespace MSFSAddonsHub.BL
     {
 
 
+        public void DownloadTestFile()
+        {
+            GetMSFSAddonDetails("https://www.msfsaddonshub.com/uploads/gotgravel-savage-grravel.zip");
+        }
+
         public void GetMSFSAddonDetails(string zipFileUrl) {
             using (ZipArchive archive = ZipFile.OpenRead(zipFileUrl))
             {
@@ -16,6 +21,8 @@ namespace MSFSAddonsHub.BL
                 {
                     using (var zipEntryStream = sample.Open())
                     {
+
+                        
                         // serializer = new XmlSerializer(typeof(SampleClass));
 
                        /// SampleClass deserialized =
