@@ -15,6 +15,26 @@ namespace MSFSAddonsHub.Forms
 
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            addonsflayout.Items.Add(new ShellContent
+            {
+                Title = "Airliners",
+                Icon = "tab_about",
+                Content = new AboutPage()
+            });
+
+            addonsflayout.Items.Add(new ShellContent
+            {
+                Title = "Piston Planes",
+                Icon = "tab_about",
+                Content = new AboutPage()
+            });
+            addonsflayout.Items.Add(new ShellContent
+            {
+                Title = "Turbo Props",
+                Icon = "tab_about",
+                Content = new AboutPage()
+            });
+
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

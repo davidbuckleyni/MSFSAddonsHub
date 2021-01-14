@@ -11,6 +11,9 @@ namespace MSFSAddonsHub.Dal.Models
 
         public int Id { get; set; }
 
+        public Guid? TeannatId { get; set; }
+
+        public Guid? UserId { get; set; }
         public string Email { get; set; }
 
         public DateTime GPDRReqestDate { get; set; }

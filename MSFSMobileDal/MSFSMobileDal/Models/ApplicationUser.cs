@@ -26,6 +26,8 @@ namespace MSFSAddonsHub.Dal.Models
         public int UserType { get; set; }
         public Guid TennantId { get; set; }
 
+
         
+
     }
 }

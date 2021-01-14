@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MSFSAddonsHub.Dal.Models.MyDashBoard>
+﻿@model List<MSFSAddonsHub.Dal.Models.MyDashBoardViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -28,7 +28,7 @@
                                     <a class="side-menu__item " href="mydash.html"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Edit Profile</span></a>
                                 </li>
                                 <li>
-                                    <a class="side-menu__item" href="myads.html"><i class="side-menu__icon fe fe-codepen"></i><span class="side-menu__label">My Items</span></a>
+                                    <a class="side-menu__item" href="/MyAddons"><i class="side-menu__icon fe fe-codepen"></i><span class="side-menu__label">My Addons</span></a>
                                 </li>
                                 <li>
                                     <a class="side-menu__item" href="myfavorite.html"><i class="side-menu__icon fe fe-heart"></i><span class="side-menu__label">My Favorite</span></a>
@@ -145,24 +145,7 @@
                                     <input type="number" class="form-control" placeholder="Number">
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" placeholder="Home Address">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">City</label>
-                                    <input type="text" class="form-control" placeholder="City">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Postal Code</label>
-                                    <input type="number" class="form-control" placeholder="ZIP Code">
-                                </div>
-                            </div>
+                         
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="form-label">Country</label>
@@ -187,30 +170,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Facebook</label>
-                                    <input type="text" class="form-control" placeholder="https://www.facebook.com/">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Google</label>
-                                    <input type="text" class="form-control" placeholder="https://www.google.com/">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Twitter</label>
-                                    <input type="text" class="form-control" placeholder="https://twitter.com/">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Pinterest</label>
-                                    <input type="text" class="form-control" placeholder="https://in.pinterest.com/">
-                                </div>
-                            </div>
+                           
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">About Me</label>

@@ -28,5 +28,10 @@ namespace MSFSAddonsHub.Forms.Views
 
         }
 
+        private void RefreshView_OnRefreshing(object sender, EventArgs e)
+        {
+            BindAddons();
+            
+        }
     }
 }

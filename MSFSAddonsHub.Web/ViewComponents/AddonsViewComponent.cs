@@ -27,8 +27,11 @@ namespace MSFSAddonsHub.Web.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
 
-            
-            return View(db.Addons.Where(w => w.isActive == true && w.isDeleted == false).OrderBy(o => o.Version).ToList());
+
+            var test = db.UserAddons.Where(w => w.isActive == true && w.isDeleted == false).OrderBy(o => o.Version)
+                .ToList();
+
+            return View(test);
         }
     }
 

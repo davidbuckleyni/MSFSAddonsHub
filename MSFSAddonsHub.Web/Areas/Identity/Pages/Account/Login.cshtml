@@ -3,14 +3,19 @@
 
 @{
     ViewData["Title"] = "Log in";
-    Layout = "~/Themes/FrontEnd/_LoginLayout.cshtml";
+    Layout = "~/Themes/BackEnd/_LoginLayout.cshtml";
 
 }
 
-<h1>@ViewData["Title"]</h1>
+ 
+<div class="container">
 <div class="row">
-    <div class="col-md-4">
-        <section>
+<div class="col-xl-4 col-md-12 col-md-12 d-block mx-auto">
+<div class="card mb-0">
+    <div class="card-header">
+        <h3 class="card-title">Login to your Account</h3>
+    </div>
+    <div class="card-body">
             <form id="account" method="post">
                 <h4>Use a local account to log in.</h4>
                 <hr />
@@ -80,6 +85,9 @@
             }
         </section>
     </div>
+</div>
+</div>
+</div>
 </div>
 
 @section Scripts {

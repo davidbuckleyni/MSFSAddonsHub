@@ -36,7 +36,7 @@ namespace MSFSAddonsHub.WebApi
         {
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
-         //   services.AddTransient<MSFSContextSeedData>();
+           services.AddTransient<MSFSContextSeedData>();
 
             services.AddDbContext<MSFSAddonDBContext>(options =>
            options.UseSqlServer(
@@ -79,13 +79,13 @@ namespace MSFSAddonsHub.WebApi
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MSFSAddonDBContext>();
             services.AddControllers();
-          
+     
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //seeder.SeedAdminUser();
+   
 
             if (env.IsDevelopment())
             {
@@ -103,7 +103,7 @@ namespace MSFSAddonsHub.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
+            }); 
         }
     }
 }

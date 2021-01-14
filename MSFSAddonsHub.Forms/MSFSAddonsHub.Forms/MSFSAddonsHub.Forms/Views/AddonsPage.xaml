@@ -5,42 +5,40 @@
              BackgroundColor="#131313"
              >
     <ContentPage.Content>
-
-        <CollectionView x:Name="addOnList" Margin="0,40,0,0" Grid.Row="1"  SelectionMode="Single" 
-                         VerticalScrollBarVisibility="Never" 
-                        >
+        <RefreshView Refreshing="RefreshView_OnRefreshing">
+          
+            <CollectionView x:Name="addOnList" Margin="0,40,0,0" Grid.Row="1"  SelectionMode="Single" 
+                            VerticalScrollBarVisibility="Never" 
+            >
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20" HorizontalItemSpacing="20" Span="2"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10" BackgroundColor="#131313" >
+                    <Grid Padding="10" BackgroundColor="#131313">
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
                         
-
-                        
-                        <Image Aspect="Fill"  Source="{Binding ThumbNail}"  Margin="10" WidthRequest="200" HeightRequest="200" 
-                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Image Aspect="Fill"  Source="{Binding ThumbNail}"  WidthRequest="200" HeightRequest="200"
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
                         <Label Grid.Row="1" Text="{Binding Name}" TextColor="#F9B522" FontFamily="ThemeFont" 
-                               VerticalOptions="Start" HorizontalOptions="Start"/>
+                   VerticalOptions="End" HorizontalOptions="Start"/>
                         <Label Grid.Row="1" Text="{Binding Version}" TextColor="White" FontFamily="ThemeFont"
-                               VerticalOptions="Start" HorizontalOptions="End"/>
+                   VerticalOptions="End" HorizontalOptions="End"/>
+                        <Button Grid.Row="2"  x:Name="btnSetReminder" Text="Add to Favourites"></Button>
 
-                        <Button Grid.Row="2"  x:Name="btnSetReminder" Text="Add to Favourites"
-                                VerticalOptions="Start" HorizontalOptions="Start"
-                                ></Button>
+                        <Button Grid.Row="3"  x:Name="btnSetNotifications" Text="Add Notificaton"></Button>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             <CollectionView.Footer>
                 <Grid HeightRequest="0"/>
             </CollectionView.Footer>
-        </CollectionView>
+            </CollectionView>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

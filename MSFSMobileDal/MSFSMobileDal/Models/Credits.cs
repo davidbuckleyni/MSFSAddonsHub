@@ -12,6 +12,7 @@ namespace MSFSAddonsHub.Dal.Models
         public int Id { get; set; }
 
         public Guid? TeannatId { get; set; }
+        public Guid? UserId { get; set; }
         public string Name { get; set; }
 
         public int Teir { get; set; }

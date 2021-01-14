@@ -6,7 +6,7 @@
 		margin: 25,
 		loop: false,
 		nav: true,
-		autoplay: true,
+		autoplay: false,
 		dots: false,
 		responsive: {
 			0: {

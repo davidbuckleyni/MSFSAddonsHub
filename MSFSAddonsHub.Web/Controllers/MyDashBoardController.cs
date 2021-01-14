@@ -32,8 +32,20 @@ namespace MSFSAddonsHub.Web.Controllers
             
             return View(await _context.MyDashBoard.ToListAsync());
         }
+        public async Task<IActionResult> Profile(Guid Id)
+        {
+            _toast.AddWarningToastMessage("This is a test to see this works");
 
-       
+            return View(await _context.MyDashBoard.Where(w=>w.UserId== Id && w.isActive==true && w.isDeleted==false ).FirstOrDefaultAsync());
+        }
+
+        public async Task<IActionResult> MyAddons(Guid Id)
+        {
+            _toast.AddWarningToastMessage("This is a test to see this works");
+
+            return View(await _context.UserAddons.Where(w => w.UserId == Id && w.isActive == true && w.isDeleted == false).ToListAsync());
+        }
+
         // GET: MyProfile/Create
         public IActionResult Create()
         {
