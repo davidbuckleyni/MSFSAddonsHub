@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using MSFSAddonsHub.Web.Helpers;
 using MSFSAddonsHub.BL;
+using Microsoft.IdentityModel.Protocols;
+using MSFSAddonsHub.Web.Models;
 
 namespace MSFSAddonsHub.Web
 {
@@ -70,6 +72,7 @@ AdditionalUserClaimsPrincipalFactory>();
         opts.IdleTimeout = TimeSpan.FromMinutes(30);
 
     });
+            services.Configure<FileTransferConfig>(Configuration.GetSection("FileTransferConfig"));
 
             services.AddDbContext<MSFSAddonDBContext>(options =>
                options.UseSqlServer(

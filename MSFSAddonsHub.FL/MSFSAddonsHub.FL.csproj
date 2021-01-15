@@ -4,6 +4,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MegaApiClient" Version="1.8.2" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MSFSMobileDal\MSFSMobileDal\MSFSAddons.Models.csproj" />
   </ItemGroup>
 
 
