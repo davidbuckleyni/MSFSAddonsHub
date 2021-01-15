@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,17 +14,24 @@ using NToastNotify;
 
 namespace MSFSAddonsHub.Web.Controllers
 {
-    public class MyDashBoardController : Controller
+    public class MyDashBoardController :BaseController
     {
         private readonly MSFSAddonDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
-        public MyDashBoardController(MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast)
+        public string UserId { get; set; }
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public MyDashBoardController(IHttpContextAccessor httpContextAccessor,MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast)   :base(httpContextAccessor,context,userManager)
         {
+        
 
             _context = context;
             _userManager = userManager;
             _toast = toast;
+
+            UserId = GetUserId().Result.ToString();
+
         }
 
         // GET: MyProfile
@@ -35,7 +44,7 @@ namespace MSFSAddonsHub.Web.Controllers
         public async Task<IActionResult> Profile(Guid Id)
         {
             _toast.AddWarningToastMessage("This is a test to see this works");
-
+            
             return View(await _context.MyDashBoard.Where(w=>w.UserId== Id && w.isActive==true && w.isDeleted==false ).FirstOrDefaultAsync());
         }
 

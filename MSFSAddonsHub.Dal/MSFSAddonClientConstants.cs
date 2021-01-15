@@ -12,6 +12,8 @@ namespace MSFSAddonsHub.Dal
         public static string ApiUrl = "https://api-msfsaddonshub.com/";
 
         public static string GetAllAddons = "/AddOns/GetAll";
+        public static string version = "1.0.0.1";
+
 
 
     }

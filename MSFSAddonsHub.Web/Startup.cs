@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using MSFSAddonsHub.Web.Helpers;
+using MSFSAddonsHub.BL;
 
 namespace MSFSAddonsHub.Web
 {
@@ -49,30 +50,35 @@ namespace MSFSAddonsHub.Web
 
             });
            
-            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
-            {
-                config.SignIn.RequireConfirmedEmail = true;
-                config.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
-                config.User.RequireUniqueEmail = true;
+    services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+    {
+        config.SignIn.RequireConfirmedEmail = true;
+        config.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+        config.User.RequireUniqueEmail = true;
 
-            })
-             .AddRoles<IdentityRole>()
-             .AddEntityFrameworkStores<MSFSAddonDBContext>()
-             .AddDefaultTokenProviders()
-             .AddDefaultUI()
-             .AddRoles<IdentityRole>();
- 
+    })
+        .AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<MSFSAddonDBContext>()
+        .AddDefaultTokenProviders()      
+        .AddRoles<IdentityRole>();
 
-            services.AddSession(opts =>
-            {
-                opts.Cookie.IsEssential = true; // make the session cookie Essential
-            });
+  services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>,
+AdditionalUserClaimsPrincipalFactory>();
+    services.AddSession(opts =>
+    {
+        opts.Cookie.IsEssential = false; // make the session cookie Essential
+    });
 
             services.AddDbContext<MSFSAddonDBContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
+                    services.AddHttpContextAccessor();
 
-            
+
+            services.AddAuthorization(options =>
+        options.AddPolicy("TwoFactorEnabled",
+        x => x.RequireClaim("amr", "mfa")));
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.Configure<IdentityOptions>(options =>
             {
 
@@ -83,16 +89,12 @@ namespace MSFSAddonsHub.Web
 
 
             });
-            services.ConfigureApplicationCookie(config =>
-            {
-                config.Cookie.Name = "Identity.Cookie";
-                config.LoginPath = "/Identity/Account/Login";
-            });
+    services.ConfigureApplicationCookie(config =>
+    {
+        config.Cookie.Name = "Identity.Cookie";
+        config.LoginPath = "/Identity/Account/Login";
+    });
 
-            services.AddAuthorization(options =>
-   options.AddPolicy("TwoFactorEnabled",
-       x => x.RequireClaim("amr", "mfa")));
-            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {
@@ -137,27 +139,27 @@ namespace MSFSAddonsHub.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+            
+    app.UseRouting();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-            app.UseAuthentication();
-
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-             name: "areas",
-             pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    app.UseAuthorization();
+    app.UseAuthentication();
 
 
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
-            });
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
+        endpoints.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+        endpoints.MapRazorPages();
+    });
         }
     }
 

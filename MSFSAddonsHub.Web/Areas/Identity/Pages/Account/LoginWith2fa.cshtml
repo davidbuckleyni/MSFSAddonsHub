@@ -1,23 +1,19 @@
 ﻿@page
 @model LoginWith2faModel
 @{
-    ViewData["Title"] = "Two-factor authentication";
+    ViewData["Title"] = "";
     Layout = "~/Themes/FrontEnd/_LoginLayout.cshtml";
-
-}
 }
 
 <h1>@ViewData["Title"]</h1>
 <hr />
-<p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
-
 
 <div class="container">
     <div class="row">
         <div class="col-xl-4 col-md-12 col-md-12 d-block mx-auto">
             <div class="card mb-0">
                 <div class="card-header">
-                    <h3 class="card-title">Login to your Account</h3>
+                    <h3 class="card-title">Two-factor authentication Verification</h3>
                 </div>
                 <div class="card-body">
                     <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
@@ -37,7 +33,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Log in</button>
+                            <button type="submit" class="btn btn-primary">Verify</button>
                         </div>
                     </form>
                 </div>
@@ -47,8 +43,7 @@
                 <a id="recovery-code-login" asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl">log in with a recovery code</a>.
             </p>
             </div>
-        </div>
-    </div>
+        </div></div>
 
             @section Scripts {
                 <partial name="_ValidationScriptsPartial" />

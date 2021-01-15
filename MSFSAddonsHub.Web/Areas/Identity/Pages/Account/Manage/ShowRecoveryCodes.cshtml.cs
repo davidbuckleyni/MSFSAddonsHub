@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using MSFSAddonsHub.Dal.Models;
 
 namespace MSFSAddonsHub.Web.Areas.Identity.Pages.Account.Manage
 {
