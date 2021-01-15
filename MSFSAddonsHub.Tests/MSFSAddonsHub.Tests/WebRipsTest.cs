@@ -1,5 +1,12 @@
+using MSFSAddons.Models;
+using MSFSAddons.Models.Models;
+using MSFSAddonsHub.BL;
+using Newtonsoft.Json;
 using NUnit.Framework;
+using System.IO;
 using System.Net.Http;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace MSFSAddonsHub.Tests
 {
@@ -10,16 +17,13 @@ namespace MSFSAddonsHub.Tests
         {
         }
 
-        [Test]
-        public async void Test1()
-        {
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "C# console program");
+    [TestCase (@"VFR_Pamplona_LEPP_to_Camaleno-Artanin_Ulm_LECW.pln")]
+    public   void LoadMSFSFlightPlanTest(string filename)
+    {
+            MSFSBL _import = new MSFSBL();
 
-            var content = await client.GetStringAsync("https://flightsim.to/file/5359/savage-grravel-gotgravel-repaint-in-stol-addicts-livery");
- 
-
-            Assert.Pass();
+            var jsonPln=_import.ConvertFlightToObject(filename);
         }
+         
     }
 }

@@ -1,9 +1,11 @@
-﻿using MSFSAddonsHub.Dal.Models;
+﻿using MSFSAddons.Models;
+using MSFSAddonsHub.Dal.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MSFSAddons.Models
+namespace MSFSAddonsHub.Dal.Models
+
 {
    public  class Club
     {
@@ -19,7 +21,7 @@ namespace MSFSAddons.Models
         public string? Url { get; set; }
 
         public string? Logo { get; set; }
-
+        public List<Flight>? Flights { get; set; }
         public string? ThumbNail { get; set; }
 
         public DateTimeOffset? GpdrRemoveRequestDate { get; set; }

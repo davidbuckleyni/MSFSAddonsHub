@@ -67,6 +67,8 @@ AdditionalUserClaimsPrincipalFactory>();
     services.AddSession(opts =>
     {
         opts.Cookie.IsEssential = false; // make the session cookie Essential
+        opts.IdleTimeout = TimeSpan.FromMinutes(30);
+
     });
 
             services.AddDbContext<MSFSAddonDBContext>(options =>
@@ -86,6 +88,7 @@ AdditionalUserClaimsPrincipalFactory>();
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
+                
 
 
             });
@@ -93,6 +96,7 @@ AdditionalUserClaimsPrincipalFactory>();
     {
         config.Cookie.Name = "Identity.Cookie";
         config.LoginPath = "/Identity/Account/Login";
+    
     });
 
 
@@ -118,6 +122,7 @@ AdditionalUserClaimsPrincipalFactory>();
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+                
             });
 
    

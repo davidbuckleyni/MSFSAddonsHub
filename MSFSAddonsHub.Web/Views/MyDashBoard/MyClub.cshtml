@@ -1,0 +1,117 @@
+﻿@model List<MSFSAddonsHub.Dal.Models.Club>
+
+@{
+    Layout = "~/Themes/FrontEnd/_MyProfile.cshtml";
+}
+
+<div class="col-xl-12 col-lg-12 col-md-12">
+    <div class="card ads-tabs">
+        <div class="card-body">
+            <div class="d-flex tabs-menus mb-0 item2-gl-nav bg-white p-0 border-0">
+                <ul class="nav panel-tabs mt-1">
+                    <li class=""><a href="#tab1" class="active" data-toggle="tab">Bush Flying</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Airlines</a></li>
+                    <li><a href="#tab3" data-toggle="tab">Mililtary</a></li>
+                </ul>
+                <div class="ml-auto">
+                    <div class="d-flex select2-sm">
+                        <label class="mr-2 mt-1 mb-sm-1">Sort By:</label>
+                        <select name="item" class="form-control select-sm w-70 select2">
+                            <option value="1">Latest</option>
+                            <option value="2">Oldest</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="tab-content">
+            <div class="tab-pane active table-responsive userprof-tab manged-ad" id="tab1">
+                <div class="row border-bottom ml-0 mr-0">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card-body">
+                            <h3 class="card-title">Name & Details</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-6">
+                        <div class="card-body">
+                            <h3 class="card-title">Version</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-6">
+                        <div class="card-body">
+                            <h3 class="card-title">Status</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-6">
+                        <div class="card-body">
+                            <h3 class="card-title">Action</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row ml-0 mr-0">
+    <div class="col-md-6 col-sm-6">
+        <div class="card-body">
+            <div class="d-flex">
+                <label class="custom-control custom-checkbox mr-3">
+                    <input type="checkbox" class="custom-control-input" name="checkbox" value="checkbox">
+                    <span class="custom-control-label"></span>
+                </label>
+                <div class="media mt-0 mb-0">
+                    <div class="card-aside-img">
+                        <a href="#"></a>
+                        
+                    </div>
+                    <div class="media-body">
+                        <div class="card-item-desc ml-4 p-0">
+                            <a href="#" class="text-dark"><h4 class="text-over"> Club Name</h4></a>
+                            <div class="text-muted"><i class="fa fa-clock-o mr-1"></i> Name Tag</div>
+                            <div class="text-muted"><i class="fa fa-tag mr-1"></i>Admin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="card-body">
+            <h3 class="fs-20">1000</h3>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="card-body">
+            <a href="#" class="badge badge-primary">Published</a>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="card-body">
+            <div class="btn-list">
+                <a href="edit-posts.html" class="btn ripple  btn-secondary btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                <a class="btn ripple  btn-info btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<ul class="pagination justify-content-end">
+    <li class="page-item page-prev disabled">
+        <a class="page-link" href="#" tabindex="-1">Prev</a>
+    </li>
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item page-next">
+        <a class="page-link" href="#">Next</a>
+    </li>
+</ul>

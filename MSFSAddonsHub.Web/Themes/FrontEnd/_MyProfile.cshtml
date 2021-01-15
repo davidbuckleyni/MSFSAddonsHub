@@ -119,9 +119,11 @@
                                 <div class="profile-pic">
                                     <div class="profile-pic-img mb-4">
                                         <span class="bg-success dots" data-toggle="tooltip" data-placement="top" title="online"></span>
-                                        <img src="../assets/images/users/male/2.jpg" class="brround" alt="user">
+                                        <img src="/images/users/male/2.jpg" class="brround" alt="user">
                                     </div>
-                                    <a href="userprofile.html" class="text-dark"><h4 class="mt-3 mb-0 font-weight-semibold">Jacob Smith</h4></a>
+                                    <a href="userprofile.html" class="text-dark"><h4 class="mt-3 mb-0 font-weight-semibold">
+    @ViewBag.UserName
+                                </h4></a>
                                 </div>
                             </div>
                             @await Html.PartialAsync("_SideProfileMenuPartialView.cshtml")

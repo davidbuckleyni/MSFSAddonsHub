@@ -23,11 +23,15 @@ namespace MSFSAddonsHub.Dal.Models
         public string LastName { get; set; }
 
 
+
+        public bool isOnline { get; set; }
+
+
         public int UserType { get; set; }
         public Guid TennantId { get; set; }
 
+        public Guid? ClubId { get; set; }
 
-        
 
     }
 }

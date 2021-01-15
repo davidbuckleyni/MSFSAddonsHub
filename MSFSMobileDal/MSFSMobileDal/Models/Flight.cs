@@ -17,10 +17,10 @@ namespace MSFSAddons.Models
 
         public string? FlightDescription { get; set; }
 
-     
+        public string? FlightPlanXML {get;set; }
  
         public virtual List<MyAddon>? Addons { get; set; }
-
+        //This will be the club id or the Teannant Id dont no which to use as of yet.
         public int ClubId { get; set; }
 
         public string ThumbNail { get; set; }

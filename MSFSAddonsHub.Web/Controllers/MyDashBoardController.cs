@@ -19,19 +19,29 @@ namespace MSFSAddonsHub.Web.Controllers
         private readonly MSFSAddonDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        public string userName { get; set; }
         public MyDashBoardController(IHttpContextAccessor httpContextAccessor,MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast)   :base(httpContextAccessor,context,userManager)
         {
-        
 
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
             _userManager = userManager;
             _toast = toast;
+            Guid.TryParse(GetUserId().Result.ToString(), out Guid guidIdValue);
+            UserId = guidIdValue;
+            userName = GetUserName().Result.ToString();
+           
+        }
+        public async Task<IActionResult> MyClub()
+        {
+            ViewBag.UserName = userName;
 
-            UserId = GetUserId().Result.ToString();
-
+            var club = await _context.Clubs
+                .FirstOrDefaultAsync(m =>  m.UserId == UserId && m.isActive == true && m.isDeleted == false);
+         
+            return View(club);
         }
 
         // GET: MyProfile
@@ -41,18 +51,18 @@ namespace MSFSAddonsHub.Web.Controllers
             
             return View(await _context.MyDashBoard.ToListAsync());
         }
-        public async Task<IActionResult> Profile(Guid Id)
+        public async Task<IActionResult> Profile()
         {
-            _toast.AddWarningToastMessage("This is a test to see this works");
+            ViewBag.UserName = userName;           
             
-            return View(await _context.MyDashBoard.Where(w=>w.UserId== Id && w.isActive==true && w.isDeleted==false ).FirstOrDefaultAsync());
+            return View(await _context.MyDashBoard.Where(w=>w.UserId== UserId && w.isActive==true && w.isDeleted==false ).FirstOrDefaultAsync());
         }
 
-        public async Task<IActionResult> MyAddons(Guid Id)
+        public async Task<IActionResult> MyAddons()
         {
             _toast.AddWarningToastMessage("This is a test to see this works");
 
-            return View(await _context.UserAddons.Where(w => w.UserId == Id && w.isActive == true && w.isDeleted == false).ToListAsync());
+            return View(await _context.UserAddons.Where(w => w.UserId == UserId && w.isActive == true && w.isDeleted == false).ToListAsync());
         }
 
         // GET: MyProfile/Create

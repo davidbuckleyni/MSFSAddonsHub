@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210115105726_4")]
+    partial class _4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,9 +137,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
 
                     b.Property<int>("UserType")
                         .HasColumnType("int");
-
-                    b.Property<bool>("isOnline")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -572,8 +571,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "657f0950-9129-4311-bd77-9e1f36005d65",
-                            ConcurrencyStamp = "499312f0-0900-4f3e-ba89-92fde1248a14",
+                            Id = "e41a2d51-f5b9-4a5b-b951-78d00372ab8d",
+                            ConcurrencyStamp = "bbe2feb0-07a3-4b45-8c17-d1276cdb3473",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

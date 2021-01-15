@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using MSFSAddonsHub.Dal.Models;
+using MSFSAddonsHub.Dal;
 
 namespace MSFSAddonsHub.Web.Areas.Identity.Pages.Account
 {
@@ -21,11 +22,14 @@ namespace MSFSAddonsHub.Web.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly MSFSAddonDBContext _context;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager, MSFSAddonDBContext context)
         {
+            _context = context;
+
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -74,7 +78,7 @@ namespace MSFSAddonsHub.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/MyDashboard/Profile");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         
@@ -83,6 +87,13 @@ namespace MSFSAddonsHub.Web.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+                var user = await _userManager.FindByEmailAsync(Input.Email);
+
+                user.isOnline = true;
+
+                await _context.SaveChangesAsync();
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

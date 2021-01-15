@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SimBase.Document Type="AceXML" version="1,0">
+    <Descr>AceXML Document</Descr>
+    <FlightPlan.FlightPlan>
+        <Title>LEPP to LECW</Title>
+        <FPType>VFR</FPType>
+        <RouteType>Direct</RouteType>
+        <CruisingAlt>15000</CruisingAlt>
+        <DepartureID>LEPP</DepartureID>
+        <DepartureLLA>N42° 45' 52.78",W1° 38' 32.63",+001483.00</DepartureLLA>
+        <DestinationID>LECW</DestinationID>
+        <DestinationLLA>N43° 10' 40.97",W4° 40' 29.06",+002523.00</DestinationLLA>
+        <Descr>LEPP, LECW</Descr>
+        <DepartureName>Pamplona</DepartureName>
+        <DestinationName>Camaleño-Artañin Ulm</DestinationName>
+        <AppVersion>
+            <AppVersionMajor>11</AppVersionMajor>
+            <AppVersionBuild>282174</AppVersionBuild>
+        </AppVersion>
+        <ATCWaypoint id="LEPP">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N42° 46' 12.29",W1° 38' 46.89",+001483.00</WorldPosition>
+            <RunwayNumberFP>33</RunwayNumberFP>
+            <ICAO>
+                <ICAOIdent>LEPP</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="WP1">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N42° 48' 39.20",W1° 39' 0.58",+003094.42</WorldPosition>
+        </ATCWaypoint>
+        <ATCWaypoint id="WP2">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N42° 54' 52.01",W1° 50' 53.42",+010118.30</WorldPosition>
+        </ATCWaypoint>
+        <ATCWaypoint id="LEAR">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N42° 52' 25.74",W2° 20' 14.89",+015000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>LEAR</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="WP3">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N42° 55' 49.48",W2° 34' 42.31",+015000.00</WorldPosition>
+        </ATCWaypoint>
+        <ATCWaypoint id="WP4">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N42° 58' 6.54",W2° 39' 17.93",+015000.00</WorldPosition>
+        </ATCWaypoint>
+        <ATCWaypoint id="LEOX">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N43° 4' 33.79",W2° 41' 2.33",+015000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>LEOX</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="LEGN">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N43° 11' 9.92",W3° 7' 11.25",+015000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>LEGN</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="LEWM">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N43° 1' 0.93",W3° 18' 50.61",+015000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>LEWM</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="LEMI">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N42° 57' 11.92",W3° 28' 26.04",+015000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>LEMI</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="WP5">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N43° 1' 9.15",W3° 54' 45.34",+015000.00</WorldPosition>
+        </ATCWaypoint>
+        <ATCWaypoint id="LEBO">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N42° 51' 4.76",W4° 16' 51.64",+015000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>LEBO</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="WP6">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N42° 48' 57.80",W4° 18' 46.08",+015000.00</WorldPosition>
+        </ATCWaypoint>
+        <ATCWaypoint id="LERU">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N42° 53' 15.94",W4° 31' 53.80",+014857.08</WorldPosition>
+            <ICAO>
+                <ICAOIdent>LERU</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="WP7">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N42° 55' 35.00",W4° 29' 29.71",+013121.27</WorldPosition>
+        </ATCWaypoint>
+        <ATCWaypoint id="WP8">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N43° 4' 33.27",W4° 32' 17.26",+007632.22</WorldPosition>
+        </ATCWaypoint>
+        <ATCWaypoint id="LECW">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N43° 10' 40.97",W4° 40' 29.06",+002523.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>LECW</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+    </FlightPlan.FlightPlan>
+</SimBase.Document>

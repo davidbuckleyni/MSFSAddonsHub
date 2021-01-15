@@ -2,28 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MSFSAddons.Models;
 using MSFSAddonsHub.Dal;
+using MSFSAddonsHub.Dal.Models;
+using NToastNotify;
 
 namespace MSFSAddonsHub.Web.Controllers
 {
-    public class ClubsController : Controller
+    public class ClubsController : BaseController
     {
         private readonly MSFSAddonDBContext _context;
+        private readonly IToastNotification _toast;
+        private readonly UserManager<ApplicationUser> _userManager;
+        public Guid UserId { get; set; }
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public string userName { get; set; }
 
-        public ClubsController(MSFSAddonDBContext context)
+        public ClubsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast) : base(httpContextAccessor, context, userManager)
         {
+
+
             _context = context;
+            _userManager = userManager;
+            _toast = toast;
+            Guid.TryParse(GetUserId().Result.ToString(), out Guid userIdGuid);
+            UserId = userIdGuid;
+            userName = GetUserName().Result.ToString();
+            ViewBag.UserName = userName;
         }
 
         // GET: Clubs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clubs.ToListAsync());
-        }
+
+            return View(await _context.Clubs.Where(w => w.UserId == UserId && w.isActive == true && w.isDeleted == false).ToListAsync());
+            }
 
         // GET: Clubs/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -34,7 +52,7 @@ namespace MSFSAddonsHub.Web.Controllers
             }
 
             var club = await _context.Clubs
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id && m.UserId == UserId && m.isActive==true && m.isDeleted ==false);
             if (club == null)
             {
                 return NotFound();
