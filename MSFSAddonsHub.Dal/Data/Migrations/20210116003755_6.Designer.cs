@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210116003755_6")]
+    partial class _6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,63 +21,15 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("MSFSAddons.Models.FileFolders", b =>
+            modelBuilder.Entity("MSFSAddons.Models.Downloads", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ConflictId")
+                    b.Property<int?>("AddonCategoryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IPAddressBytes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ThumbNail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThumbNailPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDisplayHomePage")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isFeatured")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FileFolders");
-                });
-
-            modelBuilder.Entity("MSFSAddons.Models.FileManger", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
 
                     b.Property<int?>("ConflictId")
                         .HasColumnType("int");
@@ -101,13 +55,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FoldersId")
-                        .HasColumnType("int");
-
                     b.Property<string>("IPAddressBytes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrignalFilename")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("TeannatId")
@@ -151,9 +99,9 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FoldersId");
+                    b.HasIndex("AddonCategoryId");
 
-                    b.ToTable("FileManager");
+                    b.ToTable("Downloads");
                 });
 
             modelBuilder.Entity("MSFSAddons.Models.Flight", b =>
@@ -709,8 +657,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "580b9c1d-425e-4eef-adb4-c8ca0cd6a6a3",
-                            ConcurrencyStamp = "cc759025-17d0-4b05-98b9-478816fd85dc",
+                            Id = "4f71df24-4d70-4905-8fb7-d6c470d9e417",
+                            ConcurrencyStamp = "9a0961ce-8ff0-45d0-bda6-03da75cc9469",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -820,13 +768,13 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MSFSAddons.Models.FileManger", b =>
+            modelBuilder.Entity("MSFSAddons.Models.Downloads", b =>
                 {
-                    b.HasOne("MSFSAddons.Models.FileFolders", "Folders")
+                    b.HasOne("MSFSAddonsHub.Dal.Models.Category", "AddonCategory")
                         .WithMany()
-                        .HasForeignKey("FoldersId");
+                        .HasForeignKey("AddonCategoryId");
 
-                    b.Navigation("Folders");
+                    b.Navigation("AddonCategory");
                 });
 
             modelBuilder.Entity("MSFSAddons.Models.Flight", b =>

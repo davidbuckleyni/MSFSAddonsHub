@@ -15,6 +15,7 @@ namespace MSFSAddonsHub.Dal
         {
         }
           public DbSet<MyAddon> UserAddons { get; set; }
+        public DbSet<FileManger> FileManager { get; set; }
 
         public DbSet<Category> Category { get; set; }
         public DbSet<Flight> Flights { get; set; }

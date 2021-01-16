@@ -22,8 +22,8 @@ namespace MSFSAddonsHub.Web.Controllers
         public Guid UserId { get; set; }
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
-        public MyDashBoardController(IHttpContextAccessor httpContextAccessor,MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast)   :base(httpContextAccessor,context,userManager)
-        {
+       public MyDashBoardController(IHttpContextAccessor httpContextAccessor,MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast)   :base(httpContextAccessor,context,userManager)
+         {
 
             _httpContextAccessor = httpContextAccessor;
             _context = context;

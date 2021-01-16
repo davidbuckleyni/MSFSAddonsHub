@@ -39,6 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MSFSAddonsHub.BL\MSFSAddonsHub.BL\MSFSAddonsHub.BL.csproj" />
     <ProjectReference Include="..\MSFSAddonsHub.Dal\MSFSAddonsHub.Dal.csproj" />
+    <ProjectReference Include="..\MSFSAddonsHub.FL\MSFSAddonsHub.FL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +53,7 @@
 
   <ItemGroup>
     <Folder Include="AutoMapper\" />
+    <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -964,6 +966,12 @@
     <None Include="wwwroot\scss\util\_typography.scss" />
     <None Include="wwwroot\scss\util\_width.scss" />
     <None Include="wwwroot\scss\_variables.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Uploads\ScaffoldingReadMe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

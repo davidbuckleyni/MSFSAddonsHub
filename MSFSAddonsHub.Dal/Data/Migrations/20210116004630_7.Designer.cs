@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210116004630_7")]
+    partial class _7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,9 +107,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("IPAddressBytes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrignalFilename")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("TeannatId")
@@ -709,8 +708,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "580b9c1d-425e-4eef-adb4-c8ca0cd6a6a3",
-                            ConcurrencyStamp = "cc759025-17d0-4b05-98b9-478816fd85dc",
+                            Id = "0fc348a9-ee62-4885-8ece-63d7dda0af68",
+                            ConcurrencyStamp = "aa644244-2849-4e40-b20e-1e363d55b9e1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

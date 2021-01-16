@@ -21,6 +21,7 @@ using MSFSAddonsHub.Web.Helpers;
 using MSFSAddonsHub.BL;
 using Microsoft.IdentityModel.Protocols;
 using MSFSAddonsHub.Web.Models;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace MSFSAddonsHub.Web
 {
@@ -78,7 +79,10 @@ AdditionalUserClaimsPrincipalFactory>();
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
                     services.AddHttpContextAccessor();
-
+            services.Configure<FormOptions>(options =>
+            {
+                options.MultipartBodyLengthLimit = 6000000000;
+            });
 
             services.AddAuthorization(options =>
         options.AddPolicy("TwoFactorEnabled",
