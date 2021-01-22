@@ -39,8 +39,7 @@ namespace MSFSAddonsHub.WebApi.Controllers
 
         public void RegisterGuestUser(string guestGuid)
         {
-
-            var )
+ 
 
 
         }
