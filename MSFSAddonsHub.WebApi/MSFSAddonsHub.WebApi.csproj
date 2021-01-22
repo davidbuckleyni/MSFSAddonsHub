@@ -35,6 +35,7 @@
 	 
 	<ItemGroup>
     <ProjectReference Include="..\MSFSAddonsHub.Dal\MSFSAddonsHub.Dal.csproj" />
+    <ProjectReference Include="..\MSFSMobileDal\MSFSMobileDal\MSFSAddons.Models.csproj" />
   </ItemGroup>
 
 	 

@@ -23,6 +23,7 @@ namespace MSFSAddonsHub.WebApi.Controllers
         [Route("Subscriber/AddSubscriber")]
         [Authorize]
         public async Task<IActionResult> AddSubscriber(SubscriberViewModel subVm)
+        
         {
             try
             {
