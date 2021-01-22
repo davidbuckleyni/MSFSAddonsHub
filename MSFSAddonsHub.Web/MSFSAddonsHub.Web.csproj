@@ -40,6 +40,7 @@
     <ProjectReference Include="..\MSFSAddonsHub.BL\MSFSAddonsHub.BL\MSFSAddonsHub.BL.csproj" />
     <ProjectReference Include="..\MSFSAddonsHub.Dal\MSFSAddonsHub.Dal.csproj" />
     <ProjectReference Include="..\MSFSAddonsHub.FL\MSFSAddonsHub.FL.csproj" />
+    <ProjectReference Include="..\MSFSMobileDal\MSFSMobileDal\MSFSAddons.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
