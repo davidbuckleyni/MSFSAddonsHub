@@ -5,7 +5,7 @@
 
 }
 
- 
+
 
 
 <div class="container">
@@ -36,8 +36,22 @@
                             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                         </div>
                         <button type="submit" class="btn btn-primary">Register</button>
-                    </form>
+                      </form>
                 </div>
+                <div class="col-md-6 col-md-offset-2">
+                    <section>
+                        <form id="guest-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                                    <button type="submit" class="btn btn-purple">Create a Guest Login</button>
+
+                                </p>
+                            </div>
+                        </form>
+
+                    </section>
+                </div>
+
                 <div class="col-md-6 col-md-offset-2">
                     <section>
                         <h4>Use another service to register.</h4>

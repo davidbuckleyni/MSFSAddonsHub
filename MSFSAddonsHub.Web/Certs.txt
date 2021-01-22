@@ -1,0 +1,3 @@
+﻿dotnet dev-certs https --clean
+dotnet dev-certs https -t
+Restart VS

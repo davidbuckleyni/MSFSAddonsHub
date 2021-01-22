@@ -45,7 +45,7 @@ namespace MSFSAddonsHub.FL
             IEnumerable<INode> nodes = client.GetNodes();
 
             INode root = nodes.Single(x => x.Type == NodeType.Root);
-            INode myFolder = client.CreateFolder(userId, root);
+            INode myFolder = nodes.SingleOrDefault(x => x.ParentId == root.Id && x.Type == NodeType.Directory && x.Name == userId) ?? client.CreateFolder(userId, root);
             var progress = new Progress<double>();
             progress.ProgressChanged += (s, progressValue) =>
             {

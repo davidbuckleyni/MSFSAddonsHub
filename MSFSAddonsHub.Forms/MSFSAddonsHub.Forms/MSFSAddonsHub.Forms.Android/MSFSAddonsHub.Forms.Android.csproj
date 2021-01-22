@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3636C1BD-4A9F-4F10-825B-2EF05E4E7269}</ProjectGuid>
+    <ProjectGuid>{95217CE4-D8E8-4CAD-93EE-DAAD25EDC8A4}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{6968b3a4-1835-46a3-ac5c-1ae33b475983}</TemplateGuid>
     <OutputType>Library</OutputType>
@@ -33,7 +33,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <LangVersion>latest</LangVersion>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,7 +47,6 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -56,11 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.CommunityToolkit">
-      <Version>1.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.1.1876" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1-preview1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1905" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1-preview2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -95,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MSFSAddonsHub.Forms\MSFSAddonsHub.Forms.csproj">
-      <Project>{42307096-C338-46D6-AD5C-F3A23F1FB487}</Project>
+      <Project>{E014CD1C-0B67-4A5D-AAD7-122FACF8E7E9}</Project>
       <Name>MSFSAddonsHub.Forms</Name>
     </ProjectReference>
   </ItemGroup>

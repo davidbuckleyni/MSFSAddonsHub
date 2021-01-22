@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,13 +12,27 @@ using MSFSAddonsHub.Dal.Models;
 
 namespace MSFSAddonsHub.Web.Controllers
 {
-    public class MyAddonsController : Controller
+    public class MyAddonsController : BaseController
     {
         private readonly MSFSAddonDBContext _context;
 
-        public MyAddonsController(MSFSAddonDBContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private MSFSAddonDBContext context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public MyAddonsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager) : base(httpContextAccessor, context, userManager)
         {
+
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
+            _userManager = userManager;
+            _context = context;
+        }
+
+
+        public async Task<IActionResult> MyDownloads()
+        {
+            return View(await _context.UserAddons.Where(w => w.UserId == UserId).ToListAsync());
         }
 
         // GET: UserAddons

@@ -17,7 +17,7 @@ namespace MSFSAddonsHub.BL
         HttpClient client;
         HttpContent baseContent;
 
-        private string ApiUrl = "https://api-msfsaddonshub.com/";
+        private string ApiUrl = "https://api.msfsaddonshub.com:4444/";
         private string GetAllAddonsEndPOint = "Addons/GetAll/";
         private string Authenticate = "/authenticate";
 

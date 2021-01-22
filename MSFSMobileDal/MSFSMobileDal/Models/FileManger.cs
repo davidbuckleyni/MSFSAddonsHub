@@ -9,8 +9,25 @@ namespace MSFSAddons.Models
     public class FileManger
     {
 
+        public enum FileManagerEnum{
+         Upload=1,
+        Download=2,
+
+        }
+
+
+        public enum Status
+        {
+            Published=1,
+            Disabled=2,
+            NewVersion=3,
+            Archived=4
+
+        }
+
         public int Id { get; set; }
 
+        public string Name { get; set; }
         public virtual FileFolders? Folders { get; set; }
 
         public int? ConflictId { get; set; }

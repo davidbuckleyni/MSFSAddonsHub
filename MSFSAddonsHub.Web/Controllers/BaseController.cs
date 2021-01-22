@@ -36,11 +36,12 @@ namespace MSFSAddonsHub.Web.Controllers
             var userName = await _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name);
             return (userName.FirstName + " " + userName.LastName);
         }
-        public string UserId { get; set; }
-        protected async Task<string> GetUserId()
+        public Guid UserId { get; set; }
+        protected async Task<Guid> GetUserId()
         {
-            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.Id.ToString();
-     return (userId);
+            var userId =  _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.Id;
+            Guid.TryParse(userId, out Guid userIdResult);
+     return (userIdResult);
         }
 
     }
