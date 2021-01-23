@@ -30,7 +30,7 @@ namespace MSFSAddonsHub.Web.Controllers
             _context = context;
             _userManager = userManager;
             _toast = toast;
-            Guid.TryParse(GetUserId().Result.ToString(), out Guid userIdGuid);
+            Guid.TryParse(UserId.ToString(), out Guid userIdGuid);
             UserId = userIdGuid;
             userName = GetUserName().Result.ToString();
             ViewBag.UserName = userName;

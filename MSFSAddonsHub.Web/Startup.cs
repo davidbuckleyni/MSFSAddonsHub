@@ -22,6 +22,7 @@ using MSFSAddonsHub.BL;
 using Microsoft.IdentityModel.Protocols;
 using MSFSAddonsHub.Web.Models;
 using Microsoft.AspNetCore.Http.Features;
+using MSFSAddons.Models.Models;
 
 namespace MSFSAddonsHub.Web
 {
@@ -105,7 +106,13 @@ AdditionalUserClaimsPrincipalFactory>();
         config.LoginPath = "/Identity/Account/Login";
     
     });
+            var AppSettings =
+                Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(AppSettings);
+ 
 
+            IConfigurationSection sec = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(sec);
 
             services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {

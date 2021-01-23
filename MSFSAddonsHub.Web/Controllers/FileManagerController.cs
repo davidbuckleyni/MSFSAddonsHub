@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper.Configuration;
 using CG.Web.MegaApiClient;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,12 +13,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using MSFSAddons.Models;
+using MSFSAddons.Models.Models;
 using MSFSAddons.Models.ViewModels;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
 using MSFSAddonsHub.FL;
 using NToastNotify;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace MSFSAddonsHub.Web.Controllers
 {
@@ -26,10 +33,12 @@ namespace MSFSAddonsHub.Web.Controllers
         private readonly MSFSAddonDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
-        public Guid UserId { get; set; }
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly AppSettings _appSettings;
+
+         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
-        public FileManagerController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, IHostingEnvironment environment) : base(httpContextAccessor, context, userManager)
+        public FileManagerController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, IHostingEnvironment environment, IOptions<AppSettings> appSettings
+) : base(httpContextAccessor, context, userManager)
         {
             hostingEnvironment = environment;
 
@@ -37,10 +46,9 @@ namespace MSFSAddonsHub.Web.Controllers
             _context = context;
             _userManager = userManager;
             _toast = toast;
-            Guid.TryParse(GetUserId().Result.ToString(), out Guid guidIdValue);
-            UserId = guidIdValue;
-            userName = GetUserName().Result.ToString();
-
+            _appSettings = appSettings.Value;
+        
+           
         }
         [Route("MyDashBoard/FileManager")]
         // GET: FileManger
@@ -80,41 +88,42 @@ namespace MSFSAddonsHub.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]        
-        public async Task<IActionResult> UploadFiles([FromForm]FileManagerViewModel fileManager)
-        {
-            var uploads = Path.Combine(hostingEnvironment.WebRootPath, "Uploads");
-            string uploadsUserId = uploads + @"\" + UserId.ToString() + @"\";
+    [HttpPost]
+    [ValidateAntiForgeryToken]        
+    public async Task<IActionResult> UploadFiles([FromForm]FileManagerViewModel fileManager)
+    {
+        var uploads = Path.Combine(hostingEnvironment.WebRootPath, "Uploads");
+        string uploadsUserId = uploads + @"\" + UserId.ToString() + @"\";
 
-            if (!Directory.Exists(uploadsUserId))
-                Directory.CreateDirectory(uploadsUserId);
+        if (!Directory.Exists(uploadsUserId))
+            Directory.CreateDirectory(uploadsUserId);
              
 
-            foreach (IFormFile formFile in fileManager.File)
+        foreach (IFormFile formFile in fileManager.File)
+        {
+
+
+
+            string fullFile = uploads + @"\" + UserId.ToString() + @"\" + formFile.FileName;
+            using (var stream = new FileStream(fullFile, FileMode.Create))
+            {
+                await formFile.CopyToAsync(stream);
+            }
+
+            if (ModelState.IsValid)
             {
 
-
-
-                string fullFile = uploads + @"\" + UserId.ToString() + @"\" + formFile.FileName;
-                using (var stream = new FileStream(fullFile, FileMode.Create))
-                {
-                    await formFile.CopyToAsync(stream);
-                }
-
-                if (ModelState.IsValid)
-                {
-
-
-                    FileClient client = new FileClient();
-                    FileInfo info = new FileInfo(formFile.FileName);
-                    var remoteIpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress;
-                    await client.UploadFileAsync(_context, "davidbuckleyweb@outlook.com", "trafford2021d@", fullFile, info.Extension.ToLower(), UserId.ToString(), remoteIpAddress.ToString());
-                }
-
+                var userName = _appSettings.MegaUserName;
+                var password = _appSettings.MegaPassword;
+                FileClient client = new FileClient();
+                FileInfo info = new FileInfo(formFile.FileName);
+                var remoteIpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress;
+                await client.UploadFileAsync(_context, userName, password, fullFile, info.Extension.ToLower(), UserId.ToString(), remoteIpAddress.ToString());
             }
-            return View("~/Views/FileManager/Index.cshtml", _context.FileManager.Where(w => w.UserId == UserId).ToList());
+
         }
+        return View("~/Views/FileManager/Index.cshtml", _context.FileManager.Where(w => w.UserId == UserId).ToList());
+    }
             // POST: FileManger/Create
             // To protect from overposting attacks, enable the specific properties you want to bind to.
             // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
