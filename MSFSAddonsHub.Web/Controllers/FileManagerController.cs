@@ -29,26 +29,30 @@ namespace MSFSAddonsHub.Web.Controllers
     public class FileManagerController : BaseController
     {
         private readonly IHostingEnvironment hostingEnvironment;
+        private IConfiguration _configRoot;
+
 
         private readonly MSFSAddonDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly AppSettings _appSettings;
 
-         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
-        public FileManagerController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, IHostingEnvironment environment, IOptions<AppSettings> appSettings
+        public FileManagerController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, IHostingEnvironment environment, IOptions<AppSettings> appSettings, IConfiguration configRoot
 ) : base(httpContextAccessor, context, userManager)
         {
             hostingEnvironment = environment;
+            _configRoot = (IConfigurationRoot)configRoot;
+
 
             _httpContextAccessor = httpContextAccessor;
             _context = context;
             _userManager = userManager;
             _toast = toast;
             _appSettings = appSettings.Value;
-        
-           
+
+
         }
         [Route("MyDashBoard/FileManager")]
         // GET: FileManger
@@ -80,14 +84,17 @@ namespace MSFSAddonsHub.Web.Controllers
         {
             return View();
         }
-        
 
-      [Route("/MyDashBoard/FileManager/Upload")]
+
+        [Route("/MyDashBoard/FileManager/Upload")]
         public IActionResult Upload(FileManagerViewModel fileManager)
         {
             return View();
         }
-
+        public  enum FileManagerUploadTypeEnum{
+            FTP=1,
+            Mega=2
+            }
     [HttpPost]
     [ValidateAntiForgeryToken]        
     public async Task<IActionResult> UploadFiles([FromForm]FileManagerViewModel fileManager)
@@ -115,11 +122,22 @@ namespace MSFSAddonsHub.Web.Controllers
 
                 var userName = _appSettings.MegaUserName;
                 var password = _appSettings.MegaPassword;
-                FileClient client = new FileClient();
                 FileInfo info = new FileInfo(formFile.FileName);
+                string destFilename = fullFile;
                 var remoteIpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress;
-                await client.UploadFileAsync(_context, userName, password, fullFile, info.Extension.ToLower(), UserId.ToString(), remoteIpAddress.ToString());
-            }
+                    if (fileManager.UploadServiceType ==(int) FileManagerUploadTypeEnum.Mega)
+                    {
+                        MegaUploadFileClient client = new MegaUploadFileClient();
+
+                        await client.UploadFileAsync(_context, userName, password, fullFile, info.Extension.ToLower(), UserId.ToString(), remoteIpAddress.ToString());
+                    }
+                    if (fileManager.UploadServiceType == (int)FileManagerUploadTypeEnum.FTP)
+                    {
+                        CloudTBFtpClient client = new CloudTBFtpClient(_configRoot,CloudTBFtpClient.FtpTypeEnum.Ftp);
+                        await client.UploadFileAsync(_context, userName, password, fullFile,destFilename, info.Extension.ToLower(), UserId.ToString(), remoteIpAddress.ToString());
+                    }
+
+                }
 
         }
         return View("~/Views/FileManager/Index.cshtml", _context.FileManager.Where(w => w.UserId == UserId).ToList());

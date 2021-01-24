@@ -4,7 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Configuration;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace MSFSAddonsHub.Web.Helpers
 {
@@ -18,16 +21,20 @@ namespace MSFSAddonsHub.Web.Helpers
         private string userName;
         private string password;
 
+        private IConfiguration _configRoot;
+
         // Get our parameterized configuration
-        public EmailSender(string host, int port, bool enableSSL, string userName, string password)
+        public EmailSender(IConfiguration configRoot)
         {
-            this.host = host;
-            this.port = port;
-            this.enableSSL = enableSSL;
-            this.userName = userName;
-            this.password = password;
+            _configRoot = (IConfigurationRoot)configRoot;
+            this.host = _configRoot.GetValue<string>("EmailHost");
+            this.port = Convert.ToInt32(_configRoot.GetValue<string>("EmailPort"));
+            this.enableSSL = Convert.ToBoolean(_configRoot.GetValue<string>("EnableSSL"));
+            this.userName = _configRoot.GetValue<string>("EmailUserName");
+            this.password = _configRoot.GetValue<string>("EmailPassword");
         }
 
+        //
         // Use our configuration to send the email by using SmtpClient
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {

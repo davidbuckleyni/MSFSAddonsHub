@@ -35,7 +35,7 @@ namespace MSFSAddons.Models
 
         public string? Version { get; set; }
 
-        
+        public string? CustomFileName { get; set; }
         public string? OrignalFilename { get; set; }
         public string? DownloadLink { get; set; }
 

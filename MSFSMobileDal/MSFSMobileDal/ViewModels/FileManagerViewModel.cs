@@ -9,6 +9,8 @@ namespace MSFSAddons.Models.ViewModels
    public class FileManagerViewModel
     {
         public int Id { get; set; }
+
+        public int? UploadServiceType { get; set; }
         public virtual Category? AddonCategory { get; set; }
         public int? ConflictId { get; set; }
         public string? ThumbNail { get; set; }

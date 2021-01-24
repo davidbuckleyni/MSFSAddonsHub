@@ -6,6 +6,9 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MSFSAddonsHub.Dal.BL;
@@ -16,25 +19,28 @@ namespace MSFSAddonsHub.WebApi.Services {
         AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress);
         AuthenticateResponse RefreshToken(string token, string ipAddress);
         bool RevokeToken(string token, string ipAddress);
- 
+
     }
 
 
     public class UserService : IUserService {
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
+        private IConfiguration _configRoot;
 
         private readonly UserManager<ApplicationUser> _userManager;
 
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ILogger<RegisterModel> _logger;
 
         private readonly AppSettings _appSettings;
         private List<User> _users = new List<User>();
         
-        public UserService(IOptions<AppSettings> appSettings, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) {
-            _appSettings = appSettings.Value;
+        public UserService(IConfiguration configRoot, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<RegisterModel> logger) {
+            _configRoot = (IConfigurationRoot)configRoot;
             _userManager = userManager;
             _signInManager = signInManager;
-            
+            _logger = logger;
+
 
         }
         public AuthenticateResponse RefreshToken(string token, string ipAddress) {
@@ -65,7 +71,11 @@ namespace MSFSAddonsHub.WebApi.Services {
 
         private string generateJwtToken(User user) {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+
+            var secret = _configRoot.GetValue<string>("JWTSecret");
+            _logger.Log(LogLevel.Information,$"JWT Secret from Everleap={secret}" );
+
+            var key = Encoding.ASCII.GetBytes(secret);
             var tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new Claim[]
                 {

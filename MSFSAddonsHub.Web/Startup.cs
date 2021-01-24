@@ -53,33 +53,33 @@ namespace MSFSAddonsHub.Web
                 ToastClass = "alert",
 
             });
-           
-    services.AddIdentity<ApplicationUser, IdentityRole>(config =>
-    {
-        config.SignIn.RequireConfirmedEmail = true;
-        config.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
-        config.User.RequireUniqueEmail = true;
 
-    })
-        .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<MSFSAddonDBContext>()
-        .AddDefaultTokenProviders()      
-        .AddRoles<IdentityRole>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+                config.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                config.User.RequireUniqueEmail = true;
 
-  services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>,
-AdditionalUserClaimsPrincipalFactory>();
-    services.AddSession(opts =>
-    {
-        opts.Cookie.IsEssential = false; // make the session cookie Essential
+            })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<MSFSAddonDBContext>()
+                .AddDefaultTokenProviders()
+                .AddRoles<IdentityRole>();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>,
+          AdditionalUserClaimsPrincipalFactory>();
+            services.AddSession(opts =>
+            {
+                opts.Cookie.IsEssential = false; // make the session cookie Essential
         opts.IdleTimeout = TimeSpan.FromMinutes(30);
 
-    });
+            });
             services.Configure<FileTransferConfig>(Configuration.GetSection("FileTransferConfig"));
 
             services.AddDbContext<MSFSAddonDBContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
-                    services.AddHttpContextAccessor();
+            services.AddHttpContextAccessor();
             services.Configure<FormOptions>(options =>
             {
                 options.MultipartBodyLengthLimit = 6000000000;
@@ -96,20 +96,20 @@ AdditionalUserClaimsPrincipalFactory>();
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
-                
+
 
 
             });
-    services.ConfigureApplicationCookie(config =>
-    {
-        config.Cookie.Name = "Identity.Cookie";
-        config.LoginPath = "/Identity/Account/Login";
-    
-    });
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Identity.Cookie";
+                config.LoginPath = "/Identity/Account/Login";
+
+            });
             var AppSettings =
                 Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(AppSettings);
- 
+
 
             IConfigurationSection sec = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(sec);
@@ -122,14 +122,7 @@ AdditionalUserClaimsPrincipalFactory>();
 
             });
             services.AddTransient<IEmailSender, EmailSender>(i =>
-                new EmailSender(
-                    Configuration["EmailSender:Host"],
-                    Configuration.GetValue<int>("EmailSender:Port"),
-                    Configuration.GetValue<bool>("EmailSender:EnableSSL"),
-                    Configuration["EmailSender:UserName"],
-                    Configuration["EmailSender:Password"]
-                )
-            );
+                new EmailSender(Configuration));
        
             services.AddAuthentication(options =>
             {

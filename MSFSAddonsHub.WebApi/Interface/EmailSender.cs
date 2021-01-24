@@ -1,44 +1,51 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Options;
-using MSFSAddonsHub.Dal.Models;
-using SendGrid;
-using SendGrid.Helpers.Mail;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Configuration;
 
-namespace MSFSAddonsHub.WebApi.Interface
+namespace MSFSAddonsHub.WebApi.Services
 {
-    public class EmailSender : IEmailSender
-    {
-        public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
+    public class EmailSender: IEmailSender
         {
-            Options = optionsAccessor.Value;
+
+        // Our private configuration variables
+        private string host;
+        private int port;
+        private bool enableSSL;
+        private string userName;
+        private string password;
+        private IConfiguration _configRoot;
+
+        // Get our parameterized configuration
+        public EmailSender(IConfiguration configRoot)
+        {
+            _configRoot = (IConfigurationRoot)configRoot;
+
+
+            this.host = _configRoot.GetValue<string>("EmailHost"); 
+            this.port = Convert.ToInt32(_configRoot.GetValue<string>("EmailPort"));
+            this.enableSSL = Convert.ToBoolean(_configRoot.GetValue<string>("EnableSSL"));
+            this.userName = _configRoot.GetValue<string>("EmailUserName");
+            this.password = _configRoot.GetValue<string>("EmailPassword");
         }
 
-        public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
-
-        public Task SendEmailAsync(string email, string subject, string message)
+        // Use our configuration to send the email by using SmtpClient
+        public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            return Execute(Options.SendGridKey, subject, message, email);
-        }
 
-        public Task Execute(string apiKey, string subject, string message, string email)
-        {
-            var client = new SendGridClient(apiKey);
-            var msg = new SendGridMessage()
+
+            var client = new SmtpClient(host, port)
             {
-                From = new EmailAddress("Joe@contoso.com", Options.SendGridUser),
-                Subject = subject,
-                PlainTextContent = message,
-                HtmlContent = message
+                Credentials = new NetworkCredential(userName, password),
+                EnableSsl = enableSSL
             };
-            msg.AddTo(new EmailAddress(email));
-
-            // Disable click tracking.
-            // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
-            msg.SetClickTracking(false, false);
-
-            return client.SendEmailAsync(msg);
-
+            return client.SendMailAsync(
+                new MailMessage(userName, email, subject, htmlMessage) { IsBodyHtml = true }
+            );
         }
     }
 }

@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.BL;
-using MSFSAddonsHub.WebApi.Interface;
 using MSFSAddonsHub.WebApi.Services;
 using System;
 using System.Collections.Generic;

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MSFSAddons.Models;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
+using MSFSAddonsHub.FL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,14 +14,18 @@ using System.Threading.Tasks;
 
 namespace MSFSAddonsHub.FL
 {
-    public  class FileClient
+    public  class MegaUploadFileClient : IFileUploadInterface
     {
         private readonly IOptions<FileTransferConfig> transferSettings;
-
-    
+        public enum FtpTypeEnum
+        {
+            Ftp = 1,
+            SFTP = 2
+        }
+        private MegaApiClient client;
         void Main()
         {
-            var client = new MegaApiClient();
+             client = new MegaApiClient();
             client.LoginAnonymous();
 
             Uri folderLink = new Uri("https://mega.nz/#F!e1ogxQ7T!ee4Q_ocD1bSLmNeg9B6kBw");
@@ -36,8 +41,7 @@ namespace MSFSAddonsHub.FL
         private CancellationTokenSource uploadCancellationTokenSource = new CancellationTokenSource();
 
     public async Task<double> UploadFileAsync(MSFSAddonDBContext context, string UserName,string Password, string fileName,string extension,string userId,string ipAddress)        {
-        double progressValue=0.00;
-        var client = new MegaApiClient();
+        double progressValue=0.00;        
         client.Login(UserName, Password);
             
         IEnumerable<INode> nodes = client.GetNodes();

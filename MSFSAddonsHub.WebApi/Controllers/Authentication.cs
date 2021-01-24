@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
@@ -25,10 +26,13 @@ namespace MSFSAddonsHub.WebApi.Controllers
         private readonly IEmailSender _emailSender;
 
         private readonly ILogger<RegisterModel> _logger;
+        private IConfiguration _configRoot;
 
         private readonly MSFSAddonDBContext _context;
-        public Authentication(MSFSAddonDBContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender)
+        public Authentication(MSFSAddonDBContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender, IConfiguration configRoot)
         {
+            _configRoot = (IConfigurationRoot)configRoot;
+
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;

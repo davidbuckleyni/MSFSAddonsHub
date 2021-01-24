@@ -8,6 +8,6 @@ namespace MSFSAddonsHub.Dal.BL
 {
    public  class AppSettings
     {
-        public string Secret { get; set; }
+        public string JWTSecret { get; set; }
     }
 }

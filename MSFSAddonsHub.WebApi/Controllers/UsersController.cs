@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MSFSAddonsHub.Dal.Models;
 using MSFSAddonsHub.WebApi.Services;
 using System;
@@ -12,13 +14,16 @@ namespace MSFSAddonsHub.WebApi.Controllers
 {
     public class UsersController  :ControllerBase {
         private IUserService _userService;
+        private readonly ILogger<RegisterModel> _logger;
 
-    public UsersController(IUserService userService)
+        public UsersController(IUserService userService, ILogger<RegisterModel> logger)
     {
         _userService = userService;
-    }
+            _logger = logger;
 
-    private void setTokenCookie(string token)
+        }
+
+        private void setTokenCookie(string token)
     {
         var cookieOptions = new CookieOptions
         {
