@@ -24,6 +24,12 @@ namespace MSFSAddons.Models.Models
 
         public string EmailPassword { get; set; }
 
-         
+        public string FTPHost { get; set; }
+
+        public string FTPPort { get; set; }
+        public string FTPEnableSSL { get; set; }
+        public string FTPUserName { get; set; }
+        public string FTPPassword { get; set; }
+ 
     }
 }

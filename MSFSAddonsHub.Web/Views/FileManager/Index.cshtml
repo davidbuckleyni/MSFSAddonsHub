@@ -18,6 +18,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.HttpDownloadUrl)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ConflictId)
             </th>
             <th>
@@ -89,6 +92,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => item.HttpDownloadUrl)
+            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.ConflictId)
             </td>

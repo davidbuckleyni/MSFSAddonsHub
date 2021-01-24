@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210124182854_10")]
+    partial class _10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,9 +108,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
 
                     b.Property<int?>("FoldersId")
                         .HasColumnType("int");
-
-                    b.Property<string>("HttpDownloadUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IPAddressBytes")
                         .HasColumnType("nvarchar(max)");
@@ -688,8 +687,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "60e7e21a-0104-4928-bf11-075c2e8a2145",
-                            ConcurrencyStamp = "8cc26d84-d1ec-4c75-a9e9-b5cd2a77c1c8",
+                            Id = "ad0904c6-1e07-47c5-990a-a246f01d1766",
+                            ConcurrencyStamp = "bca4cf13-6a56-48e7-bafe-7c1ec22faecc",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

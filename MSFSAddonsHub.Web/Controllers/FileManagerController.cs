@@ -133,7 +133,7 @@ namespace MSFSAddonsHub.Web.Controllers
                     }
                     if (fileManager.UploadServiceType == (int)FileManagerUploadTypeEnum.FTP)
                     {
-                        CloudTBFtpClient client = new CloudTBFtpClient(_configRoot,CloudTBFtpClient.FtpTypeEnum.Ftp);
+                        CloudTBFtpClient client = new CloudTBFtpClient(_appSettings, CloudTBFtpClient.FtpTypeEnum.Ftp);
                         await client.UploadFileAsync(_context, userName, password, fullFile,destFilename, info.Extension.ToLower(), UserId.ToString(), remoteIpAddress.ToString());
                     }
 

@@ -27,6 +27,8 @@ namespace MSFSAddons.Models
 
         public int Id { get; set; }
 
+        public string? HttpDownloadUrl { get; set; }
+        public int? UploadServiceType { get; set; }
         public string Name { get; set; }
         public virtual FileFolders? Folders { get; set; }
 

@@ -12,10 +12,5 @@ namespace MSFSAddonsHub.FL
 
 
     }
-    public void  FileManagerClient(FileStorageType enumType)
-    {
-
-
-
-    }
+  
 }

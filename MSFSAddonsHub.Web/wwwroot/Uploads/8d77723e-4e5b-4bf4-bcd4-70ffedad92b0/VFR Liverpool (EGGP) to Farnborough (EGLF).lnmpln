@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LittleNavmap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://www.littlenavmap.org/schema/lnmpln.xsd">
+  <Flightplan>
+    <Header>
+      <FlightplanType>VFR</FlightplanType>
+      <CruisingAlt>15000</CruisingAlt>
+      <CreationDate>2021-01-24T16:06:35</CreationDate>
+      <FileVersion>1.0</FileVersion>
+      <ProgramName>Little Navmap</ProgramName>
+      <ProgramVersion>2.6.6</ProgramVersion>
+      <Documentation>https://www.littlenavmap.org/lnmpln.html</Documentation>
+    </Header>
+    <SimData>MSFS</SimData>
+    <NavData Cycle="1801">NAVIGRAPH</NavData>
+    <Departure>
+      <Pos Lon="-2.833137" Lat="53.334408" Alt="69.00"/>
+      <Start>27</Start>
+    </Departure>
+    <Waypoints>
+      <Waypoint>
+        <Name>Liverpool</Name>
+        <Ident>EGGP</Ident>
+        <Type>AIRPORT</Type>
+        <Pos Lon="-2.849810" Lat="53.333641" Alt="69.00"/>
+      </Waypoint>
+      <Waypoint>
+        <Name>Manchester</Name>
+        <Ident>EGCC</Ident>
+        <Type>AIRPORT</Type>
+        <Pos Lon="-2.283241" Lat="53.347492" Alt="5937.11"/>
+      </Waypoint>
+      <Waypoint>
+        <Name>Stansted</Name>
+        <Ident>EGSS</Ident>
+        <Type>AIRPORT</Type>
+        <Pos Lon="0.234962" Lat="51.885120" Alt="15000.00"/>
+      </Waypoint>
+      <Waypoint>
+        <Name>Southend</Name>
+        <Ident>SND</Ident>
+        <Region>EG</Region>
+        <Type>NDB</Type>
+        <Pos Lon="0.700144" Lat="51.576008" Alt="15000.00"/>
+      </Waypoint>
+      <Waypoint>
+        <Name>London City</Name>
+        <Ident>EGLC</Ident>
+        <Type>AIRPORT</Type>
+        <Pos Lon="0.055179" Lat="51.505234" Alt="15000.00"/>
+      </Waypoint>
+      <Waypoint>
+        <Name>Gatwick</Name>
+        <Ident>EGKK</Ident>
+        <Type>AIRPORT</Type>
+        <Pos Lon="-0.191927" Lat="51.148811" Alt="14891.87"/>
+      </Waypoint>
+      <Waypoint>
+        <Name>Heathrow</Name>
+        <Ident>EGLL</Ident>
+        <Type>AIRPORT</Type>
+        <Pos Lon="-0.460867" Lat="51.471199" Alt="6581.86"/>
+      </Waypoint>
+      <Waypoint>
+        <Name>Farnborough</Name>
+        <Ident>EGLF</Ident>
+        <Type>AIRPORT</Type>
+        <Pos Lon="-0.777546" Lat="51.275364" Alt="222.00"/>
+      </Waypoint>
+    </Waypoints>
+  </Flightplan>
+</LittleNavmap>
