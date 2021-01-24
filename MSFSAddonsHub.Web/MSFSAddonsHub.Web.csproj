@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="FileHelpers" Version="3.4.2" />
     <PackageReference Include="MegaApiClient" Version="1.8.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />

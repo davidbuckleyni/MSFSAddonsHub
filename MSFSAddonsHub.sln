@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSFSAddonsHub.Forms.Android
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSFSAddonsHub.Forms.iOS", "MSFSAddonsHub.Forms\MSFSAddonsHub.Forms\MSFSAddonsHub.Forms.iOS\MSFSAddonsHub.Forms.iOS.csproj", "{19422A96-AAE8-4C4B-A9E2-B24C8312DD7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSFSAddonsHub.Forms", "MSFSAddonsHub.Forms\MSFSAddonsHub.Forms\MSFSAddonsHub.Forms\MSFSAddonsHub.Forms.csproj", "{DDEACA86-DC0D-4868-936C-67D06064B040}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSFSAddonsHub.Forms", "MSFSAddonsHub.Forms\MSFSAddonsHub.Forms\MSFSAddonsHub.Forms\MSFSAddonsHub.Forms.csproj", "{DDEACA86-DC0D-4868-936C-67D06064B040}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

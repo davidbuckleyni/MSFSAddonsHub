@@ -4,65 +4,22 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210124202359_12")]
+    partial class _12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
-
-            modelBuilder.Entity("MSFSAddons.Models.AirPort", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ICAO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("LatY")
-                        .HasColumnType("decimal(18,9)");
-
-                    b.Property<decimal?>("LongX")
-                        .HasColumnType("decimal(18,9)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Airport");
-                });
 
             modelBuilder.Entity("MSFSAddons.Models.FileFolders", b =>
                 {
@@ -220,7 +177,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ClubId")
+                    b.Property<int>("ClubId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -256,7 +213,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("Version")
+                    b.Property<int>("Version")
                         .HasColumnType("int");
 
                     b.Property<bool?>("isActive")
@@ -270,56 +227,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasIndex("ClubId");
 
                     b.ToTable("Flights");
-                });
-
-            modelBuilder.Entity("MSFSAddons.Models.FlightRoutes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("AirportName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("FlightId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ICAOCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ThumbNail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlightId");
-
-                    b.ToTable("FlightsRoutes");
                 });
 
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ApplicationUser", b =>
@@ -792,8 +699,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1185390e-4c4d-48e3-9b33-6a78ace5b5b7",
-                            ConcurrencyStamp = "6795d3c7-2562-4e99-a9d1-ac87214451be",
+                            Id = "f9fcd2d4-2b0c-4482-b85b-6092d3ac1072",
+                            ConcurrencyStamp = "956f56b5-45db-427a-acd5-819852bbe7c3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -916,14 +823,9 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                 {
                     b.HasOne("MSFSAddonsHub.Dal.Models.Club", null)
                         .WithMany("Flights")
-                        .HasForeignKey("ClubId");
-                });
-
-            modelBuilder.Entity("MSFSAddons.Models.FlightRoutes", b =>
-                {
-                    b.HasOne("MSFSAddons.Models.Flight", null)
-                        .WithMany("FlightRoutes")
-                        .HasForeignKey("FlightId");
+                        .HasForeignKey("ClubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.MyAddon", b =>
@@ -993,8 +895,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
             modelBuilder.Entity("MSFSAddons.Models.Flight", b =>
                 {
                     b.Navigation("Addons");
-
-                    b.Navigation("FlightRoutes");
                 });
 
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Club", b =>

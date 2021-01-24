@@ -14,12 +14,17 @@ namespace MSFSAddonsHub.Dal
         : base(options)
         {
         }
-          public DbSet<MyAddon> UserAddons { get; set; }
+        public DbSet<AirPort> Airport { get; set; }
+
+        public DbSet<MyAddon> UserAddons { get; set; }
         public DbSet<FileManger> FileManager { get; set; }
 
         public DbSet<Category> Category { get; set; }
         public DbSet<Flight> Flights { get; set; }
-        public DbSet<Club> Clubs { get; set; }
+
+        public DbSet<FlightRoutes> FlightsRoutes { get; set; }
+
+         public DbSet<Club> Clubs { get; set; }
 
         public DbSet<Subscriber> Subscriber { get; set; }
         public DbSet<MyDashBoard> MyDashBoard { get; set; }

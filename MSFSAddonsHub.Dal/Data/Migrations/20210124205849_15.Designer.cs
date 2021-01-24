@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210124205849_15")]
+    partial class _15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("MSFSAddons.Models.AirPort", b =>
+            modelBuilder.Entity("MSFSAddons.Models.AirPorts", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,7 +63,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Airport");
+                    b.ToTable("Airports");
                 });
 
             modelBuilder.Entity("MSFSAddons.Models.FileFolders", b =>
@@ -792,8 +794,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1185390e-4c4d-48e3-9b33-6a78ace5b5b7",
-                            ConcurrencyStamp = "6795d3c7-2562-4e99-a9d1-ac87214451be",
+                            Id = "db33a702-43fe-429b-8064-36e5478a79f2",
+                            ConcurrencyStamp = "b5b8d66e-8719-4635-8214-f6df2cb502f4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

@@ -1,0 +1,26 @@
+﻿@model MSFSAddonsHub.Dal.Models.AirPortsViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Themes/FrontEnd/_MyProfile.cshtml";
+}
+@Html.ValidationSummary(true)
+
+<form method="post" enctype="multipart/form-data" asp-controller="FileManager" asp-action="UploadFiles">
+    <dl>
+        <dt>
+            <label asp-for="Files"></label>
+        </dt>
+        <dd>
+            <div class="editor-field">
+
+                <input type="hidden" name="UploadServiceType" value="1" />
+                 <input type="file" name="Files" id="File" multiple />
+            </div>
+          
+        </dd>
+    </dl>
+    <button type="submit"   class="btn btn-primary" >Upload File...</button>
+    
+
+</form>
