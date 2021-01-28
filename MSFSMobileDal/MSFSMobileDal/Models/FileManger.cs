@@ -46,6 +46,8 @@ namespace MSFSAddons.Models
         public bool? canBeDownloadedByOtherUsers { get; set; }
 
         public string? FileExtension { get; set; }
+
+        public string? FileExtensionIcon  { get; set; }
         public bool? isZipFile { get; set; }
         public bool? isJsonFile { get; set; }
         public string? DownloadJson { get; set; }

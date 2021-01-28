@@ -1,16 +1,47 @@
-﻿using System;
+﻿using MSFSAddons.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using MSFSAddonsHub.Dal;
 
 namespace MSFSAddonsHub.FL
 {
-
-    public enum FileStorageType
+    public class FileManagerClient
     {
-        MegaUpload=1,
-        FTPUpload=2
+        public enum FileStorageTypeEnum
+        {
+            MegaUpload = 1,
+            FTPUpload = 2,
+            DropBox = 3
 
+
+        }
+
+        public DropBoxApiClient clientDropBox;
+
+        public FileManagerClient(FileManger Files, FileStorageTypeEnum storageType)
+        {
+
+            if (storageType == FileStorageTypeEnum.DropBox)
+            {
+                clientDropBox = new DropBoxApiClient();
+            }
+            else if (storageType == FileStorageTypeEnum.MegaUpload)
+            {
+
+            }
+            else if (storageType == FileStorageTypeEnum.FTPUpload)
+            {
+
+            }
+
+        }
+
+        public void UploadFilesToStorage(FileManger files, FileStorageTypeEnum storageType)
+        {
+        }
 
     }
-  
+
 }

@@ -58,7 +58,7 @@ namespace MSFSAddonsHub.Web.Controllers
         // GET: FileManger
         public async Task<IActionResult> Index()
         {
-            return View(await _context.FileManager.ToListAsync());
+            return View(await _context.FileManager.Where(w => w.UserId == UserId && w.isActive == true && w.isDeleted == false).ToListAsync());
         }
 
         // GET: FileManger/Details/5
@@ -70,7 +70,7 @@ namespace MSFSAddonsHub.Web.Controllers
             }
 
             var fileManger = await _context.FileManager
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id && m.UserId==UserId && m.isDeleted==false && m.isActive==true);
             if (fileManger == null)
             {
                 return NotFound();
@@ -95,7 +95,24 @@ namespace MSFSAddonsHub.Web.Controllers
             FTP=1,
             Mega=2
             }
-    [HttpPost]
+        public string GetMimeType(string fileName)
+        {
+            string mimeType = "application/unknown";
+            string ext = System.IO.Path.GetExtension(fileName).ToLower();
+            Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+            if (regKey != null && regKey.GetValue("Content Type") != null)
+                mimeType = regKey.GetValue("Content Type").ToString();
+            return mimeType;
+        }
+        [HttpGet("download")]
+        public IActionResult DownloadFile([FromQuery] string link)
+        {
+
+            var record = _context.FileManager.Where(w => w.HttpDownloadUrl == link && w.UserId == UserId && w.isActive == true && w.isDeleted == false).FirstOrDefault();
+            return PhysicalFile(record.HttpDownloadUrl, GetMimeType(record.HttpDownloadUrl), Path.GetFileName(record.HttpDownloadUrl));
+
+        }
+        [HttpPost]
     [ValidateAntiForgeryToken]        
     public async Task<IActionResult> UploadFiles([FromForm]FileManagerViewModel fileManager)
     {
@@ -129,7 +146,7 @@ namespace MSFSAddonsHub.Web.Controllers
                     {
                         MegaUploadFileClient client = new MegaUploadFileClient();
 
-                        await client.UploadFileAsync(_context, userName, password, fullFile, info.Extension.ToLower(), UserId.ToString(), remoteIpAddress.ToString());
+                        await client.UploadFileAsync(_context, userName, password, fullFile, destFilename, info.Extension.ToLower(), UserId.ToString(), remoteIpAddress.ToString());
                     }
                     if (fileManager.UploadServiceType == (int)FileManagerUploadTypeEnum.FTP)
                     {

@@ -20,147 +20,27 @@
             <th>
                 @Html.DisplayNameFor(model => model.HttpDownloadUrl)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConflictId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThumbNail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Version)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DownloadLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalDownloads)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DownloadUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.canBeDownloadedByOtherUsers)
-            </th>
+         
             <th>
                 @Html.DisplayNameFor(model => model.FileExtension)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isZipFile)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isJsonFile)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DownloadJson)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TeannatId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isDisplayHomePage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isFeatured)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThumbNailPath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FilePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isActive)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isDeleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IPAddressBytes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th></th>
+           
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <th>
-                @Html.DisplayNameFor(model => item.HttpDownloadUrl)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConflictId)
+                <a href="@item.HttpDownloadUrl" href="data:application/octet-stream;base64,PD94ANDSOON"  download="@item.OrignalFilename"> @Html.DisplayFor(model => item.OrignalFilename)</a>
+                
+            </th>         
+         
+            <td>                
+                <span class="fiv-sqo fiv-icon-@item.FileExtension.Replace(".","").ToLower()"></span>
+
+
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThumbNail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Version)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DownloadLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalDownloads)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DownloadUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.canBeDownloadedByOtherUsers)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FileExtension)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isZipFile)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isJsonFile)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DownloadJson)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TeannatId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isDisplayHomePage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isFeatured)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThumbNailPath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FilePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isDeleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IPAddressBytes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
+            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

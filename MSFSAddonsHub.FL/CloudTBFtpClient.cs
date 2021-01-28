@@ -14,7 +14,7 @@ using MSFSAddonsHub.FL.Interface;
 
 namespace MSFSAddonsHub.FL
 {
-    public class CloudTBFtpClient : IDisposable
+    public class CloudTBFtpClient : IDisposable, IFileUploadInterface
     {
 
         public enum FtpTypeEnum
@@ -85,16 +85,25 @@ namespace MSFSAddonsHub.FL
             }
         }
 
-        public async Task<double> UploadFileAsync(MSFSAddonDBContext context, string UserName, string Password, string fileName, string destFilename, string extension, string userId, string ipAddress)
+       
+
+        void IDisposable.Dispose()
+        {
+            client.DisconnectAsync();
+
+        }
+
+        public async Task<double> UploadFileAsync(MSFSAddonDBContext context, string UserName, string Password, string fileName,string destFileName, string extension, string userId, string ipAddress)
         {
             try
             {
                 string webRoot = @"\\www\";
 
                 string urlDomain = "https://davidbuckley.cloudtb.online";
-                string customPath = @"\www\" + @"\UserFiles\" + userId + @"\";
+                string customPath = @"\www\" + @"\public_html\UserFiles\" + userId + @"\";
                 string custompathWebUrl = @"/UserFiles/" + userId + @"/";
 
+                string file = Path.GetFileName(fileName);
 
                 if (!client.DirectoryExists("customPath"))
                     client.CreateDirectory(customPath);
@@ -106,9 +115,13 @@ namespace MSFSAddonsHub.FL
 
                 uploadRecord.UserId = userIdValue;
                 uploadRecord.isZipFile = true;
-                uploadRecord.HttpDownloadUrl = urlDomain + custompathWebUrl + Path.GetFileName(fileName);
-                uploadRecord.OrignalFilename = customPath + Path.GetFileName(fileName);
-                uploadRecord.FileExtension = Path.GetExtension(fileName);
+                uploadRecord.HttpDownloadUrl = urlDomain + custompathWebUrl + file;
+                uploadRecord.OrignalFilename = file;
+                extension = Path.GetExtension(fileName).Replace(".", "");
+                if (extension == "lnmp" && extension == "pln")
+                    extension = "xml";
+                uploadRecord.FileExtensionIcon = extension;
+                uploadRecord.FileExtension = Path.GetExtension(fileName).Replace(".", ""); ;
                 uploadRecord.isActive = true;
                 uploadRecord.IPAddressBytes = ipAddress;
                 uploadRecord.isDeleted = false;
@@ -118,7 +131,8 @@ namespace MSFSAddonsHub.FL
                 context.FileManager.Add(uploadRecord);
 
                 await context.SaveChangesAsync();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
 
 
@@ -126,10 +140,9 @@ namespace MSFSAddonsHub.FL
             return 1;
         }
 
-        void IDisposable.Dispose()
+        public Task<double> DownloadFilesAsync(MSFSAddonDBContext context, string UserName, string Password, string fileName, string extension, string userId, string ipAddress)
         {
-            client.DisconnectAsync();
-
+            throw new NotImplementedException();
         }
     }
 }

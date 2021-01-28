@@ -23,24 +23,14 @@ namespace MSFSAddonsHub.FL
             SFTP = 2
         }
         private MegaApiClient client;
-        void Main()
+        public  MegaUploadFileClient()
         {
              client = new MegaApiClient();
-            client.LoginAnonymous();
-
-            Uri folderLink = new Uri("https://mega.nz/#F!e1ogxQ7T!ee4Q_ocD1bSLmNeg9B6kBw");
-            IEnumerable<INode> nodes = client.GetNodesFromLink(folderLink);
-            foreach (INode node in nodes.Where(x => x.Type == NodeType.File))
-            {
-                Console.WriteLine($"Downloading {node.Name}");
-                client.DownloadFile(node, node.Name);
-            }
-
-            client.Logout();
+         
         }
         private CancellationTokenSource uploadCancellationTokenSource = new CancellationTokenSource();
 
-    public async Task<double> UploadFileAsync(MSFSAddonDBContext context, string UserName,string Password, string fileName,string extension,string userId,string ipAddress)        {
+    public async Task<double> UploadFileAsync(MSFSAddonDBContext context, string UserName,string Password, string fileName ,string destFileName,string extension,string userId,string ipAddress)        {
         double progressValue=0.00;        
         client.Login(UserName, Password);
             
@@ -82,5 +72,10 @@ namespace MSFSAddonsHub.FL
 
         return progressValue;
     }
+
+        public Task<double> DownloadFilesAsync(MSFSAddonDBContext context, string UserName, string Password, string fileName, string extension, string userId, string ipAddress)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
