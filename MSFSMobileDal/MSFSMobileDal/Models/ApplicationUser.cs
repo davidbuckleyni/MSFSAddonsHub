@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using MSFSAddons.Models;
+using MSFSAddons.Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +33,8 @@ namespace MSFSAddonsHub.Dal.Models
         public Guid TennantId { get; set; }
 
         public Guid? ClubId { get; set; }
+
+        public List<Badges> Badges { get; set; }
 
 
     }

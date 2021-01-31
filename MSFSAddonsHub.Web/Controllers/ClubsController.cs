@@ -35,9 +35,16 @@ namespace MSFSAddonsHub.Web.Controllers
             userName = GetUserName().Result.ToString();
             ViewBag.UserName = userName;
         }
-
-        // GET: Clubs
-        public async Task<IActionResult> Index()
+        /// <summary>
+        /// Admin Managment page for the clubs
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> Manage()
+        {
+            return View();
+        }
+            // GET: Clubs
+            public async Task<IActionResult> Index()
         {
 
             return View(await _context.Clubs.Where(w => w.UserId == UserId && w.isActive == true && w.isDeleted == false).ToListAsync());

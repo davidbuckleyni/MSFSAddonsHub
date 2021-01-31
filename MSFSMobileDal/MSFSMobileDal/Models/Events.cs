@@ -8,6 +8,8 @@ namespace MSFSAddons.Models.Models
     {
 
         public int Id { get; set; }
+        public Guid? TeannatId { get; set; }
+        public Guid? UserId { get; set; }
 
         public int? ClubId { get; set; }
 

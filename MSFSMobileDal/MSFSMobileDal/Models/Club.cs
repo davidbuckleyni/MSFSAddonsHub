@@ -19,7 +19,10 @@ namespace MSFSAddonsHub.Dal.Models
         public string? Description { get; set; }
 
         public string? Url { get; set; }
+        public int? ClubLikes { get; set; }
 
+        public int? ClubDislikes { get; set; }
+        public int? MembersCount { get; set; }
         public string? Logo { get; set; }
         public List<Flight>? Flights { get; set; }
         public string? ThumbNail { get; set; }
