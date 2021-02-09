@@ -30,8 +30,8 @@ namespace MSFSAddonsHub.Dal
         public DbSet<MyDashBoard> MyDashBoard { get; set; }
         public DbSet<Credits> Credits { get; set; }
         public DbSet<UserSettings> UserSettings { get; set; }
- 
-        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        public IEnumerable<ApplicationUser> Members { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

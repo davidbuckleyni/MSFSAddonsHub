@@ -1,34 +1,37 @@
-﻿@model  MSFSAddonsHub.Dal.Models.RoleModels
+﻿@model MSFSAddonsHub.Dal.Models.RoleModels
 
 @{
-    
-        ViewData["Title"] = "Index";
-        Layout = "~/Views/Shared/_AdminLteLayout.cshtml";
- 
+
+    ViewData["Title"] = "Index";
+    Layout = "~/Themes/DashBoard/_Layout.cshtml";
+
+}
+}
 }
 
-<h2>Assign</h2>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Assign">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <select asp-for="Name" asp-items="(SelectList)@ViewData["Name"]"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <select asp-for="UserName" asp-items="(SelectList)@ViewData["UserName"]"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Assign" class="btn btn-default" />
-            </div>
-        </form>
+
+<div class="col-xl-12 col-lg-12 col-md-12">
+    <div class="card ads-tabs">
+        <div class="card-body">
+            <form asp-action="Assign">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <select asp-for="Name" asp-items="(SelectList)@ViewData["Name"]"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <select asp-for="UserName" asp-items="(SelectList)@ViewData["UserName"]"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Assign" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+    </div>
 
-<div>
-    <a asp-action="Index">Back to list.</a>
-</div>
+    <div>
+        <a asp-action="Index">Back to list.</a>
+    </div>

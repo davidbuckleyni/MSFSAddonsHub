@@ -99,7 +99,7 @@ namespace MSFSAddonsHub.FL
             {
                 string webRoot = @"\\www\";
 
-                string urlDomain = "https://davidbuckley.cloudtb.online";
+                string urlDomain = _configRoot["FPUrlDomain"];
                 string customPath = @"\www\" + @"\public_html\UserFiles\" + userId + @"\";
                 string custompathWebUrl = @"/UserFiles/" + userId + @"/";
 

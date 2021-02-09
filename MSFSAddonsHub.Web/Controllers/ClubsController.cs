@@ -19,7 +19,7 @@ namespace MSFSAddonsHub.Web.Controllers
         private readonly MSFSAddonDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
-        public Guid UserId { get; set; }
+      
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
 
@@ -30,8 +30,7 @@ namespace MSFSAddonsHub.Web.Controllers
             _context = context;
             _userManager = userManager;
             _toast = toast;
-            Guid.TryParse(UserId.ToString(), out Guid userIdGuid);
-            UserId = userIdGuid;
+ 
             userName = GetUserName().Result.ToString();
             ViewBag.UserName = userName;
         }
@@ -43,12 +42,21 @@ namespace MSFSAddonsHub.Web.Controllers
         {
             return View();
         }
-            // GET: Clubs
-            public async Task<IActionResult> Index()
+        public async Task<IActionResult> ClubMembers(Guid id)
         {
 
-            return View(await _context.Clubs.Where(w => w.UserId == UserId && w.isActive == true && w.isDeleted == false).ToListAsync());
-            }
+            var members =  _context.Members.Where(w => w.ClubId == id && w.LockoutEnabled == false).ToList();
+            return View();
+        }
+
+       
+        // GET: Clubs
+        public async Task<IActionResult> Index()
+        {
+
+            var club =await _context.Clubs.Where(w => w.UserId == UserId && w.isActive == true && w.isDeleted == false).ToListAsync();
+            return View(await _context.Clubs.Include(c=>c.Members).Where(w => w.UserId == UserId && w.isActive == true && w.isDeleted == false).ToListAsync());
+        }
 
         // GET: Clubs/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -59,7 +67,7 @@ namespace MSFSAddonsHub.Web.Controllers
             }
 
             var club = await _context.Clubs
-                .FirstOrDefaultAsync(m => m.Id == id && m.UserId == UserId && m.isActive==true && m.isDeleted ==false);
+                .FirstOrDefaultAsync(m => m.Id == id && m.UserId == UserId && m.isActive == true && m.isDeleted == false);
             if (club == null)
             {
                 return NotFound();
@@ -83,6 +91,7 @@ namespace MSFSAddonsHub.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                club.ClubId = Guid.NewGuid();
                 _context.Add(club);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

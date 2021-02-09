@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using MSFSAddons.Models.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace MSFSAddonsHub.BL
 {
@@ -16,16 +17,18 @@ namespace MSFSAddonsHub.BL
     {
         HttpClient client;
         HttpContent baseContent;
+        private IConfiguration _configRoot;
 
-        private string ApiUrl = "https://api.msfsaddonshub.com:4444/";
+        private string ApiUrl = "https://api-msfsaddonshub.com/";
         private string GetAllAddonsEndPOint = "Addons/GetAll/";
         private string Authenticate = "/authenticate";
 
         public JWTToken currentToken { get; set; }
-        public MSFSAddonClient()
+        public MSFSAddonClient(IConfiguration configRoot)
         {
             client = new HttpClient();
             currentToken = new JWTToken();
+            _configRoot = configRoot;
             client.BaseAddress = new Uri(ApiUrl);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -36,8 +39,8 @@ namespace MSFSAddonsHub.BL
             var requestUri = string.Format(ApiUrl + Authenticate);
 
             AuthenticateRequest myuser = new AuthenticateRequest();
-            myuser.Username = "davidbuckleyweb@outlook.com";
-            myuser.Password = "test12345!";
+            myuser.Username = _configRoot["ApiUser"]; 
+            myuser.Password = _configRoot["ApiPassword"];
             JWTToken _result = new JWTToken();
             string stringPayload = JsonConvert.SerializeObject(myuser);
             var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");

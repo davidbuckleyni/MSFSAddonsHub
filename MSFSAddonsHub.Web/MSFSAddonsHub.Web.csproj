@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Uploads\Logos\FSMultiPlayerHub\FSMP-Hub.png" />
+    <Content Remove="wwwroot\Uploads\ScaffoldingReadMe.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="FileHelpers" Version="3.4.2" />
     <PackageReference Include="MegaApiClient" Version="1.8.2" />
@@ -59,7 +64,6 @@
 
   <ItemGroup>
     <Folder Include="AutoMapper\" />
-    <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -972,9 +976,18 @@
     <None Include="wwwroot\scss\util\_typography.scss" />
     <None Include="wwwroot\scss\util\_width.scss" />
     <None Include="wwwroot\scss\_variables.scss" />
+    <None Include="wwwroot\Uploads\Logos\FSMultiPlayerHub\FSMP-Hub.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Uploads\ScaffoldingReadMe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Uploads\Logos\FSMultiPlayerHub\FSMP-Hub.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Uploads\ScaffoldingReadMe.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

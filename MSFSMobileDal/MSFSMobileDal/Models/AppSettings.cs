@@ -30,6 +30,11 @@ namespace MSFSAddons.Models.Models
         public string FTPEnableSSL { get; set; }
         public string FTPUserName { get; set; }
         public string FTPPassword { get; set; }
- 
+
+        public string FTPUrlDomain { get; set; }
+
+        public string ApiUser { get; set; }
+
+        public string ApiPassword { get; set; }
     }
 }

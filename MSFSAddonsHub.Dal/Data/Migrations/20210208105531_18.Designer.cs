@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210208105531_18")]
+    partial class _18
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -377,9 +379,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<Guid?>("ClubId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("ClubId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -440,8 +439,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClubId1");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -508,9 +505,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
 
                     b.Property<int?>("ClubDislikes")
                         .HasColumnType("int");
-
-                    b.Property<Guid?>("ClubId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("ClubLikes")
                         .HasColumnType("int");
@@ -853,8 +847,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "146693de-1cd2-4738-9700-79fff76266e2",
-                            ConcurrencyStamp = "876fe1a6-b47d-4515-858a-e636f4a6713f",
+                            Id = "d030e2d9-d186-4d37-8ef0-3b4c28875fcd",
+                            ConcurrencyStamp = "acdf672b-aac5-4fff-b5ad-4eceebeeb0ee",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -994,13 +988,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasForeignKey("FlightId");
                 });
 
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("MSFSAddonsHub.Dal.Models.Club", null)
-                        .WithMany("Members")
-                        .HasForeignKey("ClubId1");
-                });
-
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.MyAddon", b =>
                 {
                     b.HasOne("MSFSAddonsHub.Dal.Models.Category", "AddonCategory")
@@ -1080,8 +1067,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Club", b =>
                 {
                     b.Navigation("Flights");
-
-                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }

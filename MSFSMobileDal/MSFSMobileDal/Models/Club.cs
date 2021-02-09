@@ -12,6 +12,7 @@ namespace MSFSAddonsHub.Dal.Models
 
         public int Id { get; set; }
         public Guid? TeannatId { get; set; }
+        public Guid? ClubId { get; set; }
 
         public Guid? UserId { get; set; }
         public string? Name { get; set; }
@@ -29,13 +30,13 @@ namespace MSFSAddonsHub.Dal.Models
 
         public DateTimeOffset? GpdrRemoveRequestDate { get; set; }
 
-        public bool isGpdrRemoveRequest { get; set; }
+        public bool? isGpdrRemoveRequest { get; set; }
 
-        public DateTimeOffset BannedTime { get; set; }
+        public DateTimeOffset? BannedTime { get; set; }
 
 
-        public TimeSpan BanPeriod { get; set; }
-        public bool isBanned { get; set; }
+        public TimeSpan? BanPeriod { get; set; }
+        public bool? isBanned { get; set; }
 
         public bool? isActive { get; set; }
 
@@ -44,5 +45,8 @@ namespace MSFSAddonsHub.Dal.Models
         public DateTime? CreatedDate { get; set; }
 
         public string? CreatedBy { get; set; }
+
+        public virtual List<ApplicationUser>? Members { get; set; }
+
     }
 }

@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210208111616_19")]
+    partial class _19
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -509,9 +511,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Property<int?>("ClubDislikes")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ClubId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int?>("ClubLikes")
                         .HasColumnType("int");
 
@@ -853,8 +852,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "146693de-1cd2-4738-9700-79fff76266e2",
-                            ConcurrencyStamp = "876fe1a6-b47d-4515-858a-e636f4a6713f",
+                            Id = "79345df5-86bd-4192-8f90-32b70dca09d0",
+                            ConcurrencyStamp = "8eaf7f23-b12b-4677-aa04-789b81843bb3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
