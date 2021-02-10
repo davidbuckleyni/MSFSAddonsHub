@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,11 +43,13 @@ namespace MSFSAddonsHub.Web.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> ClubMembers(Guid id)
+        public async Task<IActionResult> ClubMembers()
         {
-
-            var members =  _context.Members.Where(w => w.ClubId == id && w.LockoutEnabled == false).ToList();
-            return View();
+            var tennantId =  GetTennantId().Result;
+           
+         
+            var members =  _context.Members.ToList();
+            return View((IEnumerable)members);
         }
 
        
@@ -91,6 +94,7 @@ namespace MSFSAddonsHub.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                club.TeannatId = GetTennantId().Result;
                 club.ClubId = Guid.NewGuid();
                 _context.Add(club);
                 await _context.SaveChangesAsync();

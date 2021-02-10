@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210209232146_27")]
+    partial class _27
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,6 +105,494 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Badges");
+                });
+
+            modelBuilder.Entity("MSFSAddons.Models.ClubDownloads", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<Guid?>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FileId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileId");
+
+                    b.ToTable("ClubsDownloads");
+                });
+
+            modelBuilder.Entity("MSFSAddons.Models.FileFolders", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("ConflictId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IPAddressBytes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ThumbNail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThumbNailPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDisplayHomePage")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isFeatured")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FileFolders");
+                });
+
+            modelBuilder.Entity("MSFSAddons.Models.FileManger", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("ConflictId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomFileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DownloadJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DownloadLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DownloadUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileExtension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileExtensionIcon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FoldersId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HttpDownloadUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IPAddressBytes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrignalFilename")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ThumbNail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThumbNailPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TotalDownloads")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UploadServiceType")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Version")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("canBeDownloadedByOtherUsers")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDisplayHomePage")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isFeatured")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isJsonFile")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isZipFile")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoldersId");
+
+                    b.ToTable("FileManager");
+                });
+
+            modelBuilder.Entity("MSFSAddons.Models.Flight", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DestAirportCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan?>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime?>("FlightDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FlightDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FlightPlanUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FlightPlanXML")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StartAirportCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan?>("StartTime")
+                        .HasColumnType("time");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ThumbNail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TimeInFluent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TimeZone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TimeinMins")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
+
+                    b.ToTable("Flights");
+                });
+
+            modelBuilder.Entity("MSFSAddons.Models.FlightRoutes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("AirportName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ICAOCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ThumbNail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId");
+
+                    b.ToTable("FlightsRoutes");
+                });
+
+            modelBuilder.Entity("MSFSAddons.Models.FriendRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<Guid?>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FreindRequestedIdId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FriendIdId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RequestedIp")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("hasAccepted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FreindRequestedIdId");
+
+                    b.HasIndex("FriendIdId");
+
+                    b.ToTable("FriendsRequest");
+                });
+
+            modelBuilder.Entity("MSFSAddons.Models.Friends", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<Guid?>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FriendIdId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RequestedIp")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("hasExcepted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FriendIdId");
+
+                    b.ToTable("Friends");
+                });
+
+            modelBuilder.Entity("MSFSAddons.Models.Invites", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<Guid?>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReferLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("hasUserAccepted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Invites");
                 });
 
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ApplicationUser", b =>
@@ -252,9 +742,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid?>("ClubId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("ClubLikes")
                         .HasColumnType("int");
@@ -309,53 +797,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.ToTable("Clubs");
                 });
 
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ClubDownloads", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<Guid?>("ClubId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FileId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FlightId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FileId");
-
-                    b.ToTable("ClubsDownloads");
-                });
-
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Credits", b =>
                 {
                     b.Property<int>("Id")
@@ -399,447 +840,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Credits");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.FileFolders", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("ConflictId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IPAddressBytes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ThumbNail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThumbNailPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDisplayHomePage")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isFeatured")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FileFolders");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.FileManger", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("ConflictId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CustomFileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DownloadJson")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DownloadLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DownloadUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileExtension")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileExtensionIcon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FoldersId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HttpDownloadUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IPAddressBytes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrignalFilename")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ThumbNail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThumbNailPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TotalDownloads")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UploadServiceType")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Version")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("canBeDownloadedByOtherUsers")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDisplayHomePage")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isFeatured")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isJsonFile")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isZipFile")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FoldersId");
-
-                    b.ToTable("FileManager");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Flight", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DestAirportCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan?>("EndTime")
-                        .HasColumnType("time");
-
-                    b.Property<DateTime?>("FlightDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FlightDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FlightPlanUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FlightPlanXML")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StartAirportCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan?>("StartTime")
-                        .HasColumnType("time");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ThumbNail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TimeInFluent")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TimeZone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TimeinMins")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClubId");
-
-                    b.ToTable("Flights");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.FlightRoutes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("AirportName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("FlightId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ICAOCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ThumbNail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlightId");
-
-                    b.ToTable("FlightsRoutes");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.FriendRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<Guid?>("ClubId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FreindRequestedIdId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FriendIdId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RequestedIp")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool?>("hasAccepted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isBlocked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FreindRequestedIdId");
-
-                    b.HasIndex("FriendIdId");
-
-                    b.ToTable("FriendsRequest");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Friends", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<Guid?>("ClubId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FriendIdId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RequestedIp")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool?>("hasExcepted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isBlocked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FriendIdId");
-
-                    b.ToTable("Friends");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Invites", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<Guid?>("ClubId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReferLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("hasUserAccepted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Invites");
                 });
 
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.MyAddon", b =>
@@ -1085,8 +1085,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "928d5219-7f06-43d6-8f32-aa0077d28fd4",
-                            ConcurrencyStamp = "91bab6ba-a240-4dca-ac54-1adcf3f7f69a",
+                            Id = "947cc9b8-5773-484a-ad18-779711f56c11",
+                            ConcurrencyStamp = "c617bb3c-516f-49b4-b44d-c8d306c3d58d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -1203,46 +1203,39 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasForeignKey("ApplicationUserId");
                 });
 
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ApplicationUser", b =>
+            modelBuilder.Entity("MSFSAddons.Models.ClubDownloads", b =>
                 {
-                    b.HasOne("MSFSAddonsHub.Dal.Models.Club", null)
-                        .WithMany("Members")
-                        .HasForeignKey("ClubId1");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ClubDownloads", b =>
-                {
-                    b.HasOne("MSFSAddonsHub.Dal.Models.FileManger", "File")
+                    b.HasOne("MSFSAddons.Models.FileManger", "File")
                         .WithMany()
                         .HasForeignKey("FileId");
 
                     b.Navigation("File");
                 });
 
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.FileManger", b =>
+            modelBuilder.Entity("MSFSAddons.Models.FileManger", b =>
                 {
-                    b.HasOne("MSFSAddonsHub.Dal.Models.FileFolders", "Folders")
+                    b.HasOne("MSFSAddons.Models.FileFolders", "Folders")
                         .WithMany()
                         .HasForeignKey("FoldersId");
 
                     b.Navigation("Folders");
                 });
 
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Flight", b =>
+            modelBuilder.Entity("MSFSAddons.Models.Flight", b =>
                 {
                     b.HasOne("MSFSAddonsHub.Dal.Models.Club", null)
                         .WithMany("Flights")
                         .HasForeignKey("ClubId");
                 });
 
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.FlightRoutes", b =>
+            modelBuilder.Entity("MSFSAddons.Models.FlightRoutes", b =>
                 {
-                    b.HasOne("MSFSAddonsHub.Dal.Models.Flight", null)
+                    b.HasOne("MSFSAddons.Models.Flight", null)
                         .WithMany("FlightRoutes")
                         .HasForeignKey("FlightId");
                 });
 
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.FriendRequest", b =>
+            modelBuilder.Entity("MSFSAddons.Models.FriendRequest", b =>
                 {
                     b.HasOne("MSFSAddonsHub.Dal.Models.ApplicationUser", "FreindRequestedId")
                         .WithMany()
@@ -1257,7 +1250,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Navigation("FriendId");
                 });
 
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Friends", b =>
+            modelBuilder.Entity("MSFSAddons.Models.Friends", b =>
                 {
                     b.HasOne("MSFSAddonsHub.Dal.Models.ApplicationUser", "FriendId")
                         .WithMany()
@@ -1266,13 +1259,20 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Navigation("FriendId");
                 });
 
+            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("MSFSAddonsHub.Dal.Models.Club", null)
+                        .WithMany("Members")
+                        .HasForeignKey("ClubId1");
+                });
+
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.MyAddon", b =>
                 {
                     b.HasOne("MSFSAddonsHub.Dal.Models.Category", "AddonCategory")
                         .WithMany()
                         .HasForeignKey("AddonCategoryId");
 
-                    b.HasOne("MSFSAddonsHub.Dal.Models.Flight", null)
+                    b.HasOne("MSFSAddons.Models.Flight", null)
                         .WithMany("Addons")
                         .HasForeignKey("FlightId");
 
@@ -1330,6 +1330,13 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MSFSAddons.Models.Flight", b =>
+                {
+                    b.Navigation("Addons");
+
+                    b.Navigation("FlightRoutes");
+                });
+
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Badges");
@@ -1340,13 +1347,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.Navigation("Flights");
 
                     b.Navigation("Members");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Flight", b =>
-                {
-                    b.Navigation("Addons");
-
-                    b.Navigation("FlightRoutes");
                 });
 #pragma warning restore 612, 618
         }

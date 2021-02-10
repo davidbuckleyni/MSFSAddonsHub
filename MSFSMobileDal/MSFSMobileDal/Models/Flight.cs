@@ -2,13 +2,14 @@
 using MSFSAddonsHub.Dal.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace MSFSAddons.Models
+namespace MSFSAddonsHub.Dal.Models
 {
     public class Flight
     {
-
+        [Key]
         public int Id { get; set; }
 
         public Guid? TeannatId { get; set; }
@@ -21,8 +22,17 @@ namespace MSFSAddons.Models
         public string? DestAirportCode { get; set; }
 
         
-        public DateTimeOffset? FlightDate { get; set; }
+        public DateTime? FlightDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
+        public int? TimeinMins { get; set; }
+        public string? TimeInFluent { get; set; }
+
+        public string? TimeZone { get; set; }
+
+        public TimeSpan? StartTime { get; set; }
+
+        public TimeSpan? EndTime { get; set; }
         public string? FlightDescription { get; set; }
 
         public string? FlightPlanXML {get;set; }

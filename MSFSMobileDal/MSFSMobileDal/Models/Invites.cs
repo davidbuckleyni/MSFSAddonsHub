@@ -4,25 +4,26 @@ using System.Text;
 
 namespace MSFSAddonsHub.Dal.Models
 {
-   public  class FlightRoutes
+  public   class Invites
     {
 
-        
         public int Id { get; set; }
-
-        
-
-        public string? ICAOCode { get; set; }
-
-        public string? AirportName { get; set; }
-
         public Guid? TeannatId { get; set; }
-
+        public Guid? ClubId { get; set; }
 
         public Guid? UserId { get; set; }
-        public int? ClubId { get; set; }
+        public string? Name { get; set; }
 
-        public string? ThumbNail { get; set; }
+        public DateTime? StartDate { get; set; }
+
+
+        public DateTime? EndDate { get; set; }
+
+
+        public string? ReferLink { get; set; }
+
+        
+        public bool? hasUserAccepted { get; set; }
         public int? Version { get; set; }
 
         public bool? isActive { get; set; }

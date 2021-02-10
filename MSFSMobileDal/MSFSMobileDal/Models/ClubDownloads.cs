@@ -1,29 +1,23 @@
-﻿using System;
+﻿using MSFSAddonsHub.Dal.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MSFSAddonsHub.Dal.Models
 {
-   public  class FlightRoutes
+    public class ClubDownloads
     {
-
-        
         public int Id { get; set; }
-
-        
-
-        public string? ICAOCode { get; set; }
-
-        public string? AirportName { get; set; }
-
         public Guid? TeannatId { get; set; }
-
+        public Guid? ClubId { get; set; }
 
         public Guid? UserId { get; set; }
-        public int? ClubId { get; set; }
+        public string? Name { get; set; }
 
-        public string? ThumbNail { get; set; }
-        public int? Version { get; set; }
+        public string? Description { get; set; }
+        public int? FlightId { get; set; }
+
+        public FileManger? File { get; set; }
 
         public bool? isActive { get; set; }
 
@@ -32,5 +26,6 @@ namespace MSFSAddonsHub.Dal.Models
         public DateTime? CreatedDate { get; set; }
 
         public string? CreatedBy { get; set; }
+
     }
 }

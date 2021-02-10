@@ -31,7 +31,11 @@ namespace MSFSAddonsHub.Web.Controllers
             _userManager = userManager;
             GetUserId();
         }
-
+        protected async Task<Guid>? GetTennantId()
+        {
+            var tennantId =  _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.TennantId;
+            return ((Guid)(tennantId));
+        }
         protected async Task<string> GetUserName()
         {
             var userName = await _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name);

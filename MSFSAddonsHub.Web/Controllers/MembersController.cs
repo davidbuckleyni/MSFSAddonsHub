@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MSFSAddons.Models;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
 using NToastNotify;
+
 namespace MSFSAddonsHub.Web.Controllers
 {
     public class MembersController : BaseController
@@ -18,26 +19,28 @@ namespace MSFSAddonsHub.Web.Controllers
         private readonly MSFSAddonDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
-
+        public Guid UserId { get; set; }
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
         public MembersController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast) : base(httpContextAccessor, context, userManager)
         {
 
-
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
             _userManager = userManager;
             _toast = toast;
 
             userName = GetUserName().Result.ToString();
-            ViewBag.UserName = userName;
+
         }
+   
 
 
         // GET: MembersController
-        public ActionResult Index()
+        public  IActionResult Index()
         {
-            return View();
+            var tennantId = GetTennantId().Result;
+            return View(  _context.Members.Where(w => w.TennantId == tennantId).ToList());
         }
 
         // GET: MembersController/Details/5

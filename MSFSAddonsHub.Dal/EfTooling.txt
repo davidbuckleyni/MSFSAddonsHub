@@ -1,7 +1,7 @@
 ﻿
 Be in Default Warehouse.Domain Project
 
-Add-Migration 19 -OutputDir "Data/Migrations" -Context MSFSAddonDBContext
+Add-Migration 25 -OutputDir "Data/Migrations" -Context MSFSAddonDBContext
 
 
  than one DbContext was found. Specify which one to use. Use the '-Context' parameter for PowerShell commands and the '--context' parameter for dotnet commands.
@@ -11,3 +11,15 @@ Update-Database -Context MSFSAddonDBContext
 
 
 Pm< Script-Migration -Context MSFSAddonDBContext
+
+
+Test User 1 User Level 7
+Club Admin
+test1@msfsaddonshub.com
+Test12345!
+
+
+Member User Level 6
+Test User 2
+test2@msfsaddonshub.com
+Test12345!

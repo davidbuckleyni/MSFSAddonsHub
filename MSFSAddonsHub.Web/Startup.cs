@@ -23,7 +23,7 @@ using Microsoft.IdentityModel.Protocols;
 using MSFSAddonsHub.Web.Models;
 using Microsoft.AspNetCore.Http.Features;
 using MSFSAddons.Models.Models;
-
+ 
 namespace MSFSAddonsHub.Web
 {
     public class Startup

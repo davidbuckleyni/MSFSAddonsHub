@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using MSFSAddonsHub.Dal;
+using MSFSAddonsHub.Dal.Models;
 
 namespace MSFSAddonsHub.FL
 {

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using MSFSAddons.Models;
 using MSFSAddons.Models.Models;
 using MSFSAddonsHub.Dal;
+using MSFSAddonsHub.Dal.Models;
 using MSFSAddonsHub.FL.Interface;
 
 namespace MSFSAddonsHub.FL

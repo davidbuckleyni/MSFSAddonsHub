@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210210001030_28")]
+    partial class _28
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1085,8 +1087,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "928d5219-7f06-43d6-8f32-aa0077d28fd4",
-                            ConcurrencyStamp = "91bab6ba-a240-4dca-ac54-1adcf3f7f69a",
+                            Id = "0a32c3cf-1d07-4c59-8f06-c2d3767100f9",
+                            ConcurrencyStamp = "85696ab2-103a-4782-9143-fa3956fbcdb3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

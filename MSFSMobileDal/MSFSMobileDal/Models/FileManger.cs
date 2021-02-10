@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MSFSAddons.Models
+namespace MSFSAddonsHub.Dal.Models
 {
     public class FileManger
     {

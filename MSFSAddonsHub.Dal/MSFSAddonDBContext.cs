@@ -13,7 +13,10 @@ namespace MSFSAddonsHub.Dal
         public MSFSAddonDBContext(DbContextOptions<MSFSAddonDBContext> options)
         : base(options)
         {
+         
         }
+
+        
         public DbSet<AirPort> Airport { get; set; }
 
         public DbSet<MyAddon> UserAddons { get; set; }
@@ -25,17 +28,24 @@ namespace MSFSAddonsHub.Dal
         public DbSet<FlightRoutes> FlightsRoutes { get; set; }
 
          public DbSet<Club> Clubs { get; set; }
+        public DbSet<ClubDownloads> ClubsDownloads { get; set; }
+        public DbSet<Invites> Invites { get; set; }
+        public DbSet<FriendRequest> FriendsRequest { get; set; }
+
+        public DbSet<Friends> Friends { get; set; }
 
         public DbSet<Subscriber> Subscriber { get; set; }
         public DbSet<MyDashBoard> MyDashBoard { get; set; }
         public DbSet<Credits> Credits { get; set; }
         public DbSet<UserSettings> UserSettings { get; set; }
-        public IEnumerable<ApplicationUser> Members { get; set; }
+        public virtual IEnumerable<ApplicationUser> Members { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+            modelBuilder.Entity<Club>().Property(x => x.ClubId).HasDefaultValueSql("NEWID()");
+         // modelBuilder.Entity<ApplicationUser>().hasrem.Person).HasForeignKey(d => d.Person)
+
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
 
         }
