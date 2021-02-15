@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210212084033_32")]
+    partial class _32
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -358,35 +360,17 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("BannedEndDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("BannedStartDateTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("ClubId")
                         .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId")
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isBanned")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -394,7 +378,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("ClubUsers");
                 });
@@ -1128,8 +1112,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cf7027e8-a345-47d3-8438-a57b133a37c1",
-                            ConcurrencyStamp = "58e1fcc4-d3eb-4219-9d03-d7425973b8d6",
+                            Id = "6baaed04-e714-44df-b989-77d0af3385b6",
+                            ConcurrencyStamp = "90c8de3d-ca2e-4346-9c6d-7d3fadc2f8f7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -1267,7 +1251,7 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
 
                     b.HasOne("MSFSAddonsHub.Dal.Models.ApplicationUser", "User")
                         .WithMany("ClubUsers")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Club");
 

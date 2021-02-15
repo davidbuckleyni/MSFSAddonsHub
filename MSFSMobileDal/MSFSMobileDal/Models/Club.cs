@@ -32,6 +32,7 @@ namespace MSFSAddonsHub.Dal.Models
         public bool? isDeleted { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string? CreatedBy { get; set; }
-        public virtual List<ApplicationUser>? Members { get; set; }
+        public virtual List<ClubUsers> ClubUsers { get; set; }
+
     }
 }

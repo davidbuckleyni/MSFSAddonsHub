@@ -33,7 +33,7 @@ namespace MSFSAddonsHub.Dal
         public DbSet<FriendRequest> FriendsRequest { get; set; }
 
         public DbSet<Friends> Friends { get; set; }
-
+        public DbSet<ClubUsers> ClubUsers { get; set; }
         public DbSet<Subscriber> Subscriber { get; set; }
         public DbSet<MyDashBoard> MyDashBoard { get; set; }
         public DbSet<Credits> Credits { get; set; }
@@ -44,9 +44,10 @@ namespace MSFSAddonsHub.Dal
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Club>().Property(x => x.ClubId).HasDefaultValueSql("NEWID()");
-         // modelBuilder.Entity<ApplicationUser>().hasrem.Person).HasForeignKey(d => d.Person)
-
+       
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
+            
+
 
         }
         public void AddSubscriber (Subscriber sub)

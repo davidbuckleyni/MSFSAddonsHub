@@ -15,7 +15,7 @@ using NToastNotify;
 
 namespace MSFSAddonsHub.Web.Controllers
 {
-    public class ClubsController : BaseController
+    public class ClubMembersController : BaseController
     {
         private readonly MSFSAddonDBContext _context;
         private readonly IToastNotification _toast;
@@ -26,7 +26,7 @@ namespace MSFSAddonsHub.Web.Controllers
 
 
 
-        public ClubsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast) : base(httpContextAccessor, context, userManager)
+        public ClubMembersController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast) : base(httpContextAccessor, context, userManager)
         {
 
 
@@ -37,10 +37,18 @@ namespace MSFSAddonsHub.Web.Controllers
             userName = GetUserName().Result.ToString();
             ViewBag.UserName = userName;
         }
-   
+        /// <summary>
+        /// Admin Managment page for the clubs
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> Manage()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> ClubRoles()
         {
-            var query = await _context.ClubUsers.Include(c=>c.Role).Where(w=>w.isActive ==true && w.isDeleted==false).ToListAsync();            
+            var query = await _context.ClubUsers.Include(c => c.Role).Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
 
             return View(query);
 
@@ -50,12 +58,14 @@ namespace MSFSAddonsHub.Web.Controllers
             var tennantId = GetTennantId().Result;
             Guid.TryParse(UserId.ToString().ToUpper(), out Guid guidResult);
 
-            var club = await _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
+            var club = await _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
+
+            var clubSql = _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.isActive == true && w.isDeleted == false).ToQueryString();
             return View(club);
         }
 
 
- 
+
 
         // GET: Clubs/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -100,19 +110,20 @@ namespace MSFSAddonsHub.Web.Controllers
         }
 
         // GET: Clubs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
 
-            var option = new CookieOptions();
-            option.Expires = DateTime.Now.AddMinutes(10);
-            Response.Cookies.Append("ClubId", id.ToString(), option);
-
+       
+            // 
             if (id == null)
             {
                 return NotFound();
             }
 
-            var club = await _context.Clubs.FindAsync(id);
+            var club = await _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.User.Id == id).FirstOrDefaultAsync();
+           await  PopulateViewBags();
+
+            var userRolesNotIn = _context.ClubUsers.Include(c => c.Role).Where(w => w.User.Id == id).ToList();
             if (club == null)
             {
                 return NotFound();
@@ -120,39 +131,47 @@ namespace MSFSAddonsHub.Web.Controllers
             return View(club);
         }
 
+        public async  Task<int> PopulateViewBags()
+        {
+
+
+            var clubRoles = _context.Roles.Where(w => w.Name.Contains("Club")).ToList();
+
+            ViewBag.ClubRoles = clubRoles;
+            var result = 2;
+            return result;
+        }
+
         // POST: Clubs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TeannatId,UserId,Name,Description,Url,Logo,ThumbNail,BannedTime,BanPeriod,isBanned,isActive,isDeleted,CreatedDate,CreatedBy")] Club club)
+        public async Task<IActionResult> Submit(ClubUsers clubUsers)
         {
-            if (id != club.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(club);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ClubExists(club.Id))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(clubUsers);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!ClubExists(clubUsers.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(club);
+        
+           await  PopulateViewBags();
+            return View(@"~/Views/ClubMembers/Edit.cshtml", clubUsers);
         }
 
         // GET: Clubs/Delete/5
@@ -184,7 +203,7 @@ namespace MSFSAddonsHub.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClubExists(int id)
+        private bool ClubExists(int? id)
         {
             return _context.Clubs.Any(e => e.Id == id);
         }

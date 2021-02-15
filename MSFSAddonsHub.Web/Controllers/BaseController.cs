@@ -50,5 +50,16 @@ namespace MSFSAddonsHub.Web.Controllers
 
         }
 
+        public bool isClubAdmin { get; set; }
+        private  bool isCurrentUserClubAdmin()
+        {
+
+            var clubId = Convert.ToInt32(Request.Cookies["ClubId"]);
+            isClubAdmin= _context.ClubUsers.Any(w => w.User.Id == UserId.ToString() && w.ClubId== clubId && w.Role.Name.Contains("ClubSuperAdmin"));
+            return isClubAdmin;
+
+
+        }
+
     }
 }

@@ -1,0 +1,66 @@
+﻿@model List<MSFSAddonsHub.Dal.Models.ClubUsers>
+@using MSFSAddonsHub.Dal.Models
+
+
+@{
+    ViewData["Title"] = "Memeber Managment";
+    Layout = "~/Themes/DashBoard/_Layout.cshtml";
+
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().User.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().User.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().User.Email)
+            </th>
+            <th>
+                User Type
+            </th>
+            <th>
+                Role
+            </th>
+        </tr>
+    </thead>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserType)
+                @if (item.User.UserType == (int)ApplicationUser.UserTypeEnum.ClubAdmin)
+                {
+
+
+                }
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Name)
+            </td>
+            <td>
+                <a asp-action="Edit"  asp-route-id="@item.User.Id"><span class="fa fa-pencil fa-2x"></span></a> |
+                <a asp-action="Delete" asp-route-id="@item.User.Id"><span class="fa fa-trash-o fa-2x"></span></a> |
+
+            </td>
+        </tr>
+    }
+</table>
+
+

@@ -4,20 +4,37 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210211104516_31")]
+    partial class _31
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("ApplicationUserClub", b =>
+                {
+                    b.Property<int>("ClubsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MembersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ClubsId", "MembersId");
+
+                    b.HasIndex("MembersId");
+
+                    b.ToTable("ApplicationUserClub");
+                });
 
             modelBuilder.Entity("MSFSAddons.Models.AirPort", b =>
                 {
@@ -349,54 +366,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasIndex("FileId");
 
                     b.ToTable("ClubsDownloads");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ClubUsers", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("BannedEndDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("BannedStartDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isBanned")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClubId");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ClubUsers");
                 });
 
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Credits", b =>
@@ -1128,8 +1097,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cf7027e8-a345-47d3-8438-a57b133a37c1",
-                            ConcurrencyStamp = "58e1fcc4-d3eb-4219-9d03-d7425973b8d6",
+                            Id = "7fc597f9-e008-4497-9fbc-53e1b80b34c7",
+                            ConcurrencyStamp = "572b670d-59a7-4bfe-971f-c3c950e2c6f0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -1239,6 +1208,21 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ApplicationUserClub", b =>
+                {
+                    b.HasOne("MSFSAddonsHub.Dal.Models.Club", null)
+                        .WithMany()
+                        .HasForeignKey("ClubsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MSFSAddonsHub.Dal.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("MembersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MSFSAddons.Models.Badges", b =>
                 {
                     b.HasOne("MSFSAddonsHub.Dal.Models.ApplicationUser", null)
@@ -1253,27 +1237,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .HasForeignKey("FileId");
 
                     b.Navigation("File");
-                });
-
-            modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ClubUsers", b =>
-                {
-                    b.HasOne("MSFSAddonsHub.Dal.Models.Club", "Club")
-                        .WithMany("ClubUsers")
-                        .HasForeignKey("ClubId");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId");
-
-                    b.HasOne("MSFSAddonsHub.Dal.Models.ApplicationUser", "User")
-                        .WithMany("ClubUsers")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Club");
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.FileManger", b =>
@@ -1390,14 +1353,10 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Badges");
-
-                    b.Navigation("ClubUsers");
                 });
 
             modelBuilder.Entity("MSFSAddonsHub.Dal.Models.Club", b =>
                 {
-                    b.Navigation("ClubUsers");
-
                     b.Navigation("Flights");
                 });
 

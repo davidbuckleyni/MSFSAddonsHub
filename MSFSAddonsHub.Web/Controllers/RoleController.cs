@@ -25,6 +25,7 @@ namespace Warehouse.Web.Controllers {
 
         public IActionResult Create() => View();
 
+
         [HttpPost]
         public async Task<IActionResult> Create([Required] string name) {
             if (ModelState.IsValid) {
