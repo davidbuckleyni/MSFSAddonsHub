@@ -147,12 +147,17 @@ namespace MSFSAddonsHub.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Submit(ClubUsers clubUsers)
+        public async Task<IActionResult> Submit(int id, ClubUsers clubUsers)
         {
+
+            var test = clubUsers;
+              if (query != null)
+                clubUsers = query;
                 if (ModelState.IsValid)
                 {
                     try
                     {
+         
                         _context.Update(clubUsers);
                         await _context.SaveChangesAsync();
                     }
@@ -169,8 +174,8 @@ namespace MSFSAddonsHub.Web.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-        
-           await  PopulateViewBags();
+            
+                       await  PopulateViewBags();
             return View(@"~/Views/ClubMembers/Edit.cshtml", clubUsers);
         }
 
