@@ -22,13 +22,16 @@ namespace MSFSAddonsHub.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private MSFSAddonDBContext context;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private RoleManager<IdentityRole> roleManager;
 
-        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager)
+        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleMgr)
         {
             _httpContextAccessor = httpContextAccessor;
+            roleManager = roleMgr;
 
             _context = context;
             _userManager = userManager;
+            
             GetUserId();
         }
         protected async Task<Guid>? GetTennantId()
@@ -45,11 +48,21 @@ namespace MSFSAddonsHub.Web.Controllers
         protected void GetUserId()
         {
             var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.Id;
+
             Guid.TryParse(userId, out Guid userIdResult);
             UserId = userIdResult;
 
         }
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.Id;
+            var FirstName = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.FirstName;
+            var LastName = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.LastName;
+            ViewBag.Initials = FirstName.Substring(0, 1) + " " + LastName.Substring(0, 1);
+            ViewBag.FullName = FirstName + " " + LastName;
+            base.OnActionExecuting(filterContext);
 
+        }
         public bool isClubAdmin { get; set; }
         private  bool isCurrentUserClubAdmin()
         {

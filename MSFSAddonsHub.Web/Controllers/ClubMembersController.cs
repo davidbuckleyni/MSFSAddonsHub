@@ -23,12 +23,15 @@ namespace MSFSAddonsHub.Web.Controllers
 
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
+        private RoleManager<IdentityRole> roleManager;
 
 
 
-        public ClubMembersController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast) : base(httpContextAccessor, context, userManager)
+        public ClubMembersController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
         {
+            roleManager = roleMgr;
 
+            _httpContextAccessor = httpContextAccessor;
 
             _context = context;
             _userManager = userManager;
@@ -36,6 +39,7 @@ namespace MSFSAddonsHub.Web.Controllers
 
             userName = GetUserName().Result.ToString();
             ViewBag.UserName = userName;
+             
         }
         /// <summary>
         /// Admin Managment page for the clubs
@@ -61,13 +65,14 @@ namespace MSFSAddonsHub.Web.Controllers
             var club = await _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
 
             var clubSql = _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.isActive == true && w.isDeleted == false).ToQueryString();
+         
             return View(club);
         }
 
 
 
 
-        // GET: Clubs/Details/5
+        // GET: ClubsMembers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -85,9 +90,10 @@ namespace MSFSAddonsHub.Web.Controllers
             return View(club);
         }
 
-        // GET: Clubs/Create
-        public IActionResult Create()
+        // GET: ClubsMembers/Create
+        public async Task<IActionResult> Create()
         {
+        
             return View();
         }
 
@@ -113,7 +119,7 @@ namespace MSFSAddonsHub.Web.Controllers
         public async Task<IActionResult> Edit(string? id)
         {
 
-       
+
             // 
             if (id == null)
             {
@@ -121,8 +127,7 @@ namespace MSFSAddonsHub.Web.Controllers
             }
 
             var club = await _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.User.Id == id).FirstOrDefaultAsync();
-           await  PopulateViewBags();
-
+ 
             var userRolesNotIn = _context.ClubUsers.Include(c => c.Role).Where(w => w.User.Id == id).ToList();
             if (club == null)
             {
@@ -130,52 +135,44 @@ namespace MSFSAddonsHub.Web.Controllers
             }
             return View(club);
         }
-
-        public async  Task<int> PopulateViewBags()
-        {
-
-
-            var clubRoles = _context.Roles.Where(w => w.Name.Contains("Club")).ToList();
-
-            ViewBag.ClubRoles = clubRoles;
-            var result = 2;
-            return result;
-        }
+ 
 
         // POST: Clubs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Submit(int id, ClubUsers clubUsers)
+        public async Task<IActionResult> Edit([Bind("Id,ClubId,Club,RoleId,UserId,BannedStartDateTime,BannedEndDateTime,isBanned,isActive")] ClubUsers clubUsers)
         {
+            IdentityRole role = await roleManager.FindByIdAsync(clubUsers.RoleId);
+            ApplicationUser? user = _userManager.Users.Where(w => w.Id == clubUsers.UserId).FirstOrDefault();
 
+            clubUsers.Role = role;
+            clubUsers.User = user;
             var test = clubUsers;
-              if (query != null)
-                clubUsers = query;
-                if (ModelState.IsValid)
+
+            if (ModelState.IsValid)
+            {
+                try
                 {
-                    try
-                    {
-         
-                        _context.Update(clubUsers);
-                        await _context.SaveChangesAsync();
-                    }
-                    catch (DbUpdateConcurrencyException)
-                    {
-                        if (!ClubExists(clubUsers.Id))
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                    return RedirectToAction(nameof(Index));
+
+                    _context.Update(clubUsers);
+                    await _context.SaveChangesAsync();
                 }
-            
-                       await  PopulateViewBags();
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ClubExists(clubUsers.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+ 
             return View(@"~/Views/ClubMembers/Edit.cshtml", clubUsers);
         }
 

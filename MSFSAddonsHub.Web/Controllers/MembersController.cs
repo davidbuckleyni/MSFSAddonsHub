@@ -22,7 +22,7 @@ namespace MSFSAddonsHub.Web.Controllers
         public Guid UserId { get; set; }
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
-        public MembersController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast) : base(httpContextAccessor, context, userManager)
+        public MembersController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
         {
 
             _httpContextAccessor = httpContextAccessor;

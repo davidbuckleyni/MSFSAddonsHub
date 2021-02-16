@@ -22,16 +22,34 @@ namespace MSFSAddonsHub.Web.Controllers
         public Guid UserId { get; set; }
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
-       public MyDashBoardController(IHttpContextAccessor httpContextAccessor,MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast)   :base(httpContextAccessor,context,userManager)
-         {
+        private RoleManager<IdentityRole> roleManager;
+
+        public MyDashBoardController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
+        {
 
             _httpContextAccessor = httpContextAccessor;
             _context = context;
             _userManager = userManager;
             _toast = toast;
-  
+            roleManager = roleMgr;
+
             userName = GetUserName().Result.ToString();
-           
+            PopulateViewBags();
+        }
+
+
+        public async Task<int> PopulateViewBags()
+        {
+            var FirstName = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.FirstName.Substring(0, 1);
+            var LastName = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.LastName.Substring(0, 1);
+            ViewBag.Initials = FirstName + " " + LastName;
+
+
+            var clubRoles = _context.Roles.Where(w => w.Name.Contains("Club")).ToList();
+
+            ViewBag.ClubRoles = clubRoles;
+            var result = 2;
+            return result;
         }
         public async Task<IActionResult> MyClub()
         {
@@ -47,13 +65,13 @@ namespace MSFSAddonsHub.Web.Controllers
         public async Task<IActionResult> Index()
         {
             _toast.AddWarningToastMessage("This is a test to see this works");
-            
+            await PopulateViewBags();
             return View(await _context.MyDashBoard.ToListAsync());
         }
         public async Task<IActionResult> Profile()
         {
-            ViewBag.UserName = userName;           
-            
+            ViewBag.UserName = userName;
+            await PopulateViewBags();
             return View(await _context.MyDashBoard.Where(w=>w.UserId== UserId && w.isActive==true && w.isDeleted==false ).FirstOrDefaultAsync());
         }
 

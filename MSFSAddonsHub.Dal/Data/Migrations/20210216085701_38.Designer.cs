@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210216085701_38")]
+    partial class _38
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,9 +114,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("AvatarImage")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ClubId")
                         .HasColumnType("uniqueidentifier");
@@ -360,9 +359,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Avatar")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("BannedEndDateTime")
                         .HasColumnType("datetime2");
@@ -1134,8 +1130,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6220cd5d-6420-4a82-9cd5-7f893fd5f854",
-                            ConcurrencyStamp = "eb09bb91-155b-4cab-affb-e4241742572b",
+                            Id = "c03b6b47-44e8-45ea-a78f-f6123bac7c81",
+                            ConcurrencyStamp = "f40654c4-03f0-4480-9acd-ab6664d5458a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

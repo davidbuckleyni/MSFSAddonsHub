@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
+using NToastNotify;
 
 namespace MSFSAddonsHub.Web.Controllers
 {
@@ -19,9 +20,13 @@ namespace MSFSAddonsHub.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private MSFSAddonDBContext context;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private RoleManager<IdentityRole> roleManager;
 
-        public MyAddonsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager) : base(httpContextAccessor, context, userManager)
+        public MyAddonsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
         {
+            roleManager = roleMgr;
+
+  
 
             _httpContextAccessor = httpContextAccessor;
             _context = context;

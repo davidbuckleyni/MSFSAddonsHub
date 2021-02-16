@@ -24,11 +24,13 @@ namespace MSFSAddonsHub.Web.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
 
+        private RoleManager<IdentityRole> roleManager;
 
 
-        public ClubsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast) : base(httpContextAccessor, context, userManager)
+
+        public ClubsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager,roleMgr)
         {
-
+            roleManager = roleMgr;
 
             _context = context;
             _userManager = userManager;

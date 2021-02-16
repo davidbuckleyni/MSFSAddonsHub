@@ -12,6 +12,11 @@ namespace MSFSAddonsHub.Dal.Models
         [Key]
         public int? Id { get; set; }
           public int? ClubId { get; set; }
+        public String? UserId { get; set; }
+
+
+        public string? Avatar { get; set; }
+
         public ApplicationUser? User { get; set; }
         public Club? Club { get; set; }
         public string? RoleId { get; set; }

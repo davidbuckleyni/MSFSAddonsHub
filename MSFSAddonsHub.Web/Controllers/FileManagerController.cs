@@ -39,11 +39,14 @@ namespace MSFSAddonsHub.Web.Controllers
 
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
-        public FileManagerController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, IHostingEnvironment environment, IOptions<AppSettings> appSettings, IConfiguration configRoot
-) : base(httpContextAccessor, context, userManager)
+        private RoleManager<IdentityRole> roleManager;
+
+        public FileManagerController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, IHostingEnvironment environment, IOptions<AppSettings> appSettings, IConfiguration configRoot, RoleManager<IdentityRole> roleMgr
+) : base(httpContextAccessor, context, userManager,roleMgr)
         {
             hostingEnvironment = environment;
             _configRoot = (IConfigurationRoot)configRoot;
+            roleManager = roleMgr;
 
 
             _httpContextAccessor = httpContextAccessor;

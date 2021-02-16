@@ -6,61 +6,103 @@
     ViewData["Title"] = "Memeber Managment";
     Layout = "~/Themes/DashBoard/_Layout.cshtml";
 
-}
+} 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.First().User.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().User.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().User.Email)
-            </th>
-            <th>
-                User Type
-            </th>
-            <th>
-                Role
-            </th>
-        </tr>
-    </thead>
+<div class="pull-right">
+    <a class="btn bg-blue" href="/ClubMembers/Create">
+        <i class="fa fa-plus-square"></i>
+        Add new
+    </a>
+    <button type="submit" name="download-catalog-pdf" class="btn bg-purple" formaction="/ClubMembers/Invite">
+        <i class="fa fa-envelope-open-text"></i>
+      Invite Member
+    </button>
+    <div class="btn-group">
+        <button type="button" class="btn btn-success">
+            <i class="fa fa-download"></i>
+            Export
+        </button>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">&nbsp;</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <button type="submit" name="exportxml-all" formaction="/Admin/Product/ExportToXml">
+                    <i class="fa fa-file-code-o"></i>
+                    Export to XML (all found)
+                </button>
+            </li>
+            <li>
+                <button type="button" id="exportxml-selected">
+                    <i class="fa fa-file-code-o"></i>
+                    Export to XML (selected)
+                </button>
+            </li>
+            </ul>
+            </div>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                           Avatar
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().User.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().User.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().User.Email)
+                        </th>
+                        <th>
+                            User Type
+                        </th>
+                        <th>
+                            Role
+                        </th>
+                    </tr>
+                </thead>
 
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserType)
-                @if (item.User.UserType == (int)ApplicationUser.UserTypeEnum.ClubAdmin)
+                @foreach (var item in Model)
                 {
+            <tr>
+                <td>
+                    @item.User.FirstName.Substring(0,1) + @item.User.LastName.Substring(0,1)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserType)
+                    @if (item.User.UserType == (int)ApplicationUser.UserTypeEnum.ClubAdmin)
+                    {
 
 
+                    }
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.User.Id"><span class="fa fa-pencil fa-2x"></span></a> |
+                    <a asp-action="Delete" asp-route-id="@item.User.Id"><span class="fa fa-trash-o fa-2x"></span></a> |
+
+                </td>
+            </tr>
                 }
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Role.Name)
-            </td>
-            <td>
-                <a asp-action="Edit"  asp-route-id="@item.User.Id"><span class="fa fa-pencil fa-2x"></span></a> |
-                <a asp-action="Delete" asp-route-id="@item.User.Id"><span class="fa fa-trash-o fa-2x"></span></a> |
-
-            </td>
-        </tr>
-    }
-</table>
+            </table>
 
 
