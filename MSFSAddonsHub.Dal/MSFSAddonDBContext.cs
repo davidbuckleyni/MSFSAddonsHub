@@ -29,7 +29,7 @@ namespace MSFSAddonsHub.Dal
 
          public DbSet<Club> Clubs { get; set; }
         public DbSet<ClubDownloads> ClubsDownloads { get; set; }
-        public DbSet<Invites> Invites { get; set; }
+        public DbSet<ClubInvites> ClubInvites { get; set; }
         public DbSet<FriendRequest> FriendsRequest { get; set; }
 
         public DbSet<Friends> Friends { get; set; }

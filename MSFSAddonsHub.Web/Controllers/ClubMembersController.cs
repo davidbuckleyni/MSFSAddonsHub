@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -25,21 +26,22 @@ namespace MSFSAddonsHub.Web.Controllers
         public string userName { get; set; }
         private RoleManager<IdentityRole> roleManager;
 
+        private readonly IEmailSender _emailSender;
 
 
-        public ClubMembersController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
+        public ClubMembersController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr, IEmailSender emailSender) : base(httpContextAccessor, context, userManager, roleMgr)
         {
             roleManager = roleMgr;
 
             _httpContextAccessor = httpContextAccessor;
-
+            _emailSender = emailSender;
             _context = context;
             _userManager = userManager;
             _toast = toast;
 
             userName = GetUserName().Result.ToString();
             ViewBag.UserName = userName;
-             
+
         }
         /// <summary>
         /// Admin Managment page for the clubs
@@ -65,10 +67,37 @@ namespace MSFSAddonsHub.Web.Controllers
             var club = await _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
 
             var clubSql = _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.isActive == true && w.isDeleted == false).ToQueryString();
-         
+
             return View(club);
         }
 
+
+        public void Invite()
+        {
+
+            string html = "<table width=\"100 %\" cellspacing=\"0\" cellpadding=\"0\">";
+            html = html + "<tr>";
+            html = html + "<td>";
+
+            html = html + "<table cellspacing = \"0\" cellpadding = \"0\" >";
+            html = html + "<tr>";
+
+            html = html + "< td class=\"button\" bgcolor=\"#ED2939\">";
+            html = html + "<a class=\"link\" href=\"https://www.copernica.com\" target=\"_blank\">";
+            html = html + "Accept Invite</a>";
+            html = html + "</table>";
+            html = html + "</td></tr></table>";
+
+
+            _emailSender.SendEmailAsync("davidbukleyweb@outlook.com", "Club invite", html);
+
+              
+
+
+
+
+
+        }
 
 
 
@@ -93,7 +122,7 @@ namespace MSFSAddonsHub.Web.Controllers
         // GET: ClubsMembers/Create
         public async Task<IActionResult> Create()
         {
-        
+
             return View();
         }
 
@@ -127,7 +156,7 @@ namespace MSFSAddonsHub.Web.Controllers
             }
 
             var club = await _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.User.Id == id).FirstOrDefaultAsync();
- 
+
             var userRolesNotIn = _context.ClubUsers.Include(c => c.Role).Where(w => w.User.Id == id).ToList();
             if (club == null)
             {
@@ -135,7 +164,7 @@ namespace MSFSAddonsHub.Web.Controllers
             }
             return View(club);
         }
- 
+
 
         // POST: Clubs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -172,7 +201,7 @@ namespace MSFSAddonsHub.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
- 
+
             return View(@"~/Views/ClubMembers/Edit.cshtml", clubUsers);
         }
 
