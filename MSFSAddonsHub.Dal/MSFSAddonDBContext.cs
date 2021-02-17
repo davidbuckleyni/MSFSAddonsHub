@@ -31,9 +31,10 @@ namespace MSFSAddonsHub.Dal
         public DbSet<ClubDownloads> ClubsDownloads { get; set; }
         public DbSet<ClubInvites> ClubInvites { get; set; }
         public DbSet<FriendRequest> FriendsRequest { get; set; }
+        public DbSet<Notifications> Notifications { get; set; }
 
         public DbSet<Friends> Friends { get; set; }
-        public DbSet<ClubUsers> ClubUsers { get; set; }
+        public DbSet<ClubMembers> ClubMembers { get; set; }
         public DbSet<Subscriber> Subscriber { get; set; }
         public DbSet<MyDashBoard> MyDashBoard { get; set; }
         public DbSet<Credits> Credits { get; set; }
@@ -44,9 +45,14 @@ namespace MSFSAddonsHub.Dal
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Club>().Property(x => x.ClubId).HasDefaultValueSql("NEWID()");
-       
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
             
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubSuperAdmin", NormalizedName = "SuperAdmin".ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubMod", NormalizedName = "ClubMod".ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubUser", NormalizedName = "ClubUser".ToUpper() });
+
+
 
 
         }

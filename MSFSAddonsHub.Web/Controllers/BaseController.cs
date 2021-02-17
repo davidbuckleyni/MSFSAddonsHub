@@ -33,6 +33,7 @@ namespace MSFSAddonsHub.Web.Controllers
             _userManager = userManager;
             
             GetUserId();
+            GetEmailAddress();
         }
         protected async Task<Guid>? GetTennantId()
         {
@@ -53,6 +54,26 @@ namespace MSFSAddonsHub.Web.Controllers
             UserId = userIdResult;
 
         }
+
+        public Guid? ClubId { get; set; }
+        protected void GetClubId()
+        {
+            var clubId =  _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.ClubId;
+            ClubId = clubId;
+            
+
+        }
+
+
+        public string Email { get; set; }
+        protected void GetEmailAddress()
+        {
+            Email = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.NormalizedEmail.ToLower();
+
+            
+            
+
+        }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.Id;
@@ -67,8 +88,8 @@ namespace MSFSAddonsHub.Web.Controllers
         private  bool isCurrentUserClubAdmin()
         {
 
-            var clubId = Convert.ToInt32(Request.Cookies["ClubId"]);
-            isClubAdmin= _context.ClubUsers.Any(w => w.User.Id == UserId.ToString() && w.ClubId== clubId && w.Role.Name.Contains("ClubSuperAdmin"));
+            
+            isClubAdmin= _context.ClubMembers.Any(w => w.User.Id == UserId.ToString() && w.MemeberOfClub== ClubId && w.Role.Name.Contains("ClubSuperAdmin"));
             return isClubAdmin;
 
 

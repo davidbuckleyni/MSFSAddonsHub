@@ -4,14 +4,16 @@ using MSFSAddonsHub.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSAddonDBContext))]
-    partial class MSFSAddonDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210217124226_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,9 +238,6 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
 
                     b.Property<int?>("UserType")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserTypeText")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("isOnline")
                         .HasColumnType("bit");
@@ -1230,29 +1229,29 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a9eb4c86-ff77-47cd-bb1d-788d1119cc8c",
-                            ConcurrencyStamp = "b1a2e882-95d9-43b2-b9c9-0cc34c4175c3",
+                            Id = "4f35f00c-e4c2-47a6-b87c-5da3f232c3fb",
+                            ConcurrencyStamp = "7ac6f95e-0854-44c8-9a1e-2a2a694efb0c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e1ba3ce6-eefd-4b19-a12c-ff776782e48a",
-                            ConcurrencyStamp = "edf77d84-0b47-4a10-8f81-c74f25b8dfee",
+                            Id = "f2f2b605-6f0b-4e83-87c1-a28c25e768a1",
+                            ConcurrencyStamp = "c804e673-a0e0-43b3-ba8d-d5ac24f4c220",
                             Name = "ClubSuperAdmin",
                             NormalizedName = "SUPERADMIN"
                         },
                         new
                         {
-                            Id = "234c68de-25ba-469d-915e-5db6acd37827",
-                            ConcurrencyStamp = "0caa9699-e464-4196-a041-2bdcb7f5a662",
+                            Id = "01c16e64-75a3-4019-b723-5c117a195f08",
+                            ConcurrencyStamp = "6969665b-c27a-4934-8b8e-6f798ca24097",
                             Name = "ClubMod",
                             NormalizedName = "CLUBMOD"
                         },
                         new
                         {
-                            Id = "6288f246-77c2-47b9-9cf6-8c529d9a29f1",
-                            ConcurrencyStamp = "339abef9-3c77-4c2f-b6a2-060339093439",
+                            Id = "f1434258-391d-4d89-a898-df216f7b75e6",
+                            ConcurrencyStamp = "2ac4900f-f296-4e97-94d6-fee94132bf9f",
                             Name = "ClubUser",
                             NormalizedName = "CLUBUSER"
                         });

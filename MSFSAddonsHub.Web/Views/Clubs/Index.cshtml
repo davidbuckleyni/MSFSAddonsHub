@@ -46,8 +46,8 @@
         <img src="@item.Logo" width="100" height="100" />
     </td>
     <td>
-        @item.ClubUsers.Count()
-        View Members
+         
+        <a  asp-action="Index" asp-controller="ClubMembers" asp-route-id="@item.Id"> <span class="fa fa-users-cog fa-2x"></span> View Members</a>
     </td>
 
     <td>

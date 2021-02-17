@@ -6,26 +6,34 @@ namespace MSFSAddonsHub.Dal.Models
 {
     public class ClubInvites
     {
-        private enum InviteEnum {
-            Invalid =1,
-            Accepted=2,
-            IncorrectToAddress =3
+        public enum InviteEnum {
+            Sent=1,
+            Invalid =2,
+            Accepted=3,
+            Declined = 4
+
             
             }
         public int Id { get; set; }
         public Guid? TeannatId { get; set; }
         public Guid? ClubId { get; set; }
+        public ApplicationUser? UserFrom { get; set; }
 
+        public ApplicationUser? UserTo { get; set; }
         public Guid? UserId { get; set; }
         public string? Name { get; set; }
 
 
-        public Guid? InviteFrom { get; set; }
+        public Guid?  From { get; set; }
 
 
-        public Guid? InviteTo { get; set; }
+        public Guid?  To { get; set; }
 
 
+        public string? FromEmail { get; set; }
+
+
+        public string? ToEmail{ get; set; }
 
         public int? Status { get; set; }
 
@@ -34,7 +42,7 @@ namespace MSFSAddonsHub.Dal.Models
 
         public DateTime? EndDate { get; set; }
 
-
+        public int? ExpiresHours { get; set; }
         public string? ReferLink { get; set; }
 
         public bool? DateUserAccepted { get; set; }

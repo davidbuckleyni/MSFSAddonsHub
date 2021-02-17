@@ -42,15 +42,14 @@ namespace MSFSAddonsHub.Web.Controllers
    
         public async Task<IActionResult> ClubRoles()
         {
-            var query = await _context.ClubUsers.Include(c=>c.Role).Where(w=>w.isActive ==true && w.isDeleted==false).ToListAsync();            
+            var query = await _context.ClubMembers.Include(c=>c.Role).Where(w=>w.isActive ==true && w.isDeleted==false).ToListAsync();            
 
             return View(query);
 
         }
         public async Task<IActionResult> Index()
         {
-            var tennantId = GetTennantId().Result;
-            Guid.TryParse(UserId.ToString().ToUpper(), out Guid guidResult);
+             Guid.TryParse(UserId.ToString().ToUpper(), out Guid guidResult);
 
             var club = await _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
             return View(club);

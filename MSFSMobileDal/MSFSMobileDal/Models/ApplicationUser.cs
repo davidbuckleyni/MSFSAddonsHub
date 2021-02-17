@@ -27,15 +27,20 @@ namespace MSFSAddonsHub.Dal.Models
         public string? LastName { get; set; }
         public string? GamerTag { get; set; }
         public bool? isOnline { get; set; }
-        public int? UserType { get; set; }
-
+       
         public string? AvatarImage { get; set; }
         public Guid? TennantId { get; set; }
         public Guid? ClubId { get; set; }
 
         public List<Badges>? Badges { get; set; }
-        public virtual List<ClubUsers> ClubUsers { get; set; }
+        public virtual List<ClubMembers> ClubUsers { get; set; }
 
+        public int? UserType { get; set; }
+
+        public string? UserTypeText { get; set; }
+
+
+        public virtual List<Notifications> Notifications { get; set; }
 
     }
 }

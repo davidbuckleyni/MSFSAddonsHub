@@ -27,11 +27,11 @@ namespace MSFSAddonsHub.Web.Helpers
         public EmailSender(IConfiguration configRoot)
         {
             _configRoot = (IConfigurationRoot)configRoot;
-            this.host = _configRoot.GetValue<string>("EmailHost");
-            this.port = Convert.ToInt32(_configRoot.GetValue<string>("EmailPort"));
-            this.enableSSL = Convert.ToBoolean(_configRoot.GetValue<string>("EnableSSL"));
-            this.userName = _configRoot.GetValue<string>("EmailUserName");
-            this.password = _configRoot.GetValue<string>("EmailPassword");
+            this.host = _configRoot.GetValue<string>("AppSettings:EmailHost");
+            this.port = Convert.ToInt32(_configRoot.GetValue<string>("AppSettings:EmailPort"));
+            this.enableSSL = Convert.ToBoolean(_configRoot.GetValue<string>("AppSettings:EnableSSL"));
+            this.userName = _configRoot.GetValue<string>("AppSettings:EmailUserName");
+            this.password = _configRoot.GetValue<string>("AppSettings:EmailPassword");
         }
 
         //
@@ -42,7 +42,7 @@ namespace MSFSAddonsHub.Web.Helpers
 
             var client = new SmtpClient(host, port)
             {
-                Credentials = new NetworkCredential(userName, password),
+                Credentials = new NetworkCredential(this.userName, this.password),
                 EnableSsl = enableSSL
             };
             return client.SendMailAsync(

@@ -30,4 +30,9 @@
     <ProjectReference Include="..\MSFSMobileDal\MSFSMobileDal\MSFSAddons.Models.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

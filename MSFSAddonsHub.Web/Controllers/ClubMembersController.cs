@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MSFSAddons.Models;
+using MSFSAddons.ViewModels;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
 using NToastNotify;
@@ -54,47 +55,90 @@ namespace MSFSAddonsHub.Web.Controllers
 
         public async Task<IActionResult> ClubRoles()
         {
-            var query = await _context.ClubUsers.Include(c => c.Role).Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
+            var query = await _context.ClubMembers.Include(c => c.Role).Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
 
             return View(query);
 
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var tennantId = GetTennantId().Result;
+            List<ClubMembers> clubsMembers = new List<ClubMembers>();
             Guid.TryParse(UserId.ToString().ToUpper(), out Guid guidResult);
+            
+            if (id == null)
+                clubsMembers = await _context.ClubMembers.Where(w => w.isActive == true && w.isDeleted == false).Include(c => c.Club).Include(c => c.Role).Include(c => c.User).ToListAsync();
+            else
+                clubsMembers = await _context.ClubMembers.Where(w => w.ClubId == id && w.isActive == true && w.isDeleted == false).Include(c => c.Club).Include(c => c.Role).Include(c => c.User).ToListAsync();
 
-            var club = await _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
 
-            var clubSql = _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.isActive == true && w.isDeleted == false).ToQueryString();
+            var clubSql = _context.ClubMembers.Where(w => w.ClubId == id && w.isActive == true && w.isDeleted == false).Include(c => c.Club).Include(c => c.Role).Include(c => c.User).ToQueryString();
 
-            return View(club);
+
+            ClubMembersViewModal clubMembersViewModal = new ClubMembersViewModal();
+            clubMembersViewModal.ClubMembers = clubsMembers;
+            
+            clubMembersViewModal.ClubInvitesViewModal = new ClubInvitesViewModel();
+            clubMembersViewModal.ClubInvitesViewModal.ClubId = ClubId;
+            clubMembersViewModal.ClubInvitesViewModal.FromMember = Email;
+            clubMembersViewModal.ClubInvitesViewModal.ToMember = "davidbuckleyweb@gmail.com";
+
+            return View(clubMembersViewModal);
         }
 
 
-        public void Invite()
+        public async Task<IActionResult> Invites(ClubInvitesViewModel invites)
         {
+            try
+            {
 
-            string html = "<table width=\"100 %\" cellspacing=\"0\" cellpadding=\"0\">";
-            html = html + "<tr>";
-            html = html + "<td>";
-
-            html = html + "<table cellspacing = \"0\" cellpadding = \"0\" >";
-            html = html + "<tr>";
-
-            html = html + "< td class=\"button\" bgcolor=\"#ED2939\">";
-            html = html + "<a class=\"link\" href=\"https://www.copernica.com\" target=\"_blank\">";
-            html = html + "Accept Invite</a>";
-            html = html + "</table>";
-            html = html + "</td></tr></table>";
+                var memberSendingInvite = await _userManager.FindByEmailAsync(invites.FromMember);
+                var memberInviteBeingSentTo = await _userManager.FindByEmailAsync(invites.ToMember);
 
 
-            _emailSender.SendEmailAsync("davidbukleyweb@outlook.com", "Club invite", html);
+                string html = "<table width=\"100 %\" cellspacing=\"0\" cellpadding=\"0\">";
+                html = html + "<tr>";
+                html = html + "<td>";
 
-              
+                html = html + "<table cellspacing = \"0\" cellpadding = \"0\" >";
+                html = html + "<tr>";
+
+                html = html + "< td class=\"button\" bgcolor=\"#ED2939\">";
+                html = html + "<a class=\"link\" href=\"https://www.msfsaddonshub.com/out/Invites" + ">";
+                html = html + "Accept Invite</a>";
+                html = html + "</table>";
+                html = html + "</td></tr></table>";
+
+
+                await _emailSender.SendEmailAsync(invites.ToMember, "Club invite", html);
+
+                ClubInvites invitesRecord = new ClubInvites();
+                Guid.TryParse(memberSendingInvite.Id, out Guid resultMemeberId);
+                invitesRecord.UserId = resultMemeberId;
+                invitesRecord.UserFrom = memberSendingInvite;
+                invitesRecord.ClubId = invites.ClubId;
+                invitesRecord.UserTo = memberInviteBeingSentTo;
+                invitesRecord.FromEmail = invites.FromMember;
+                invitesRecord.ToEmail = invites.ToMember;
+                invitesRecord.Status = (int)ClubInvites.InviteEnum.Sent;
+                _context.ClubInvites.Add(invitesRecord);
+                await _context.SaveChangesAsync();
 
 
 
+
+                _toast.AddSuccessToastMessage("Club Invite sent , they should recieve email shortly.");
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+            return View();
 
 
         }
@@ -122,8 +166,10 @@ namespace MSFSAddonsHub.Web.Controllers
         // GET: ClubsMembers/Create
         public async Task<IActionResult> Create()
         {
+            var clubMembers = await _context.ClubMembers.Include(c => c.Role).ToListAsync();
 
-            return View();
+
+            return View(clubMembers);
         }
 
         // POST: Clubs/Create
@@ -155,9 +201,9 @@ namespace MSFSAddonsHub.Web.Controllers
                 return NotFound();
             }
 
-            var club = await _context.ClubUsers.Include(c => c.Role).Include(c => c.User).Where(w => w.User.Id == id).FirstOrDefaultAsync();
+            var club = await _context.ClubMembers.Include(c => c.Role).Include(c => c.User).Where(w => w.User.Id == id).FirstOrDefaultAsync();
 
-            var userRolesNotIn = _context.ClubUsers.Include(c => c.Role).Where(w => w.User.Id == id).ToList();
+            var userRolesNotIn = _context.ClubMembers.Include(c => c.Role).Where(w => w.User.Id == id).ToList();
             if (club == null)
             {
                 return NotFound();
@@ -171,7 +217,7 @@ namespace MSFSAddonsHub.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,ClubId,Club,RoleId,UserId,BannedStartDateTime,BannedEndDateTime,isBanned,isActive")] ClubUsers clubUsers)
+        public async Task<IActionResult> Edit([Bind("Id,ClubId,Club,RoleId,UserId,BannedStartDateTime,BannedEndDateTime,isBanned,isActive")] ClubMembers clubUsers)
         {
             IdentityRole role = await roleManager.FindByIdAsync(clubUsers.RoleId);
             ApplicationUser? user = _userManager.Users.Where(w => w.Id == clubUsers.UserId).FirstOrDefault();
