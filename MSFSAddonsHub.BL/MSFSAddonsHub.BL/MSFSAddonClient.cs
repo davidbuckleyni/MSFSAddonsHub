@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MSFSAddons.Models.Models;
 using Microsoft.Extensions.Configuration;
+using MSFSAddons.Dal.ViewModels;
 
 namespace MSFSAddonsHub.BL
 {

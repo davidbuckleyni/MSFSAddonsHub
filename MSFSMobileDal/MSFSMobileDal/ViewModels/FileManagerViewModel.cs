@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MSFSAddons.Models.ViewModels
+namespace MSFSAddons.Dal.ViewModels
 {
    public class FileManagerViewModel
     {

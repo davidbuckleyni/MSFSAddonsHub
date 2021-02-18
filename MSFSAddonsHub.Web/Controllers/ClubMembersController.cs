@@ -9,8 +9,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MSFSAddons.Dal.ViewModels;
 using MSFSAddons.Models;
-using MSFSAddons.ViewModels;
+
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
 using NToastNotify;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace MSFSAddonsHub.Dal.Models
+namespace MSFSAddons.Dal.ViewModels
 {
    public class AirPortsViewModel
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSFSAddonsHub.Dal.Models
+namespace MSFSAddons.Dal.ViewModels
 {
    public  class MyDashBoardViewModel
     {

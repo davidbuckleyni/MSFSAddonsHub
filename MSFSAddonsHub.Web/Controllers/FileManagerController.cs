@@ -17,7 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MSFSAddons.Models;
 using MSFSAddons.Models.Models;
-using MSFSAddons.Models.ViewModels;
+using MSFSAddons.Dal.ViewModels;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
 using MSFSAddonsHub.FL;

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MSFSAddonsHub.Dal.Models
-{
-   public  class AddonsViewModel
+namespace MSFSAddons.Dal.ViewModels { 
+
+    public  class AddonsViewModel
     {
         public int Id { get; set; }
 

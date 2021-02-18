@@ -6,10 +6,10 @@ using System.Text;
 
 namespace MSFSAddons.Dal.ViewModels
 {
-  public  class ClubsViewModel
+  public  class ClubViewModel
     {
 
-        public List<Club> Clubs { get; set; }
+        public Club Club { get; set; }
 
         public List<ClubDownloads> ClubDownloads { get; set; }
     }

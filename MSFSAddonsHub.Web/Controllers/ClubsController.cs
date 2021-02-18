@@ -91,11 +91,30 @@ namespace MSFSAddonsHub.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                
+                
                 club.TeannatId = GetTennantId().Result;
                 club.ClubId = Guid.NewGuid();
+                club.isActive = true;
+                club.isDeleted = false;
                 _context.Add(club);
                 await _context.SaveChangesAsync();
+
+                ClubMembers clubMembers = new ClubMembers();
+
+                clubMembers.UserId = UserId.ToString();
+                clubMembers.ClubId = club.Id;
+                clubMembers.RoleId = "f2f2b605-6f0b-4e83-87c1-a28c25e768a1";
+                clubMembers.isActive = true;
+                clubMembers.isDeleted = false;
+
+                _context.ClubMembers.Add(clubMembers);
+                await _context.SaveChangesAsync();
+
+                _toast.AddSuccessToastMessage("Club Created");
+
                 return RedirectToAction(nameof(Index));
+
             }
             return View(club);
         }

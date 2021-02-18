@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using MSFSAddons.Models.Models;
+using MSFSAddons.Dal.ViewModels;
 
 namespace MSFSAddonsHub.Dal
 {

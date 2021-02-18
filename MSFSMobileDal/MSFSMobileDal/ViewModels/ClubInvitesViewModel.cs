@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MSFSAddons.ViewModels
+namespace MSFSAddons.Dal.ViewModels
 {
     public class ClubInvitesViewModel
     {

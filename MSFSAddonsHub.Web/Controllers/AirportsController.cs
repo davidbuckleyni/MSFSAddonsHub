@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MSFSAddons.Dal.ViewModels;
 using MSFSAddons.Models;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
