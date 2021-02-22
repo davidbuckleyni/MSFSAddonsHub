@@ -23,8 +23,13 @@ namespace MSFSAddonsHub.Web.Controllers
         private MSFSAddonDBContext context;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private RoleManager<IdentityRole> roleManager;
+        private UserManager<ApplicationUser> userMrg;
+        private IToastNotification toast;
+        private RoleManager<IdentityRole> roleMgr;
+        private IHttpContextAccessor httpContextAccessor;
 
-        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleMgr)
+        public ApplicationUser? AppUser { get; set; }
+        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager,  RoleManager<IdentityRole> roleMgr)
         {
             _httpContextAccessor = httpContextAccessor;
             roleManager = roleMgr;
@@ -34,7 +39,17 @@ namespace MSFSAddonsHub.Web.Controllers
             
             GetUserId();
             GetEmailAddress();
+          }
+
+        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userMrg, IToastNotification toast, RoleManager<IdentityRole> roleMgr)
+        {
+            this.httpContextAccessor = httpContextAccessor;
+            this.context = context;
+            this.userMrg = userMrg;
+            this.toast = toast;
+            this.roleMgr = roleMgr;
         }
+
         protected async Task<Guid>? GetTennantId()
         {
             var tennantId =  _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.TennantId;
@@ -63,7 +78,8 @@ namespace MSFSAddonsHub.Web.Controllers
             
 
         }
-
+ 
+      
 
         public string Email { get; set; }
         protected void GetEmailAddress()

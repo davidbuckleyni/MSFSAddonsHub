@@ -1,4 +1,4 @@
-﻿@model MSFSAddons.Dal.ViewModels.ClubsViewModel
+﻿@model MSFSAddons.Dal.ViewModels.UsersViewModel
 @using MSFSAddons.Dal.ViewModels;
 @using MSFSAddonsHub.Web.Helpers;
 @{
@@ -16,17 +16,17 @@
 <div class="pull-right">
     @if (User.IsInAnyRole(Constants.ClubUser, Constants.ClubMod))
     {
-        <a onclick="showInPopup('@Url.Action("CreateOrEdit", "Clubs", new { id = 0 }, Context.Request.Scheme)','Create Club')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i>Create Club</a>
+        <a onclick="showInPopup('@Url.Action("CreateOrEdit", "Users", new { id = 0 }, Context.Request.Scheme)','Create User')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i>Create User</a>
     }
     else
     {
-        <a class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Only Admins Create Clubs</a>
+        <a class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Only Admins Create Users</a>
     }
 
 
     <button type="button" class="btn bg-purple" data-toggle="modal" data-target="#inviteModal">
         <i class="fa fa-envelope-open-text"></i>
-        Delete Clubs
+        Delete Users
 
     </button>
 
@@ -63,64 +63,61 @@
 
 
 
-<table class="table" id="clubs-table" class="table table-strip">
+<table   id="clubs-table" class="table table-strip">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Clubs.First().Name)
+                @Html.DisplayNameFor(model => model.Users.First().FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Clubs.First().Description)
+                @Html.DisplayNameFor(model => model.Users.First().LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Clubs.First().Logo)
+                @Html.DisplayNameFor(model => model.Users.First().Email)
             </th>
             <th>
-                Members
+                Clubs Memebers of 
             </th>
         </tr>
     </thead>
 
 
-    @foreach (var item in Model.Clubs)
+    @foreach (var item in Model.Users)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </td>
 
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.Users.First().Email)
+    </td>
+
+    <td>
+        <a asp-action="Index" asp-controller="Users" asp-route-id="@item.Id"> <span class="fa fa-club fa-2x"></span> View Clubs</a>
+    </td>
+    
+    <td>
 
 
-            <td style="background-color:gray">
-                <img src="@item.Logo" width="100" height="100" />
-            </td>
-            <td>
+        <a onclick="showInPopup('@Url.Action("CreateOrEdit","Users",new {id=item.Id},Context.Request.Scheme)','Edit User')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit User</a>
+        <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+            <input type="hidden" asp-for="@item.Id" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
 
-                <a asp-action="Index" asp-controller="ClubMembers" asp-route-id="@item.Id"> <span class="fa fa-users-cog fa-2x"></span> View Members</a>
-            </td>
-
-            <td>
-
-
-                <a onclick="showInPopup('@Url.Action("CreateOrEdit","Clubs",new {id=item.Id},Context.Request.Scheme)','Edit Club')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
-
-                <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
-                    <input type="hidden" asp-for="@item.Id" />
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
-
-            </td>
-        </tr>
+    </td>
+</tr>
 
     }
-    @if (Model.Clubs.Count == 0)
+    @if (Model.Users.Count == 0)
     {
         <div class="alert alert-primary" role="alert">
-            <p>Sorry no Clubs have been created Yet.</p>
+            <p>Sorry no Users have been created Yet.</p>
         </div>
 
     }

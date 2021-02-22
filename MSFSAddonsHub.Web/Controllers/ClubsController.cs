@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MSFSAddons.Dal.ViewModels;
 using MSFSAddons.Models;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
+using MSFSAddonsHub.Web.Helpers;
 using NToastNotify;
 
 namespace MSFSAddonsHub.Web.Controllers
@@ -28,35 +30,69 @@ namespace MSFSAddonsHub.Web.Controllers
 
 
 
-        public ClubsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager,roleMgr)
+        public ClubsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
         {
             roleManager = roleMgr;
 
             _context = context;
             _userManager = userManager;
             _toast = toast;
+            _httpContextAccessor = httpContextAccessor;
 
             userName = GetUserName().Result.ToString();
             ViewBag.UserName = userName;
         }
-   
+
         public async Task<IActionResult> ClubRoles()
         {
-            var query = await _context.ClubMembers.Include(c=>c.Role).Where(w=>w.isActive ==true && w.isDeleted==false).ToListAsync();            
+            var query = await _context.ClubMembers.Include(c => c.Role).Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
 
             return View(query);
 
         }
         public async Task<IActionResult> Index()
         {
-             Guid.TryParse(UserId.ToString().ToUpper(), out Guid guidResult);
+           var test =_context.Clubs;
+            var clubs =  _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToList();
 
-            var club = await _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
-            return View(club);
+            ClubsViewModel clubViewModel = new ClubsViewModel();
+            clubViewModel.Clubs = clubs;
+
+
+            return View(clubViewModel);
         }
 
 
- 
+        [HttpGet]
+        public async Task<IActionResult> CreateOrEdit(int id = 0)
+        {
+            ClubViewModel clubViewModel = new ClubViewModel();
+
+
+            if (id == 0)
+                return View(new ClubViewModel());
+            else
+            {
+                var clubs = await _context.Clubs.FindAsync(id);
+                try
+                {
+                    clubViewModel.Club = clubs;
+                    return View(clubViewModel);
+                }
+                catch (Exception ex)
+
+                {
+                }
+                if (clubViewModel == null)
+                {
+                    return NotFound();
+                }
+            }
+
+
+
+            return View(clubViewModel);
+        }
 
         // GET: Clubs/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -91,8 +127,8 @@ namespace MSFSAddonsHub.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                
+
+
                 club.TeannatId = GetTennantId().Result;
                 club.ClubId = Guid.NewGuid();
                 club.isActive = true;
@@ -145,19 +181,81 @@ namespace MSFSAddonsHub.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TeannatId,UserId,Name,Description,Url,Logo,ThumbNail,BannedTime,BanPeriod,isBanned,isActive,isDeleted,CreatedDate,CreatedBy")] Club club)
+        public async Task<IActionResult> Submit(int id, [Bind("Id,TeannatId,UserId,Name,Description,Url,Logo,ThumbNail,BannedTime,BanPeriod,isBanned,isActive,isDeleted,CreatedDate,CreatedBy")] Club club)
         {
-            if (id != club.Id)
+            ClubsViewModel clubViewModel = new ClubsViewModel();
+
+
+            //when we are submitting a new record we wont have an id we need to trap for this.
+
+            //only admin and aboves should be allowed ot create a club even mods are not
+            if (User.IsInAnyRole(Constants.ClubUser,Constants.ClubMod) )
             {
-                return NotFound();
+
+
+                ModelState.AddModelError("Error", "A Club user cannot create a club");
+                ClubViewModel clubView = new ClubViewModel();
+                clubView.Club = club;
+                return View("CreateOrEdit", clubView);
+
             }
+            User.IsInRole("ClubMod");
+             if(club.Id==0)
+                ModelState.Remove("Club.Id");
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(club);
-                    await _context.SaveChangesAsync();
+
+
+                    //if id = zero we always want to create a new club
+                    if (id == 0)
+                    {
+
+
+
+                        club.UserId = UserId;
+                        club.isActive = true;
+                        club.isDeleted = false;
+                        club.CreatedDate = DateTime.Now;
+                        club.CreatedBy = await GetUserName();
+                        _context.Clubs.Add(club);
+                        await _context.SaveChangesAsync();
+                        clubViewModel.Clubs = await _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToListAsync();
+
+
+                        ClubMembers clubMembers = new ClubMembers();
+
+                        clubMembers.User = AppUser;
+                        clubMembers.UserId = UserId.ToString();
+
+                        clubMembers.isActive = true;
+                        clubMembers.isDeleted = false;
+                        clubMembers.CreatedBy = await GetUserName();
+                        clubMembers.CreatedDate = DateTime.Now;
+
+                        //check if club members 
+                        var clubMembersCount = _context.ClubMembers.Where(w => w.Club.Name == club.Name && w.Role.Id == Constants.ClubSuperAdmin).GroupBy(c => c.Club.Name).Where(w => w.Count() > 1).ToListAsync();
+                        IdentityRole role = await roleManager.FindByIdAsync(Constants.ClubSuperAdmin);
+                        clubMembers.Role = role;
+                        clubMembers.RoleId = role.Id;
+                        clubMembers.ClubId = club.Id;
+                        _context.ClubMembers.Add(clubMembers);
+                        await _context.SaveChangesAsync();
+                        _toast.AddSuccessToastMessage($"Club created {club.Name})");
+
+                        return View("~/Views/Clubs/Index.cshtml", clubViewModel);
+
+                    }
+                    else
+                    {
+
+                        _context.Update(club);
+                        await _context.SaveChangesAsync();
+                        _toast.AddSuccessToastMessage($"Club Updated {club.Name})");
+
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -172,7 +270,21 @@ namespace MSFSAddonsHub.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(club);
+
+            else
+
+            {
+                ClubViewModel clubView = new ClubViewModel();
+                clubView.Club = club;
+                return View("CreateOrEdit", clubView);
+            }
+
+
+           
+            
+            
+
+
         }
 
         // GET: Clubs/Delete/5

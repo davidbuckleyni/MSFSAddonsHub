@@ -2,6 +2,7 @@
 using MSFSAddonsHub.Dal.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace MSFSAddonsHub.Dal.Models
@@ -14,7 +15,10 @@ namespace MSFSAddonsHub.Dal.Models
         public Guid? TeannatId { get; set; }
         public Guid? ClubId { get; set; }
         public Guid? UserId { get; set; }
-        public string? Name { get; set; }       
+        [Required(ErrorMessage = "Please enter name")]
+
+        public string? Name { get; set; }
+        [Required(ErrorMessage = "Please enter Description")]
         public string? Description { get; set; }
         public string? Url { get; set; }
         public int? ClubLikes { get; set; }
