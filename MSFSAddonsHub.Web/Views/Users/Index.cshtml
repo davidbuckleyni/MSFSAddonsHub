@@ -103,12 +103,15 @@
     
     <td>
 
-
-        <a onclick="showInPopup('@Url.Action("CreateOrEdit","Users",new {id=item.Id},Context.Request.Scheme)','Edit User')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit User</a>
+        <form asp-action="BlockUser" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+            <input type="hidden" asp-for="@item.Id" />
+            <input type="submit" value="Block User" class="btn btn-orange" />
+        </form>
         <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
             <input type="hidden" asp-for="@item.Id" />
             <input type="submit" value="Delete" class="btn btn-danger" />
         </form>
+        <a onclick="showInPopup('@Url.Action("CreateOrEdit","Users",new {id=item.Id},Context.Request.Scheme)','Edit User')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit User</a>
 
     </td>
 </tr>

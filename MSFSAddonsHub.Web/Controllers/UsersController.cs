@@ -11,11 +11,14 @@ using MSFSAddons.Dal.ViewModels;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
 using MSFSAddonsHub.Web.Controllers;
+using MSFSAddonsHub.Web.Helpers;
 using NToastNotify;
 
-namespace Warehouse.Web.Controllers {
+namespace Warehouse.Web.Controllers
+{
 
-    public class UsersController : BaseController {
+    public class UsersController : BaseController
+    {
         private RoleManager<IdentityRole> roleManager;
         private UserManager<ApplicationUser> _userManager;
         private readonly MSFSAddonDBContext _context;
@@ -27,13 +30,29 @@ namespace Warehouse.Web.Controllers {
         {
             _httpContextAccessor = httpContextAccessor;
             roleManager = roleMgr;
-            _userManager = userManager; 
+            _userManager = userManager;
             _context = context;
-            
+
             _toast = toast;
 
         }
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+             
 
+            var clubMembers = _context.ClubMembers.Where(w => w.UserId == id).FirstOrDefault();
+            _context.ClubMembers.Remove(clubMembers);
+            await _context.SaveChangesAsync();
+             
+
+            await HelperMethods.DeleteUserAccount(_userManager,clubMembers.User.Email,_context);
+            _context.SaveChanges();
+            _toast.AddWarningToastMessage($"User has been deleted {clubMembers.User.Email}");
+
+            return RedirectToAction("Index");
+
+        }
         [HttpGet]
         public async Task<IActionResult> CreateOrEdit(string id)
         {
@@ -64,7 +83,7 @@ namespace Warehouse.Web.Controllers {
             }
         }
 
-            public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
 
 
@@ -73,15 +92,17 @@ namespace Warehouse.Web.Controllers {
             usersViewModel.Users = _userManager.Users.ToList();
 
             return View(usersViewModel);
-    }
+        }
         public ViewResult Assign() => View();
 
         public IActionResult Create() => View();
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([Required] string name) {
-            if (ModelState.IsValid) {
+        public async Task<IActionResult> Create([Required] string name)
+        {
+            if (ModelState.IsValid)
+            {
                 IdentityResult result = await roleManager.CreateAsync(new IdentityRole(name));
                 if (result.Succeeded)
                     return RedirectToAction("Index");
@@ -91,30 +112,20 @@ namespace Warehouse.Web.Controllers {
             return View(name);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(string id) {
-            IdentityRole role = await roleManager.FindByIdAsync(id);
-            if (role != null) {
-                IdentityResult result = await roleManager.DeleteAsync(role);
-                if (result.Succeeded)
-                    return RedirectToAction("Index");
-                else
-                    Errors(result);
-            } else
-                ModelState.AddModelError("", "No role found");
-            return View("Index", roleManager.Roles);
-        }
+     
 
-
-        public async Task<IActionResult> Update(string id) {
+        public async Task<IActionResult> Update(string id)
+        {
             IdentityRole role = await roleManager.FindByIdAsync(id);
             List<ApplicationUser> members = new List<ApplicationUser>();
             List<ApplicationUser> nonMembers = new List<ApplicationUser>();
-            foreach (ApplicationUser user in _userManager.Users) {
+            foreach (ApplicationUser user in _userManager.Users)
+            {
                 var list = await _userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
                 list.Add(user);
             }
-            return View(new RoleEdit {
+            return View(new RoleEdit
+            {
                 Role = role,
                 Members = members,
                 NonMembers = nonMembers
@@ -122,20 +133,26 @@ namespace Warehouse.Web.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(RoleModification model) {
+        public async Task<IActionResult> Update(RoleModification model)
+        {
             IdentityResult result;
-            if (ModelState.IsValid) {
-                foreach (string userId in model.AddIds ?? new string[] { }) {
+            if (ModelState.IsValid)
+            {
+                foreach (string userId in model.AddIds ?? new string[] { })
+                {
                     ApplicationUser user = await _userManager.FindByIdAsync(userId);
-                    if (user != null) {
+                    if (user != null)
+                    {
                         result = await _userManager.AddToRoleAsync(user, model.RoleName);
                         if (!result.Succeeded)
                             Errors(result);
                     }
                 }
-                foreach (string userId in model.DeleteIds ?? new string[] { }) {
+                foreach (string userId in model.DeleteIds ?? new string[] { })
+                {
                     ApplicationUser user = await _userManager.FindByIdAsync(userId);
-                    if (user != null) {
+                    if (user != null)
+                    {
                         result = await _userManager.RemoveFromRoleAsync(user, model.RoleName);
                         if (!result.Succeeded)
                             Errors(result);
@@ -149,7 +166,8 @@ namespace Warehouse.Web.Controllers {
                 return await Update(model.RoleId);
         }
 
-        private void Errors(IdentityResult result) {
+        private void Errors(IdentityResult result)
+        {
             foreach (IdentityError error in result.Errors)
                 ModelState.AddModelError("", error.Description);
         }
