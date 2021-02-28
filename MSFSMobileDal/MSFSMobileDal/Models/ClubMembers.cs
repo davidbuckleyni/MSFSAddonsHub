@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using MSFSAddons.Models;
 using MSFSAddonsHub.Dal.Models;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,11 @@ namespace MSFSAddonsHub.Dal.Models
         public string? Avatar { get; set; }
 
         public ApplicationUser? User { get; set; }
+        public Badges? ClubBadges { get; set; }
+
+        public ClubInvites? ClubInvites { get; set; }
+
+        public ClubLeaderBoards? ClubLeaderBoards { get; set; }
         public Club? Club { get; set; }
         public string? RoleId { get; set; }
         public IdentityRole? Role { get; set; }

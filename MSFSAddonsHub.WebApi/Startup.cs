@@ -78,7 +78,8 @@ namespace MSFSAddonsHub.WebApi
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MSFSAddonDBContext>();
             services.AddControllers();
-     
+            services.AddTransient<MSFSContextSeedData>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

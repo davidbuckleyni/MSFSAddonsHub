@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MSFSAddonsHub.Dal.Data.Migrations
 {
-    public partial class _1 : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,10 +53,11 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GamerTag = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     isOnline = table.Column<bool>(type: "bit", nullable: true),
-                    UserType = table.Column<int>(type: "int", nullable: true),
                     AvatarImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TennantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UserType = table.Column<int>(type: "int", nullable: true),
+                    UserTypeText = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -107,8 +108,8 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                     TeannatId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValueSql: "NEWID()"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClubLikes = table.Column<int>(type: "int", nullable: true),
                     ClubDislikes = table.Column<int>(type: "int", nullable: true),
@@ -528,6 +529,64 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubscriptionTierTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TeannatId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ClubId = table.Column<int>(type: "int", nullable: true),
+                    UserIdId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    isBlocked = table.Column<bool>(type: "bit", nullable: true),
+                    isActive = table.Column<bool>(type: "bit", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubscriptionTierTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubscriptionTierTypes_AspNetUsers_UserIdId",
+                        column: x => x.UserIdId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubscriptionTypesBalances",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TeannatId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ClubId = table.Column<int>(type: "int", nullable: true),
+                    UserIdId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ClubsAllowed = table.Column<int>(type: "int", nullable: true),
+                    DownloadsAllowed = table.Column<int>(type: "int", nullable: true),
+                    ModsAllowed = table.Column<int>(type: "int", nullable: true),
+                    AircraftsAllowed = table.Column<int>(type: "int", nullable: true),
+                    FlightsAllowed = table.Column<int>(type: "int", nullable: true),
+                    EventsAllowed = table.Column<int>(type: "int", nullable: true),
+                    isActive = table.Column<bool>(type: "bit", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubscriptionTypesBalances", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubscriptionTypesBalances_AspNetUsers_UserIdId",
+                        column: x => x.UserIdId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ClubMembers",
                 columns: table => new
                 {
@@ -656,6 +715,53 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubscriptionTeirs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ClubId = table.Column<int>(type: "int", nullable: true),
+                    SubscriptionTypesBalancesId = table.Column<int>(type: "int", nullable: true),
+                    Desciption = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Enabled = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    isBlocked = table.Column<bool>(type: "bit", nullable: true),
+                    SubscriptionTeirsTypeId = table.Column<int>(type: "int", nullable: true),
+                    isActive = table.Column<bool>(type: "bit", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubscriptionTeirs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubscriptionTeirs_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SubscriptionTeirs_Clubs_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Clubs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SubscriptionTeirs_SubscriptionTierTypes_SubscriptionTeirsTypeId",
+                        column: x => x.SubscriptionTeirsTypeId,
+                        principalTable: "SubscriptionTierTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SubscriptionTeirs_SubscriptionTypesBalances_SubscriptionTypesBalancesId",
+                        column: x => x.SubscriptionTypesBalancesId,
+                        principalTable: "SubscriptionTypesBalances",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FlightsRoutes",
                 columns: table => new
                 {
@@ -765,10 +871,10 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4f35f00c-e4c2-47a6-b87c-5da3f232c3fb", "7ac6f95e-0854-44c8-9a1e-2a2a694efb0c", "Admin", "ADMIN" },
-                    { "f2f2b605-6f0b-4e83-87c1-a28c25e768a1", "c804e673-a0e0-43b3-ba8d-d5ac24f4c220", "ClubSuperAdmin", "SUPERADMIN" },
-                    { "01c16e64-75a3-4019-b723-5c117a195f08", "6969665b-c27a-4934-8b8e-6f798ca24097", "ClubMod", "CLUBMOD" },
-                    { "f1434258-391d-4d89-a898-df216f7b75e6", "2ac4900f-f296-4e97-94d6-fee94132bf9f", "ClubUser", "CLUBUSER" }
+                    { "20ab180a-70cf-48b9-9315-4308b385b83f", "758c1106-f8e5-4e7e-ba19-17d917d3cdcf", "Admin", "ADMIN" },
+                    { "f95d8e54-ab12-406b-973b-ab92d4cab72a", "22d60a74-3fb2-4f89-a086-189c2b22d3b1", "ClubSuperAdmin", "SUPERADMIN" },
+                    { "65f1941d-048a-4b02-ad8e-1757e392aad8", "1cc9b255-482b-41f7-ac12-fb154e007405", "ClubMod", "CLUBMOD" },
+                    { "c2f9a56d-4e18-4d38-8eab-7a141895b049", "c518b710-4a5e-4866-8d43-0ee601eac5c5", "ClubUser", "CLUBUSER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -881,6 +987,36 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SubscriptionTeirs_ClubId",
+                table: "SubscriptionTeirs",
+                column: "ClubId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubscriptionTeirs_SubscriptionTeirsTypeId",
+                table: "SubscriptionTeirs",
+                column: "SubscriptionTeirsTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubscriptionTeirs_SubscriptionTypesBalancesId",
+                table: "SubscriptionTeirs",
+                column: "SubscriptionTypesBalancesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubscriptionTeirs_UserId",
+                table: "SubscriptionTeirs",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubscriptionTierTypes_UserIdId",
+                table: "SubscriptionTierTypes",
+                column: "UserIdId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubscriptionTypesBalances_UserIdId",
+                table: "SubscriptionTypesBalances",
+                column: "UserIdId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserAddons_AddonCategoryId",
                 table: "UserAddons",
                 column: "AddonCategoryId");
@@ -945,6 +1081,9 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                 name: "Subscriber");
 
             migrationBuilder.DropTable(
+                name: "SubscriptionTeirs");
+
+            migrationBuilder.DropTable(
                 name: "UserAddons");
 
             migrationBuilder.DropTable(
@@ -957,7 +1096,10 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
                 name: "FileManager");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "SubscriptionTierTypes");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionTypesBalances");
 
             migrationBuilder.DropTable(
                 name: "Category");
@@ -967,6 +1109,9 @@ namespace MSFSAddonsHub.Dal.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "FileFolders");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Clubs");

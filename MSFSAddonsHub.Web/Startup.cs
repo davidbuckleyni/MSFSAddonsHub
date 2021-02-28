@@ -23,7 +23,8 @@ using Microsoft.IdentityModel.Protocols;
 using MSFSAddonsHub.Web.Models;
 using Microsoft.AspNetCore.Http.Features;
 using MSFSAddons.Models.Models;
- 
+
+
 namespace MSFSAddonsHub.Web
 {
     public class Startup
@@ -131,8 +132,9 @@ namespace MSFSAddonsHub.Web
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
                 
             });
+            services.AddTransient<DatabaseSeeder>();
 
-   
+
 
         }
 
@@ -151,6 +153,7 @@ namespace MSFSAddonsHub.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+ 
     //app.UseHttpsRedirection();
     app.UseStaticFiles();
             

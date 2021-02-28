@@ -32,6 +32,9 @@ namespace MSFSAddonsHub.Dal
         public DbSet<ClubInvites> ClubInvites { get; set; }
         public DbSet<FriendRequest> FriendsRequest { get; set; }
         public DbSet<Notifications> Notifications { get; set; }
+        public DbSet<SubscriptionTeirs> SubscriptionTeirs { get; set; }
+        public DbSet<SubscriptionTierTypes> SubscriptionTierTypes { get; set; }
+        public DbSet<SubscriptionTypesBalances> SubscriptionTypesBalances { get; set; }
 
         public DbSet<Friends> Friends { get; set; }
         public DbSet<ClubMembers> ClubMembers { get; set; }
@@ -45,17 +48,25 @@ namespace MSFSAddonsHub.Dal
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Club>().Property(x => x.ClubId).HasDefaultValueSql("NEWID()");
-            
+
 
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubSuperAdmin", NormalizedName = "SuperAdmin".ToUpper() });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubMod", NormalizedName = "ClubMod".ToUpper() });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubUser", NormalizedName = "ClubUser".ToUpper() });
 
+       //     modelBuilder.ApplyConfiguration(new AdminConfiguration());
+            //modelBuilder.ApplyConfiguration(new TestUser1Seeder());
+           // modelBuilder.ApplyConfiguration(new TestUser2Seeder());
 
+        modelBuilder.ApplyConfiguration(new UsersWithRolesConfig());
 
 
         }
+
+
+
+
         public void AddSubscriber (Subscriber sub)
 
         {
