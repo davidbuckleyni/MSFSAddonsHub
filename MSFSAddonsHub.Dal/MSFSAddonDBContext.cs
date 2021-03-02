@@ -59,7 +59,7 @@ namespace MSFSAddonsHub.Dal
             //modelBuilder.ApplyConfiguration(new TestUser1Seeder());
            // modelBuilder.ApplyConfiguration(new TestUser2Seeder());
 
-        modelBuilder.ApplyConfiguration(new UsersWithRolesConfig());
+        //modelBuilder.ApplyConfiguration(new UsersWithRolesConfig());
 
 
         }

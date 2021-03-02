@@ -44,7 +44,7 @@ namespace MSFSAddonsHub.Dal
                 UserId = TestUser1Id,
             };
 
-            builder.HasData(TestUser2Roles);
+            builder.HasData(TestUser1Roles);
         }
     }
 }

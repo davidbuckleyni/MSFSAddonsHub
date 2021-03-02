@@ -39,8 +39,8 @@ namespace MSFSAddonsHub.WebApi.Controllers
             _logger = logger;
             _emailSender = emailSender;
         }
-        [HttpPost]
-        [Route("Authentication/RegisterUser")]
+          [HttpPost]
+      [Route("Authentication/RegisterUser")]
         public async Task<IActionResult> RegisterUser(User model)
         {
             List<string> errors = new List<string>();

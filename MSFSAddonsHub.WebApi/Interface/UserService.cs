@@ -71,8 +71,9 @@ namespace MSFSAddonsHub.WebApi.Services {
 
         private string generateJwtToken(User user) {
             var tokenHandler = new JwtSecurityTokenHandler();
-
             var secret = _configRoot.GetValue<string>("JWTSecret");
+
+            
             _logger.Log(LogLevel.Information,$"JWT Secret from Everleap={secret}" );
 
             var key = Encoding.ASCII.GetBytes(secret);

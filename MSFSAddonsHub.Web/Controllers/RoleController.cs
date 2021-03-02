@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
  
 using MSFSAddonsHub.Dal.Models;
 
-namespace Warehouse.Web.Controllers {
+namespace MSFSAddonsHub.Web.Controllers {
 
     public class RoleController : Controller {
         private RoleManager<IdentityRole> roleManager;
