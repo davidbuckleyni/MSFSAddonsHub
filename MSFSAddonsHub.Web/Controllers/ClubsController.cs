@@ -57,7 +57,8 @@ namespace MSFSAddonsHub.Web.Controllers
 
             ClubsViewModel clubViewModel = new ClubsViewModel();
             clubViewModel.Clubs = clubs;
-
+            clubViewModel.IsClubAdmin = isClubAdmin;
+            var userRoles = roleManager.Roles.ToList();
 
             return View(clubViewModel);
         }

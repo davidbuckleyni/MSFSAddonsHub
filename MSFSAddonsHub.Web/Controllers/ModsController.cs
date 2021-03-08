@@ -13,7 +13,7 @@ using NToastNotify;
 
 namespace MSFSAddonsHub.Web.Controllers
 {
-    public class MyAddonsController : BaseController
+    public class ModsController : BaseController
     {
         private readonly MSFSAddonDBContext _context;
 
@@ -22,7 +22,7 @@ namespace MSFSAddonsHub.Web.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private RoleManager<IdentityRole> roleManager;
 
-        public MyAddonsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
+        public ModsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
         {
             roleManager = roleMgr;
 
@@ -37,13 +37,13 @@ namespace MSFSAddonsHub.Web.Controllers
 
         public async Task<IActionResult> MyDownloads()
         {
-            return View(await _context.UserAddons.Where(w => w.UserId == UserId).ToListAsync());
+            return View(await _context.Mods.Where(w => w.UserId == UserId).ToListAsync());
         }
 
         // GET: UserAddons
         public async Task<IActionResult> Index()
         {
-            return View(await _context.UserAddons.ToListAsync());
+            return View(await _context.Mods.ToListAsync());
         }
 
         // GET: UserAddons/Details/5
@@ -54,7 +54,7 @@ namespace MSFSAddonsHub.Web.Controllers
                 return NotFound();
             }
 
-            var userAddon = await _context.UserAddons
+            var userAddon = await _context.Mods
                 .FirstOrDefaultAsync(m => m.UserId == id);
             if (userAddon == null)
             {
@@ -75,7 +75,7 @@ namespace MSFSAddonsHub.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AddONId,TeannatId,Name,Description,ConflictId,ThumbNail,Version,TotalDownloads,DownloadUrl,isZipFile,isJsonFile,DownloadJson,Category,isDisplayHomePage,isFeatured,isActive,isDeleted,CreatedDate,CreatedBy")] MyAddon userAddon)
+        public async Task<IActionResult> Create([Bind("Id,AddONId,TeannatId,Name,Description,ConflictId,ThumbNail,Version,TotalDownloads,DownloadUrl,isZipFile,isJsonFile,DownloadJson,Category,isDisplayHomePage,isFeatured,isActive,isDeleted,CreatedDate,CreatedBy")] Mods userAddon)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace MSFSAddonsHub.Web.Controllers
                 return NotFound();
             }
 
-            var userAddon = await _context.UserAddons.FindAsync(id);
+            var userAddon = await _context.Mods.FindAsync(id);
             if (userAddon == null)
             {
                 return NotFound();
@@ -107,9 +107,9 @@ namespace MSFSAddonsHub.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserAddonId,AddONId,TeannatId,Name,Description,ConflictId,ThumbNail,Version,TotalDownloads,DownloadUrl,isZipFile,isJsonFile,DownloadJson,Category,isDisplayHomePage,isFeatured,isActive,isDeleted,CreatedDate,CreatedBy")] MyAddon userAddon)
+        public async Task<IActionResult> Edit(int id, [Bind("UserAddonId,AddONId,TeannatId,Name,Description,ConflictId,ThumbNail,Version,TotalDownloads,DownloadUrl,isZipFile,isJsonFile,DownloadJson,Category,isDisplayHomePage,isFeatured,isActive,isDeleted,CreatedDate,CreatedBy")] Mods userMods)
         {
-            if (id != userAddon.Id)
+            if (id != userMods.Id)
             {
                 return NotFound();
             }
@@ -118,12 +118,12 @@ namespace MSFSAddonsHub.Web.Controllers
             {
                 try
                 {
-                    _context.Update(userAddon);
+                    _context.Update(userMods);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserAddonExists(userAddon.Id))
+                    if (!UserAddonExists(userMods.Id))
                     {
                         return NotFound();
                     }
@@ -134,7 +134,7 @@ namespace MSFSAddonsHub.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(userAddon);
+            return View(userMods);
         }
 
         // GET: UserAddons/Delete/5
@@ -145,7 +145,7 @@ namespace MSFSAddonsHub.Web.Controllers
                 return NotFound();
             }
 
-            var userAddon = await _context.UserAddons
+            var userAddon = await _context.Mods
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (userAddon == null)
             {
@@ -160,15 +160,15 @@ namespace MSFSAddonsHub.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var userAddon = await _context.UserAddons.FindAsync(id);
-            _context.UserAddons.Remove(userAddon);
+            var userAddon = await _context.Mods.FindAsync(id);
+            _context.Mods.Remove(userAddon);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserAddonExists(int id)
         {
-            return _context.UserAddons.Any(e => e.Id == id);
+            return _context.Mods.Any(e => e.Id == id);
         }
     }
 }

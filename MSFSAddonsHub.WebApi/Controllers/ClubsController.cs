@@ -126,7 +126,7 @@ namespace MSFSAddonsHub.WebApi.Controllers
                 return NotFound();
             }
 
-            var userAddon = await _context.UserAddons
+            var userAddon = await _context.Mods
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (userAddon == null)
             {
@@ -141,15 +141,15 @@ namespace MSFSAddonsHub.WebApi.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var userAddon = await _context.UserAddons.FindAsync(id);
-            _context.UserAddons.Remove(userAddon);
+            var userAddon = await _context.Mods.FindAsync(id);
+            _context.Mods.Remove(userAddon);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserAddonExists(int id)
         {
-            return _context.UserAddons.Any(e => e.Id == id);
+            return _context.Mods.Any(e => e.Id == id);
         }
     }
 }

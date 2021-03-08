@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Principal;
 using NToastNotify;
+using MSFSAddonsHub.Web.Helpers;
 
 namespace MSFSAddonsHub.Web.Controllers
 {
@@ -39,6 +40,7 @@ namespace MSFSAddonsHub.Web.Controllers
             
             GetUserId();
             GetEmailAddress();
+            IsCurrentUserClubAdmin();
           }
 
         public BaseController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userMrg, IToastNotification toast, RoleManager<IdentityRole> roleMgr)
@@ -69,7 +71,13 @@ namespace MSFSAddonsHub.Web.Controllers
             UserId = userIdResult;
 
         }
+        public bool IsClubAdmin()
+        {
+            return User.IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod);
 
+
+        }
+   
         public Guid? ClubId { get; set; }
         protected void GetClubId()
         {
@@ -101,13 +109,9 @@ namespace MSFSAddonsHub.Web.Controllers
 
         }
         public bool isClubAdmin { get; set; }
-        private  bool isCurrentUserClubAdmin()
+        private  bool IsCurrentUserClubAdmin()
         {
-
-            
-            isClubAdmin= _context.ClubMembers.Any(w => w.User.Id == UserId.ToString() && w.MemeberOfClub== ClubId && w.Role.Name.Contains("ClubSuperAdmin"));
-            return isClubAdmin;
-
+            return User.IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod);          
 
         }
 

@@ -28,7 +28,7 @@ namespace MSFSAddonsHub.Web.ViewComponents
         {
 
 
-            var test = db.UserAddons.Where(w => w.isActive == true && w.isDeleted == false).OrderBy(o => o.Version)
+            var test = db.Mods.Where(w => w.isActive == true && w.isDeleted == false).OrderBy(o => o.Version)
                 .ToList();
 
             return View(test);

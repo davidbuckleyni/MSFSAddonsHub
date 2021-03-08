@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using MSFSAddons.Dal.ViewModels;
 using MSFSAddonsHub.Dal;
 using MSFSAddonsHub.Dal.Models;
+using MSFSAddonsHub.Web;
 using MSFSAddonsHub.Web.Controllers;
 using MSFSAddonsHub.Web.Helpers;
 using NToastNotify;
@@ -90,7 +91,6 @@ namespace Warehouse.Web.Controllers
             UsersViewModel usersViewModel = new UsersViewModel();
 
             usersViewModel.Users = _userManager.Users.ToList();
-
             return View(usersViewModel);
         }
         public ViewResult Assign() => View();

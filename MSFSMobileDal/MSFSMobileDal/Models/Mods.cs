@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MSFSAddonsHub.Dal.Models
 {
-  public  class MyAddon
+  public  class Mods
     {
         public int Id { get; set; }
 
@@ -25,6 +25,9 @@ namespace MSFSAddonsHub.Dal.Models
         public Guid? TeannatId { get; set; }
         public Guid? UserId { get; set; }
 
+        public DateTime? StarDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
         public string? Name { get; set; }
 
         public string? Description { get; set; }

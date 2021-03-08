@@ -80,7 +80,7 @@ namespace MSFSAddonsHub.Web.Controllers
         {
             _toast.AddWarningToastMessage("This is a test to see this works");
 
-            return View(await _context.UserAddons.Where(w => w.UserId == UserId && w.isActive == true && w.isDeleted == false).ToListAsync());
+            return View(await _context.Mods.Where(w => w.UserId == UserId && w.isActive == true && w.isDeleted == false).ToListAsync());
         }
 
         // GET: MyProfile/Create

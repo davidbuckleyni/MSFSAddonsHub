@@ -11,11 +11,11 @@ using MSFSAddonsHub.Dal.Models;
 
 namespace MSFSAddonsHub.WebApi.Controllers
 {
-    public class UserAddonsController : Controller
+    public class ModsController : Controller
     {
         private readonly MSFSAddonDBContext _context;
 
-        public UserAddonsController(MSFSAddonDBContext context)
+        public ModsController(MSFSAddonDBContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace MSFSAddonsHub.WebApi.Controllers
         // GET: UserAddons
         public async Task<IActionResult> Index()
         {
-            return View(await _context.UserAddons.ToListAsync());
+            return View(await _context.Mods.ToListAsync());
         }
 
         // GET: UserAddons/Details/5
@@ -34,7 +34,7 @@ namespace MSFSAddonsHub.WebApi.Controllers
                 return NotFound();
             }
 
-            var userAddon = await _context.UserAddons
+            var userAddon = await _context.Mods
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (userAddon == null)
             {
@@ -74,7 +74,7 @@ namespace MSFSAddonsHub.WebApi.Controllers
                 return NotFound();
             }
 
-            var userAddon = await _context.UserAddons.FindAsync(id);
+            var userAddon = await _context.Mods.FindAsync(id);
             if (userAddon == null)
             {
                 return NotFound();
@@ -125,7 +125,7 @@ namespace MSFSAddonsHub.WebApi.Controllers
                 return NotFound();
             }
 
-            var userAddon = await _context.UserAddons
+            var userAddon = await _context.Mods
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (userAddon == null)
             {
@@ -140,15 +140,15 @@ namespace MSFSAddonsHub.WebApi.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var userAddon = await _context.UserAddons.FindAsync(id);
-            _context.UserAddons.Remove(userAddon);
+            var usrMod = await _context.Mods.FindAsync(id);
+            _context.Mods.Remove(usrMod);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserAddonExists(int id)
         {
-            return _context.UserAddons.Any(e => e.Id == id);
+            return _context.Mods.Any(e => e.Id == id);
         }
     }
 }

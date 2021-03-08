@@ -19,7 +19,7 @@ namespace MSFSAddonsHub.Dal
         
         public DbSet<AirPort> Airport { get; set; }
 
-        public DbSet<MyAddon> UserAddons { get; set; }
+        public DbSet<Mods> Mods { get; set; }
         public DbSet<FileManger> FileManager { get; set; }
 
         public DbSet<Category> Category { get; set; }
