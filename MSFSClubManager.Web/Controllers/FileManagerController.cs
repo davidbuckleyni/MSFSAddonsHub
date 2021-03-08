@@ -32,7 +32,7 @@ namespace MSFSClubManager.Web.Controllers
         private IConfiguration _configRoot;
 
 
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly AppSettings _appSettings;
@@ -41,7 +41,7 @@ namespace MSFSClubManager.Web.Controllers
         public string userName { get; set; }
         private RoleManager<IdentityRole> roleManager;
 
-        public FileManagerController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, IHostingEnvironment environment, IOptions<AppSettings> appSettings, IConfiguration configRoot, RoleManager<IdentityRole> roleMgr
+        public FileManagerController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, IHostingEnvironment environment, IOptions<AppSettings> appSettings, IConfiguration configRoot, RoleManager<IdentityRole> roleMgr
 ) : base(httpContextAccessor, context, userManager,roleMgr)
         {
             hostingEnvironment = environment;

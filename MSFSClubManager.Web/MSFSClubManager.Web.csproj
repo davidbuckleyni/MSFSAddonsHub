@@ -12,6 +12,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AutoMapper\**" />
+    <Compile Remove="Views\Invites\**" />
+    <Compile Remove="Views\Members\**" />
+    <Content Remove="AutoMapper\**" />
+    <Content Remove="Views\Invites\**" />
+    <Content Remove="Views\Members\**" />
+    <EmbeddedResource Remove="AutoMapper\**" />
+    <EmbeddedResource Remove="Views\Invites\**" />
+    <EmbeddedResource Remove="Views\Members\**" />
+    <None Remove="AutoMapper\**" />
+    <None Remove="Views\Invites\**" />
+    <None Remove="Views\Members\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\Uploads\Logos\FSMultiPlayerHub\FSMP-Hub.png" />
     <Content Remove="wwwroot\Uploads\ScaffoldingReadMe.txt" />
   </ItemGroup>
@@ -59,12 +74,6 @@
     <Content Update="wwwroot\images\logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="AutoMapper\" />
-    <Folder Include="Views\Invites\" />
-    <Folder Include="Views\Members\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MSFSClubManager.Dal
 {
-  public static   class MSFSAddonClientConstants
+  public static   class MSFSClubManagerClientConstants
     {
 
         public static string ApiUrl = "https://api-msfsaddonshub.com/";

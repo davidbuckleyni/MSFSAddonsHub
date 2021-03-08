@@ -37,12 +37,12 @@ namespace MSFSClubManager.WebApi
             services.Configure<AppSettings>(appSettingsSection);
            services.AddTransient<MSFSContextSeedData>();
 
-            services.AddDbContext<MSFSAddonDBContext>(options =>
+            services.AddDbContext<MSFSClubManagerDBContext>(options =>
            options.UseSqlServer(
                Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MSFS Addons", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MSFS Club Manager", Version = "v1" });
                 //   c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 //Expose XML comments in doc.
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -76,7 +76,7 @@ namespace MSFSClubManager.WebApi
             services.AddTransient<IEmailSender, EmailSender>();
             
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<MSFSAddonDBContext>();
+                .AddEntityFrameworkStores<MSFSClubManagerDBContext>();
             services.AddControllers();
             services.AddTransient<MSFSContextSeedData>();
 

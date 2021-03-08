@@ -11,7 +11,7 @@ namespace MSFSClubManager.Dal
 {
     public class DatabaseSeeder
     { 
-        public static async void SeedAdminUser(MSFSAddonDBContext context)
+        public static async void SeedAdminUser(MSFSClubManagerDBContext context)
 
 
         {

@@ -14,7 +14,7 @@ namespace MSFSClubManager.Dal
 {
 
 
-    public class MSFSAddonClient
+    public class MSFSClubManagerAddonClient
     {
         HttpClient client;
         HttpContent baseContent;
@@ -24,7 +24,7 @@ namespace MSFSClubManager.Dal
         private string Authenticate = "/authenticate";
 
         public JWTToken currentToken { get; set; }
-        public MSFSAddonClient()
+        public MSFSClubManagerAddonClient()
         {
             client = new HttpClient();
             currentToken = new JWTToken();

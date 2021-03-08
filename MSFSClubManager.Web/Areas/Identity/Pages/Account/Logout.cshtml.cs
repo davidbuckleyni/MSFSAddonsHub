@@ -18,11 +18,11 @@ namespace MSFSClubManager.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LogoutModel(IHttpContextAccessor httpContextAccessor ,UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, MSFSAddonDBContext context)
+        public LogoutModel(IHttpContextAccessor httpContextAccessor ,UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, MSFSClubManagerDBContext context)
         {
             _context = context;
 

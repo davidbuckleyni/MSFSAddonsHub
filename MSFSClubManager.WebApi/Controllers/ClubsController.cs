@@ -13,9 +13,9 @@ namespace MSFSClubManager.WebApi.Controllers
 {
     public class ClubsController : Controller
     {
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
 
-        public ClubsController(MSFSAddonDBContext context)
+        public ClubsController(MSFSClubManagerDBContext context)
         {
             _context = context;
         }

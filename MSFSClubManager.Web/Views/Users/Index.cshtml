@@ -14,7 +14,7 @@
 </style>
 
 <div class="pull-right">
-    @if (User.IsInAnyRole(Constants.ClubUser, Constants.ClubMod))
+    @if (User.IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod))
     {
         <a onclick="showInPopup('@Url.Action("CreateOrEdit", "Users", new { id = 0 }, Context.Request.Scheme)','Create User')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i>Create User</a>
     }

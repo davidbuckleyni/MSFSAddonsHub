@@ -8,9 +8,9 @@ using System.Collections.Generic;
 
 namespace MSFSClubManager.Dal
 {
-    public class MSFSAddonDBContext : IdentityDbContext<ApplicationUser>
+    public class MSFSClubManagerDBContext : IdentityDbContext<ApplicationUser>
     {
-        public MSFSAddonDBContext(DbContextOptions<MSFSAddonDBContext> options)
+        public MSFSClubManagerDBContext(DbContextOptions<MSFSClubManagerDBContext> options)
         : base(options)
         {
          
@@ -50,16 +50,16 @@ namespace MSFSClubManager.Dal
             modelBuilder.Entity<Club>().Property(x => x.ClubId).HasDefaultValueSql("NEWID()");
 
 
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubSuperAdmin", NormalizedName = "SuperAdmin".ToUpper() });
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubMod", NormalizedName = "ClubMod".ToUpper() });
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubUser", NormalizedName = "ClubUser".ToUpper() });
+            //    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
+            //    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubSuperAdmin", NormalizedName = "SuperAdmin".ToUpper() });
+            //    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubMod", NormalizedName = "ClubMod".ToUpper() });
+            //    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "ClubUser", NormalizedName = "ClubUser".ToUpper() });
 
-       //     modelBuilder.ApplyConfiguration(new AdminConfiguration());
-            //modelBuilder.ApplyConfiguration(new TestUser1Seeder());
-           // modelBuilder.ApplyConfiguration(new TestUser2Seeder());
+            modelBuilder.ApplyConfiguration(new AdminConfiguration());
+            modelBuilder.ApplyConfiguration(new TestUser1Seeder());
+            modelBuilder.ApplyConfiguration(new TestUser2Seeder());
 
-        //modelBuilder.ApplyConfiguration(new UsersWithRolesConfig());
+            //modelBuilder.ApplyConfiguration(new UsersWithRolesConfig());
 
 
         }

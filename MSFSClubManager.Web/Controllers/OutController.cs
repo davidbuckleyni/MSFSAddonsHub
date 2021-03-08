@@ -14,7 +14,7 @@ namespace MSFSClubManager.Web.Controllers
 {
     public class OutController : BaseController
     {
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -25,7 +25,7 @@ namespace MSFSClubManager.Web.Controllers
 
 
 
-        public OutController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
+        public OutController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
         {
             roleManager = roleMgr;
 

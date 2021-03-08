@@ -12,9 +12,9 @@ namespace MSFSClubManager.WebApi.Controllers
 {
     public class AddOnController : Controller
     {
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
 
-        public AddOnController(MSFSAddonDBContext context)
+        public AddOnController(MSFSClubManagerDBContext context)
         {
             _context = context;
         }

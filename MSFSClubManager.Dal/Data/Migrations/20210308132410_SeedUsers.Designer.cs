@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSClubManager.Dal.Data.Migrations
 {
-    [DbContext(typeof(MSFSAddonDBContext))]
-    [Migration("20210228182618_UpdateClubsModel")]
-    partial class UpdateClubsModel
+    [DbContext(typeof(MSFSClubManagerDBContext))]
+    [Migration("20210308132410_SeedUsers")]
+    partial class SeedUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,339 +20,6 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("MSFSClubManager.Models.AirPort", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ICAO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("LatY")
-                        .HasColumnType("decimal(18,9)");
-
-                    b.Property<decimal?>("LongX")
-                        .HasColumnType("decimal(18,9)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Airport");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.Badges", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("BadgeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BadgePoints")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Badges");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.ClubLeaderBoards", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Logo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Points")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Postion")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ClubLeaderBoards");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.Notifications", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("FolderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("From")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("FromUser")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("MessageBody")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("To")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("ToUser")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("isRead")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Notifications");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTeirs", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Desciption")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("Enabled")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("SubscriptionTeirsTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubscriptionTypesBalancesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isBlocked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClubId");
-
-                    b.HasIndex("SubscriptionTeirsTypeId");
-
-                    b.HasIndex("SubscriptionTypesBalancesId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SubscriptionTeirs");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTierTypes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserIdId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isBlocked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserIdId");
-
-                    b.ToTable("SubscriptionTierTypes");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTypesBalances", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AircraftsAllowed")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ClubsAllowed")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DownloadsAllowed")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EventsAllowed")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FlightsAllowed")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ModsAllowed")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TeannatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserIdId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserIdId");
-
-                    b.ToTable("SubscriptionTypesBalances");
-                });
 
             modelBuilder.Entity("MSFSClubManager.Dal.Models.ApplicationUser", b =>
                 {
@@ -444,6 +111,68 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "edb517a4-2766-48a7-be32-26d3525a9e3a",
+                            Email = "davidbuckleyweb@outlook.com",
+                            EmailConfirmed = true,
+                            FirstName = "David",
+                            LastName = "Admin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "davidbuckleyweb@outlook.com",
+                            NormalizedUserName = "davidbuckleyweb@outlook.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH+noGuJUAHucQehakXBHU86CQJC0eotdXBgjDcemi++kYoQG9Bu7ScsyhqQvFCftQ==",
+                            PhoneNumber = "XXXXXXXXXXXXX",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "00000000-0000-0000-0000-000000000000",
+                            TwoFactorEnabled = false,
+                            UserName = "davidbuckleyweb@outlook.com",
+                            UserType = 199
+                        },
+                        new
+                        {
+                            Id = "7796F3F2-5600-40A8-99B4-832EE57DC7E1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a93851ac-2355-4ac2-93b6-8ee12401ce3a",
+                            Email = "test1@msfsaddonshub.com",
+                            EmailConfirmed = true,
+                            FirstName = "Martha",
+                            LastName = "Jones",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "test1@msfsaddonshub.com",
+                            NormalizedUserName = "test1@msfsaddonshub.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBLlupNuaYj6v/DNsfy3PfvHXXhTljROcyVYjZn1OK9/vFgH9kVHtgqFpAf7Bkwohg==",
+                            PhoneNumber = "XXXXXXXXXXXXX",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "00000000-0000-0000-0000-000000000000",
+                            TwoFactorEnabled = false,
+                            UserName = "test1@msfsaddonshub.com",
+                            UserType = 199
+                        },
+                        new
+                        {
+                            Id = "4F75BBA1-1CDF-44A7-84DF-D0C617E5E19D",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e4cec1d8-1adb-4b54-9bd5-59a211845f4b",
+                            Email = "test2@msfsaddonshub.com",
+                            EmailConfirmed = true,
+                            FirstName = "The",
+                            LastName = "Dr",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "test2@msfsaddonshub.com",
+                            NormalizedUserName = "test2@msfsaddonshub.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJGcO6mkq6UgRpdAcn42MBIAd4wk5YXmGU39p4z13kkN0PSRdAQNCFsBmLRErUMhSg==",
+                            PhoneNumber = "XXXXXXXXXXXXX",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "00000000-0000-0000-0000-000000000000",
+                            TwoFactorEnabled = false,
+                            UserName = "test2@msfsaddonshub.com",
+                            UserType = 199
+                        });
                 });
 
             modelBuilder.Entity("MSFSClubManager.Dal.Models.Category", b =>
@@ -1194,7 +923,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                     b.ToTable("Friends");
                 });
 
-            modelBuilder.Entity("MSFSClubManager.Dal.Models.MyAddon", b =>
+            modelBuilder.Entity("MSFSClubManager.Dal.Models.Mods", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1228,11 +957,17 @@ namespace MSFSClubManager.Dal.Data.Migrations
                     b.Property<string>("DownloadUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("FlightId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StarDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid?>("TeannatId")
                         .HasColumnType("uniqueidentifier");
@@ -1273,7 +1008,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
 
                     b.HasIndex("FlightId");
 
-                    b.ToTable("UserAddons");
+                    b.ToTable("Mods");
                 });
 
             modelBuilder.Entity("MSFSClubManager.Dal.Models.MyDashBoard", b =>
@@ -1408,6 +1143,339 @@ namespace MSFSClubManager.Dal.Data.Migrations
                     b.ToTable("UserSettings");
                 });
 
+            modelBuilder.Entity("MSFSClubManager.Models.AirPort", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ICAO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("LatY")
+                        .HasColumnType("decimal(18,9)");
+
+                    b.Property<decimal?>("LongX")
+                        .HasColumnType("decimal(18,9)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Airport");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.Badges", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BadgeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BadgePoints")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Badges");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.ClubLeaderBoards", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Points")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Postion")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClubLeaderBoards");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.Notifications", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("FolderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("From")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("FromUser")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MessageBody")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("To")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ToUser")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("isRead")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTeirs", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Desciption")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Enabled")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("SubscriptionTeirsTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubscriptionTypesBalancesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
+
+                    b.HasIndex("SubscriptionTeirsTypeId");
+
+                    b.HasIndex("SubscriptionTypesBalancesId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SubscriptionTeirs");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTierTypes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserIdId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserIdId");
+
+                    b.ToTable("SubscriptionTierTypes");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTypesBalances", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AircraftsAllowed")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ClubsAllowed")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DownloadsAllowed")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EventsAllowed")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FlightsAllowed")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ModsAllowed")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("TeannatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserIdId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool?>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserIdId");
+
+                    b.ToTable("SubscriptionTypesBalances");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -1433,36 +1501,6 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "77d20ebb-02c4-4bcf-aea4-b59c0bd5104f",
-                            ConcurrencyStamp = "d971408b-66e4-4d95-81dd-9d0f390c969f",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "42334e14-fb4a-4613-8e0f-9e46abd8e41c",
-                            ConcurrencyStamp = "7e4476e7-a122-4cde-b296-88b6666c839c",
-                            Name = "ClubSuperAdmin",
-                            NormalizedName = "SUPERADMIN"
-                        },
-                        new
-                        {
-                            Id = "62559f2a-959a-4ddb-b50f-0c7700d38058",
-                            ConcurrencyStamp = "1a0620e2-5de6-4f94-ab02-bc737b5efa6a",
-                            Name = "ClubMod",
-                            NormalizedName = "CLUBMOD"
-                        },
-                        new
-                        {
-                            Id = "37a8a81f-eed1-4d92-b3f5-872880d6d7fb",
-                            ConcurrencyStamp = "5f2766db-9c2b-4282-8f33-23117deee43d",
-                            Name = "ClubUser",
-                            NormalizedName = "CLUBUSER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1548,18 +1586,6 @@ namespace MSFSClubManager.Dal.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "4F75BBA1-1CDF-44A7-84DF-D0C617E5E19D",
-                            RoleId = "c2f9a56d-4e18-4d38-8eab-7a141895b049"
-                        },
-                        new
-                        {
-                            UserId = "7796F3F2-5600-40A8-99B4-832EE57DC7E1",
-                            RoleId = "65f1941d-048a-4b02-ad8e-1757e392aad8"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -1579,65 +1605,6 @@ namespace MSFSClubManager.Dal.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.Badges", b =>
-                {
-                    b.HasOne("MSFSClubManager.Dal.Models.ApplicationUser", null)
-                        .WithMany("Badges")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.Notifications", b =>
-                {
-                    b.HasOne("MSFSClubManager.Dal.Models.ApplicationUser", null)
-                        .WithMany("Notifications")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTeirs", b =>
-                {
-                    b.HasOne("MSFSClubManager.Dal.Models.Club", "Club")
-                        .WithMany()
-                        .HasForeignKey("ClubId");
-
-                    b.HasOne("MSFSClubManager.Models.SubscriptionTierTypes", "SubscriptionTeirsType")
-                        .WithMany()
-                        .HasForeignKey("SubscriptionTeirsTypeId");
-
-                    b.HasOne("MSFSClubManager.Models.SubscriptionTypesBalances", "SubscriptionTypesBalances")
-                        .WithMany()
-                        .HasForeignKey("SubscriptionTypesBalancesId");
-
-                    b.HasOne("MSFSClubManager.Dal.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Club");
-
-                    b.Navigation("SubscriptionTeirsType");
-
-                    b.Navigation("SubscriptionTypesBalances");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTierTypes", b =>
-                {
-                    b.HasOne("MSFSClubManager.Dal.Models.ApplicationUser", "UserId")
-                        .WithMany()
-                        .HasForeignKey("UserIdId");
-
-                    b.Navigation("UserId");
-                });
-
-            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTypesBalances", b =>
-                {
-                    b.HasOne("MSFSClubManager.Dal.Models.ApplicationUser", "UserId")
-                        .WithMany()
-                        .HasForeignKey("UserIdId");
-
-                    b.Navigation("UserId");
                 });
 
             modelBuilder.Entity("MSFSClubManager.Dal.Models.ClubDownloads", b =>
@@ -1750,7 +1717,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                     b.Navigation("FriendId");
                 });
 
-            modelBuilder.Entity("MSFSClubManager.Dal.Models.MyAddon", b =>
+            modelBuilder.Entity("MSFSClubManager.Dal.Models.Mods", b =>
                 {
                     b.HasOne("MSFSClubManager.Dal.Models.Category", "AddonCategory")
                         .WithMany()
@@ -1761,6 +1728,65 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         .HasForeignKey("FlightId");
 
                     b.Navigation("AddonCategory");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.Badges", b =>
+                {
+                    b.HasOne("MSFSClubManager.Dal.Models.ApplicationUser", null)
+                        .WithMany("Badges")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.Notifications", b =>
+                {
+                    b.HasOne("MSFSClubManager.Dal.Models.ApplicationUser", null)
+                        .WithMany("Notifications")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTeirs", b =>
+                {
+                    b.HasOne("MSFSClubManager.Dal.Models.Club", "Club")
+                        .WithMany()
+                        .HasForeignKey("ClubId");
+
+                    b.HasOne("MSFSClubManager.Models.SubscriptionTierTypes", "SubscriptionTeirsType")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionTeirsTypeId");
+
+                    b.HasOne("MSFSClubManager.Models.SubscriptionTypesBalances", "SubscriptionTypesBalances")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionTypesBalancesId");
+
+                    b.HasOne("MSFSClubManager.Dal.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Club");
+
+                    b.Navigation("SubscriptionTeirsType");
+
+                    b.Navigation("SubscriptionTypesBalances");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTierTypes", b =>
+                {
+                    b.HasOne("MSFSClubManager.Dal.Models.ApplicationUser", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserIdId");
+
+                    b.Navigation("UserId");
+                });
+
+            modelBuilder.Entity("MSFSClubManager.Models.SubscriptionTypesBalances", b =>
+                {
+                    b.HasOne("MSFSClubManager.Dal.Models.ApplicationUser", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserIdId");
+
+                    b.Navigation("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

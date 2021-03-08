@@ -14,8 +14,8 @@ namespace MSFSClubManager.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly MSFSAddonDBContext _context;
-        public HomeController(ILogger<HomeController> logger,MSFSAddonDBContext context)
+        private readonly MSFSClubManagerDBContext _context;
+        public HomeController(ILogger<HomeController> logger,MSFSClubManagerDBContext context)
         {
         _context = context;      
         _logger = logger;

@@ -18,10 +18,10 @@ namespace MSFSClubManager.Web.Controllers
 {
     public class BaseController : Controller
     {
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
 
         private readonly UserManager<ApplicationUser> _userManager;
-        private MSFSAddonDBContext context;
+        private MSFSClubManagerDBContext context;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private RoleManager<IdentityRole> roleManager;
         private UserManager<ApplicationUser> userMrg;
@@ -30,7 +30,7 @@ namespace MSFSClubManager.Web.Controllers
         private IHttpContextAccessor httpContextAccessor;
 
         public ApplicationUser? AppUser { get; set; }
-        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager,  RoleManager<IdentityRole> roleMgr)
+        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager,  RoleManager<IdentityRole> roleMgr)
         {
             _httpContextAccessor = httpContextAccessor;
             roleManager = roleMgr;
@@ -40,10 +40,10 @@ namespace MSFSClubManager.Web.Controllers
             
             GetUserId();
             GetEmailAddress();
-            IsCurrentUserClubAdmin();
+           
           }
 
-        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userMrg, IToastNotification toast, RoleManager<IdentityRole> roleMgr)
+        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userMrg, IToastNotification toast, RoleManager<IdentityRole> roleMgr)
         {
             this.httpContextAccessor = httpContextAccessor;
             this.context = context;
@@ -71,12 +71,7 @@ namespace MSFSClubManager.Web.Controllers
             UserId = userIdResult;
 
         }
-        public bool IsClubAdmin()
-        {
-            return User.IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod);
-
-
-        }
+      
    
         public Guid? ClubId { get; set; }
         protected void GetClubId()
@@ -109,11 +104,7 @@ namespace MSFSClubManager.Web.Controllers
 
         }
         public bool isClubAdmin { get; set; }
-        private  bool IsCurrentUserClubAdmin()
-        {
-            return User.IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod);          
-
-        }
+        
 
     }
 }

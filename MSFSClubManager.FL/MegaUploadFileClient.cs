@@ -30,7 +30,7 @@ namespace MSFSClubManager.FL
         }
         private CancellationTokenSource uploadCancellationTokenSource = new CancellationTokenSource();
 
-    public async Task<double> UploadFileAsync(MSFSAddonDBContext context, string UserName,string Password, string fileName ,string destFileName,string extension,string userId,string ipAddress)        {
+    public async Task<double> UploadFileAsync(MSFSClubManagerDBContext context, string UserName,string Password, string fileName ,string destFileName,string extension,string userId,string ipAddress)        {
         double progressValue=0.00;        
         client.Login(UserName, Password);
             
@@ -73,7 +73,7 @@ namespace MSFSClubManager.FL
         return progressValue;
     }
 
-        public Task<double> DownloadFilesAsync(MSFSAddonDBContext context, string UserName, string Password, string fileName, string extension, string userId, string ipAddress)
+        public Task<double> DownloadFilesAsync(MSFSClubManagerDBContext context, string UserName, string Password, string fileName, string extension, string userId, string ipAddress)
         {
             throw new NotImplementedException();
         }

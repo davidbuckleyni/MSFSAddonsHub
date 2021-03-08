@@ -13,9 +13,9 @@ namespace MSFSClubManager.WebApi
     {
 
 
-        private MSFSAddonDBContext _context;
+        private MSFSClubManagerDBContext _context;
 
-        public MSFSContextSeedData(MSFSAddonDBContext context)
+        public MSFSContextSeedData(MSFSClubManagerDBContext context)
         {
             _context = context;
         }

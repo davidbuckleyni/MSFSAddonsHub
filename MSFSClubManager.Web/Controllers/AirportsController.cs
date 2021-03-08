@@ -14,9 +14,9 @@ namespace MSFSClubManager.Web.Controllers
 {
     public class AirportsController : Controller
     {
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
 
-        public AirportsController(MSFSAddonDBContext context)
+        public AirportsController(MSFSClubManagerDBContext context)
         {
             _context = context;
         }

@@ -15,10 +15,10 @@ namespace MSFSClubManager.Web.ViewComponents
 
         private readonly IHttpContextAccessor _contextAccessor;
 
-        private readonly MSFSAddonDBContext db;
+        private readonly MSFSClubManagerDBContext db;
 
 
-        public AddonsViewComponent(MSFSAddonDBContext context)
+        public AddonsViewComponent(MSFSClubManagerDBContext context)
         {
             db = context;
         }

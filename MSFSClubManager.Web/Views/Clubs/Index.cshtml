@@ -8,19 +8,12 @@
     Layout = "~/Themes/DashBoard/_Layout.cshtml";
 
 }
-<style>
-    .modal-body {
-        max-height: calc(100vh - 200px);
-        overflow-y: auto;
-    }
-</style>
+
+
 
 <div class="pull-right">
-
-
-    @if ((bool) Model.IsClubAdmin)
+    @if ((bool)Model.IsClubAdmin)
     {
-
         <a onclick="showInPopup('@Url.Action("CreateOrEdit", "Clubs", new { id = 0 }, Context.Request.Scheme)','Create Club')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i>Create Club</a>
     }
     else
@@ -28,10 +21,9 @@
         <a class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Only Admins Create Clubs</a>
     }
 
-
     <button type="button" class="btn bg-purple" data-toggle="modal" data-target="#inviteModal">
         <i class="fa fa-envelope-open-text"></i>
-        Delete Clubs
+        Delete Users
 
     </button>
 
@@ -88,51 +80,59 @@
 
 
     @foreach (var item in Model.Clubs)
+
+
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
+
+        @if (Model.Clubs.Count == 0)
+        {
+            <tr>
+                <td>
+                    <p>Sorry no Users have been created Yet.</p>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
 
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
 
 
-            <td style="background-color:gray">
-                <img src="@item.Logo" width="100" height="100" />
-            </td>
-            <td>
+                <td style="background-color:gray">
+                    <img src="@item.Logo" width="100" height="100" />
+                </td>
+                <td>
 
-                <a asp-action="Index" asp-controller="ClubMembers" asp-route-id="@item.Id"> <span class="fa fa-users-cog fa-2x"></span> View Members</a>
-            </td>
+                    <a asp-action="Index" asp-controller="ClubMembers" asp-route-id="@item.Id"> <span class="fa fa-users-cog fa-2x"></span> View Members</a>
+                </td>
 
-            <td>
+                <td>
 
-                <form asp-action="BlockUser" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
-                    <input type="hidden" asp-for="@item.Id" />
-                    <input type="submit" value="Block User" class="btn btn-orange" />
-                </form>
-                <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
-                    <input type="hidden" asp-for="@item.Id" />
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
+                    <form asp-action="BlockUser" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                        <input type="hidden" asp-for="@item.Id" />
+                        <input type="submit" value="Block User" class="btn btn-orange" />
+                    </form>
+                    <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                        <input type="hidden" asp-for="@item.Id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
 
-                <a onclick="showInPopup('@Url.Action("CreateOrEdit","Clubs",new {id=item.Id},Context.Request.Scheme)','Edit Club')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                    <a onclick="showInPopup('@Url.Action("CreateOrEdit", "Clubs", new { id = item.Id }, Context.Request.Scheme)','Edit Club')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
 
 
-            </td>
-        </tr>
-
+                </td>
+            </tr>
+        }
     }
-    @if (Model.Clubs.Count == 0)
-    {
-        <div class="alert alert-primary" role="alert">
-            <p>Sorry no Clubs have been created Yet.</p>
-        </div>
 
-    }
+
 </table>
 
 <style>

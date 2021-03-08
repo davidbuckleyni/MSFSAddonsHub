@@ -16,13 +16,13 @@ namespace MSFSClubManager.Web.Controllers
 {
     public class MembersController : BaseController
     {
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
         public Guid UserId { get; set; }
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string userName { get; set; }
-        public MembersController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
+        public MembersController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
         {
 
             _httpContextAccessor = httpContextAccessor;

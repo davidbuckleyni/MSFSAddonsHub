@@ -22,11 +22,11 @@ namespace MSFSClubManager.Web.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<ApplicationUser> userManager, MSFSAddonDBContext context)
+            UserManager<ApplicationUser> userManager, MSFSClubManagerDBContext context)
         {
             _context = context;
 

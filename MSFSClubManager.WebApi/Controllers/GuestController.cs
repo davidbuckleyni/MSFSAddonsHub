@@ -25,8 +25,8 @@ namespace MSFSClubManager.WebApi.Controllers
 
         private readonly ILogger<RegisterModel> _logger;
 
-        private readonly MSFSAddonDBContext _context;
-        public GuestController(MSFSAddonDBContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender)
+        private readonly MSFSClubManagerDBContext _context;
+        public GuestController(MSFSClubManagerDBContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;

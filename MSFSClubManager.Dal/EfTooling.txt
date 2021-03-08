@@ -1,16 +1,16 @@
 ﻿
 Be in Default Warehouse.Domain Project
 
-Add-Migration UpdateClubsModel -OutputDir "Data/Migrations" -Context MSFSAddonDBContext
+Add-Migration IntialeCreate -OutputDir "Data/Migrations" -Context MSFSClubManagerDBContext
 
 
  than one DbContext was found. Specify which one to use. Use the '-Context' parameter for PowerShell commands and the '--context' parameter for dotnet commands.
-Update-Database -Context MSFSAddonDBContext
+Update-Database -Context MSFSClubManagerDBContext
 
  
 
 
-Pm< Script-Migration -Context MSFSAddonDBContext
+Pm< Script-Migration -Context MSFSClubManagerDBContext
 
 
 Test User 1 User Level 7

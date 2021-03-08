@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MSFSClubManager.Dal.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class IntialeCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -97,6 +97,27 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Category", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClubLeaderBoards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TeannatId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Logo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Postion = table.Column<int>(type: "int", nullable: true),
+                    Points = table.Column<int>(type: "int", nullable: true),
+                    isActive = table.Column<bool>(type: "bit", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClubLeaderBoards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -587,48 +608,6 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClubMembers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClubId = table.Column<int>(type: "int", nullable: true),
-                    MemeberOfClub = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    BannedStartDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    BannedEndDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    isBanned = table.Column<bool>(type: "bit", nullable: true),
-                    isActive = table.Column<bool>(type: "bit", nullable: true),
-                    isDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClubMembers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ClubMembers_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ClubMembers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ClubMembers_Clubs_ClubId",
-                        column: x => x.ClubId,
-                        principalTable: "Clubs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Flights",
                 columns: table => new
                 {
@@ -715,6 +694,69 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ClubMembers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClubId = table.Column<int>(type: "int", nullable: true),
+                    MemeberOfClub = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClubBadgesId = table.Column<int>(type: "int", nullable: true),
+                    ClubInvitesId = table.Column<int>(type: "int", nullable: true),
+                    ClubLeaderBoardsId = table.Column<int>(type: "int", nullable: true),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    BannedStartDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    BannedEndDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    isBanned = table.Column<bool>(type: "bit", nullable: true),
+                    isActive = table.Column<bool>(type: "bit", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClubMembers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClubMembers_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ClubMembers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ClubMembers_Badges_ClubBadgesId",
+                        column: x => x.ClubBadgesId,
+                        principalTable: "Badges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ClubMembers_ClubInvites_ClubInvitesId",
+                        column: x => x.ClubInvitesId,
+                        principalTable: "ClubInvites",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ClubMembers_ClubLeaderBoards_ClubLeaderBoardsId",
+                        column: x => x.ClubLeaderBoardsId,
+                        principalTable: "ClubLeaderBoards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ClubMembers_Clubs_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Clubs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubscriptionTeirs",
                 columns: table => new
                 {
@@ -792,7 +834,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserAddons",
+                name: "Mods",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -800,6 +842,8 @@ namespace MSFSClubManager.Dal.Data.Migrations
                     AddonType = table.Column<int>(type: "int", nullable: true),
                     TeannatId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    StarDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddonCategoryId = table.Column<int>(type: "int", nullable: true),
@@ -822,15 +866,15 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAddons", x => x.Id);
+                    table.PrimaryKey("PK_Mods", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAddons_Category_AddonCategoryId",
+                        name: "FK_Mods_Category_AddonCategoryId",
                         column: x => x.AddonCategoryId,
                         principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserAddons_Flights_FlightId",
+                        name: "FK_Mods_Flights_FlightId",
                         column: x => x.FlightId,
                         principalTable: "Flights",
                         principalColumn: "Id",
@@ -871,10 +915,10 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "20ab180a-70cf-48b9-9315-4308b385b83f", "758c1106-f8e5-4e7e-ba19-17d917d3cdcf", "Admin", "ADMIN" },
-                    { "f95d8e54-ab12-406b-973b-ab92d4cab72a", "22d60a74-3fb2-4f89-a086-189c2b22d3b1", "ClubSuperAdmin", "SUPERADMIN" },
-                    { "65f1941d-048a-4b02-ad8e-1757e392aad8", "1cc9b255-482b-41f7-ac12-fb154e007405", "ClubMod", "CLUBMOD" },
-                    { "c2f9a56d-4e18-4d38-8eab-7a141895b049", "c518b710-4a5e-4866-8d43-0ee601eac5c5", "ClubUser", "CLUBUSER" }
+                    { "456e00cc-240e-42fa-bafd-1e7dcdc631c7", "3f9cbafc-8731-4638-9451-48d6926e549b", "Admin", "ADMIN" },
+                    { "0c21c2a2-9552-4968-94c2-f87679d94bef", "fd7fe854-2308-4b11-9580-d8670e447e7a", "ClubSuperAdmin", "SUPERADMIN" },
+                    { "73692506-8818-4de1-9cfc-875635b923fc", "2f6f7195-ce4d-4612-aaf5-180abf9f7ca2", "ClubMod", "CLUBMOD" },
+                    { "2eee9b2b-d98a-4814-881c-e4c08eda6049", "03b0b7a6-93b5-4e0d-9fd9-8edd01b4e7a5", "ClubUser", "CLUBUSER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -932,9 +976,24 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 column: "UserToId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClubMembers_ClubBadgesId",
+                table: "ClubMembers",
+                column: "ClubBadgesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ClubMembers_ClubId",
                 table: "ClubMembers",
                 column: "ClubId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClubMembers_ClubInvitesId",
+                table: "ClubMembers",
+                column: "ClubInvitesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClubMembers_ClubLeaderBoardsId",
+                table: "ClubMembers",
+                column: "ClubLeaderBoardsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClubMembers_RoleId",
@@ -982,6 +1041,16 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 column: "FriendIdId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Mods_AddonCategoryId",
+                table: "Mods",
+                column: "AddonCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Mods_FlightId",
+                table: "Mods",
+                column: "FlightId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Notifications_ApplicationUserId",
                 table: "Notifications",
                 column: "ApplicationUserId");
@@ -1015,16 +1084,6 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 name: "IX_SubscriptionTypesBalances_UserIdId",
                 table: "SubscriptionTypesBalances",
                 column: "UserIdId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserAddons_AddonCategoryId",
-                table: "UserAddons",
-                column: "AddonCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserAddons_FlightId",
-                table: "UserAddons",
-                column: "FlightId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1048,12 +1107,6 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Badges");
-
-            migrationBuilder.DropTable(
-                name: "ClubInvites");
-
-            migrationBuilder.DropTable(
                 name: "ClubMembers");
 
             migrationBuilder.DropTable(
@@ -1072,6 +1125,9 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 name: "FriendsRequest");
 
             migrationBuilder.DropTable(
+                name: "Mods");
+
+            migrationBuilder.DropTable(
                 name: "MyDashBoard");
 
             migrationBuilder.DropTable(
@@ -1084,22 +1140,22 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 name: "SubscriptionTeirs");
 
             migrationBuilder.DropTable(
-                name: "UserAddons");
-
-            migrationBuilder.DropTable(
                 name: "UserSettings");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Badges");
+
+            migrationBuilder.DropTable(
+                name: "ClubInvites");
+
+            migrationBuilder.DropTable(
+                name: "ClubLeaderBoards");
+
+            migrationBuilder.DropTable(
                 name: "FileManager");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionTierTypes");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionTypesBalances");
 
             migrationBuilder.DropTable(
                 name: "Category");
@@ -1108,13 +1164,19 @@ namespace MSFSClubManager.Dal.Data.Migrations
                 name: "Flights");
 
             migrationBuilder.DropTable(
+                name: "SubscriptionTierTypes");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionTypesBalances");
+
+            migrationBuilder.DropTable(
                 name: "FileFolders");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Clubs");
 
             migrationBuilder.DropTable(
-                name: "Clubs");
+                name: "AspNetUsers");
         }
     }
 }

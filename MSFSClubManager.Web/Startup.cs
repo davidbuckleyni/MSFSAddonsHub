@@ -63,7 +63,7 @@ namespace MSFSClubManager.Web
 
             })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<MSFSAddonDBContext>()
+                .AddEntityFrameworkStores<MSFSClubManagerDBContext>()
                 .AddDefaultTokenProviders()
                 .AddRoles<IdentityRole>();
 
@@ -77,7 +77,7 @@ namespace MSFSClubManager.Web
             });
             services.Configure<FileTransferConfig>(Configuration.GetSection("FileTransferConfig"));
 
-            services.AddDbContext<MSFSAddonDBContext>(options =>
+            services.AddDbContext<MSFSClubManagerDBContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
             services.AddHttpContextAccessor();

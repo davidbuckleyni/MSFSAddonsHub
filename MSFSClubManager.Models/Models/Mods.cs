@@ -11,16 +11,16 @@ namespace MSFSClubManager.Dal.Models
         public int Id { get; set; }
 
 
-        public enum AddonTypeEnum
+        public enum ModTypeEnum
         {
-            User=1,
-            Company=2,
-            ThirdParty=3,
-            MSFS=4
+            Aircraft=1,
+            Livery=2,
+            Utils=3
+            
 
         }
 
-        public int? AddonType { get; set; }
+        public int? ModType { get; set; }
 
         public Guid? TeannatId { get; set; }
         public Guid? UserId { get; set; }

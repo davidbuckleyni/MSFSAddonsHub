@@ -28,8 +28,8 @@ namespace MSFSClubManager.WebApi.Controllers
         private readonly ILogger<RegisterModel> _logger;
         private IConfiguration _configRoot;
 
-        private readonly MSFSAddonDBContext _context;
-        public Authentication(MSFSAddonDBContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender, IConfiguration configRoot)
+        private readonly MSFSClubManagerDBContext _context;
+        public Authentication(MSFSClubManagerDBContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger, IEmailSender emailSender, IConfiguration configRoot)
         {
             _configRoot = (IConfigurationRoot)configRoot;
 

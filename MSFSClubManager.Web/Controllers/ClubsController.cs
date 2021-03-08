@@ -19,7 +19,7 @@ namespace MSFSClubManager.Web.Controllers
 {
     public class ClubsController : BaseController
     {
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -30,7 +30,7 @@ namespace MSFSClubManager.Web.Controllers
 
 
 
-        public ClubsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
+        public ClubsController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
         {
             roleManager = roleMgr;
 
@@ -50,17 +50,33 @@ namespace MSFSClubManager.Web.Controllers
             return View(query);
 
         }
+
+        public bool isClubAdmin()
+        {
+            return User.IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod);
+
+
+        }
         public async Task<IActionResult> Index()
         {
            var test =_context.Clubs;
             var clubs =  _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToList();
-
             ClubsViewModel clubViewModel = new ClubsViewModel();
             clubViewModel.Clubs = clubs;
-            clubViewModel.IsClubAdmin = isClubAdmin;
+            clubViewModel.IsClubAdmin = isClubAdmin();
             var userRoles = roleManager.Roles.ToList();
 
             return View(clubViewModel);
+        }
+
+        public ClubsViewModel PopulateViewModel()
+        {
+            var clubs = _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToList();
+            ClubsViewModel clubViewModel = new ClubsViewModel();
+            clubViewModel.Clubs = clubs;
+            clubViewModel.IsClubAdmin = isClubAdmin();
+            var userRoles = roleManager.Roles.ToList();
+            return clubViewModel;
         }
 
 
@@ -238,14 +254,18 @@ namespace MSFSClubManager.Web.Controllers
 
                         //check if club members 
                         var clubMembersCount = _context.ClubMembers.Where(w => w.Club.Name == club.Name && w.Role.Id == Constants.ClubSuperAdmin).GroupBy(c => c.Club.Name).Where(w => w.Count() > 1).ToListAsync();
-                        IdentityRole role = await roleManager.FindByIdAsync(Constants.ClubSuperAdmin);
+                        IdentityRole role = await roleManager.FindByIdAsync(Constants.ClubSuperAdminUserId);
                         clubMembers.Role = role;
                         clubMembers.RoleId = role.Id;
                         clubMembers.ClubId = club.Id;
+                        clubMembers.Club = club;
+                        clubMembers.isActive = true;
+                        clubMembers.isDeleted = false;
+                        
                         _context.ClubMembers.Add(clubMembers);
                         await _context.SaveChangesAsync();
                         _toast.AddSuccessToastMessage($"Club created {club.Name})");
-
+                        clubViewModel = PopulateViewModel();
                         return View("~/Views/Clubs/Index.cshtml", clubViewModel);
 
                     }

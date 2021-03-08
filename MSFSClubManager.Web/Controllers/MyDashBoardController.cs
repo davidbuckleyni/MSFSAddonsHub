@@ -17,7 +17,7 @@ namespace MSFSClubManager.Web.Controllers
 {
     public class MyDashBoardController :BaseController
     {
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
         public Guid UserId { get; set; }
@@ -25,7 +25,7 @@ namespace MSFSClubManager.Web.Controllers
         public string userName { get; set; }
         private RoleManager<IdentityRole> roleManager;
 
-        public MyDashBoardController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
+        public MyDashBoardController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
         {
 
             _httpContextAccessor = httpContextAccessor;

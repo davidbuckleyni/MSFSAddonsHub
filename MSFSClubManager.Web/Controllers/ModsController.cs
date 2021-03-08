@@ -15,14 +15,14 @@ namespace MSFSClubManager.Web.Controllers
 {
     public class ModsController : BaseController
     {
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
 
         private readonly UserManager<ApplicationUser> _userManager;
-        private MSFSAddonDBContext context;
+        private MSFSClubManagerDBContext context;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private RoleManager<IdentityRole> roleManager;
 
-        public ModsController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
+        public ModsController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
         {
             roleManager = roleMgr;
 

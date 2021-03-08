@@ -12,7 +12,7 @@ namespace MSFSClubManager.Web.Helpers
     public static class HelperMethods
     {
         public static async Task<IdentityResult> DeleteUserAccount(UserManager<ApplicationUser> userManager,
-                                                                        string userEmail, MSFSAddonDBContext context)
+                                                                        string userEmail, MSFSClubManagerDBContext context)
         {
             IdentityResult rc = new IdentityResult();
 

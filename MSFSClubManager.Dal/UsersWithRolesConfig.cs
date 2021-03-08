@@ -25,13 +25,13 @@ namespace MSFSClubManager.Dal
             //    UserId = Admin,
             //};
 
-       //     builder.HasData(iur);
+            //builder.HasData(iur);
 
 
 
             IdentityUserRole<string> TestUser2Roles = new IdentityUserRole<string>
             {
-                RoleId = ClubUserRole,
+                RoleId = ClubSuperAdminRole,
                 UserId = TestUser2Id,
             };
 

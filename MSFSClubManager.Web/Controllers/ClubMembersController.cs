@@ -20,7 +20,7 @@ namespace MSFSClubManager.Web.Controllers
 {
     public class ClubMembersController : BaseController
     {
-        private readonly MSFSAddonDBContext _context;
+        private readonly MSFSClubManagerDBContext _context;
         private readonly IToastNotification _toast;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -31,7 +31,7 @@ namespace MSFSClubManager.Web.Controllers
         private readonly IEmailSender _emailSender;
 
 
-        public ClubMembersController(IHttpContextAccessor httpContextAccessor, MSFSAddonDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr, IEmailSender emailSender) : base(httpContextAccessor, context, userManager, roleMgr)
+        public ClubMembersController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr, IEmailSender emailSender) : base(httpContextAccessor, context, userManager, roleMgr)
         {
             roleManager = roleMgr;
 
