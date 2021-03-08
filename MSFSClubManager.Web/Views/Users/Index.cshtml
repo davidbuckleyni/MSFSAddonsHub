@@ -2,7 +2,7 @@
 @using MSFSClubManager.Dal.ViewModels;
 @using MSFSClubManager.Web.Helpers;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Users";
     Layout = "~/Themes/DashBoard/_Layout.cshtml";
 
 }
@@ -14,13 +14,13 @@
 </style>
 
 <div class="pull-right">
-    @if (User.IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod))
+    @if ((bool)Model.IsClubAdmin)
     {
-        <a onclick="showInPopup('@Url.Action("CreateOrEdit", "Users", new { id = 0 }, Context.Request.Scheme)','Create User')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i>Create User</a>
+    <a onclick="showInPopup('@Url.Action("CreateOrEdit", "Users", new { id = 0 }, Context.Request.Scheme)','Create User')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i>Create User</a>
     }
     else
     {
-        <a class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Only Admins Create Users</a>
+    <a class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Only Admins Create Users</a>
     }
 
 

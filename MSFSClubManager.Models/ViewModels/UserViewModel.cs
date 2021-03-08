@@ -7,6 +7,8 @@ namespace MSFSClubManager.Dal.ViewModels
 {
     public class UsersViewModel
     {
+
+        public bool IsClubAdmin { get; set; }
         public List<ApplicationUser> Users { get; set; }
     }
 }

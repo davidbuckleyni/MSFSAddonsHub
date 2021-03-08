@@ -14,6 +14,9 @@ using MSFSClubManager.Web;
 using MSFSClubManager.Web.Controllers;
 using MSFSClubManager.Web.Helpers;
 using NToastNotify;
+using System.Text;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text.Encodings.Web;
 
 namespace Warehouse.Web.Controllers
 {
@@ -57,39 +60,59 @@ namespace Warehouse.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateOrEdit(string id)
         {
-            UserViewModel usersViewModel = new UserViewModel();
+            UserModalViewModel userModalViewModel = new UserModalViewModel();
 
 
-            if (id == "")
-                return View(new UserViewModel());
+            if (id == "0")
+                return View(new UserModalViewModel());
             else
             {
                 var user = _context.Users.Where(w => w.Id == id).FirstOrDefault();
                 try
                 {
-                    usersViewModel.User = user;
-                    return View(usersViewModel);
+                    userModalViewModel.FirstName = user.FirstName;
+                    userModalViewModel.LastName = user.FirstName;
+                    userModalViewModel.GamerTag = user.FirstName;
+                    userModalViewModel.Email = user.Email;
+                    
+                    
+
+
+                    return View(userModalViewModel);
                 }
                 catch (Exception ex)
 
                 {
                 }
-                if (usersViewModel == null)
+                if (userModalViewModel == null)
                 {
                     return NotFound();
                 }
 
-                return View(usersViewModel);
+                return View(userModalViewModel);
 
             }
         }
+        private bool isClubAdmin()
+        {
+            return User.IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod);
 
+        }
+
+        public UsersViewModel PopulateViewModel()
+        {
+
+            UsersViewModel usersViewModel = new UsersViewModel();
+            usersViewModel.IsClubAdmin = isClubAdmin();
+            usersViewModel.Users = _userManager.Users.ToList();
+            return usersViewModel;
+        }
         public async Task<IActionResult> Index()
         {
 
 
             UsersViewModel usersViewModel = new UsersViewModel();
-
+            usersViewModel.IsClubAdmin = isClubAdmin();
             usersViewModel.Users = _userManager.Users.ToList();
             return View(usersViewModel);
         }
@@ -112,7 +135,40 @@ namespace Warehouse.Web.Controllers
             return View(name);
         }
 
-     
+
+        [HttpPost]
+        public async Task<IActionResult> Submit(UserModalViewModel userModalViewModel)
+        {
+
+            if (!isClubAdmin())
+            {
+                _toast.AddErrorToastMessage("Only Club Admins can create members");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = (string)userModalViewModel.Email, Email = userModalViewModel.Email,EmailConfirmed=true, FirstName = userModalViewModel.FirstName, LastName = userModalViewModel.LastName, GamerTag = userModalViewModel.GamerTag };
+                var result = await _userManager.CreateAsync(user, userModalViewModel.Password);
+                if (result.Succeeded)
+                {
+
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    
+
+                }
+              
+            }
+            UsersViewModel modal = new UsersViewModel();
+           
+            modal = PopulateViewModel();
+            _toast.AddSuccessToastMessage("User has been created");
+
+            return View("~/Views/Users/Index.cshtml", modal);
+ 
+        }
+
+
 
         public async Task<IActionResult> Update(string id)
         {

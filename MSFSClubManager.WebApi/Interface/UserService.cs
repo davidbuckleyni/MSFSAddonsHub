@@ -14,8 +14,10 @@ using Microsoft.IdentityModel.Tokens;
 using MSFSClubManager.Dal.BL;
 using MSFSClubManager.Dal.Models;
 
-namespace MSFSClubManager.WebApi.Services {
-    public interface IUserService {
+namespace MSFSClubManager.WebApi.Services
+{
+    public interface IUserService
+    {
         AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress);
         AuthenticateResponse RefreshToken(string token, string ipAddress);
         bool RevokeToken(string token, string ipAddress);
@@ -23,7 +25,8 @@ namespace MSFSClubManager.WebApi.Services {
     }
 
 
-    public class UserService : IUserService {
+    public class UserService : IUserService
+    {
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
         private IConfiguration _configRoot;
 
@@ -34,8 +37,9 @@ namespace MSFSClubManager.WebApi.Services {
 
         private readonly AppSettings _appSettings;
         private List<User> _users = new List<User>();
-        
-        public UserService(IConfiguration configRoot, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<RegisterModel> logger) {
+
+        public UserService(IConfiguration configRoot, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<RegisterModel> logger)
+        {
             _configRoot = (IConfigurationRoot)configRoot;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -43,7 +47,8 @@ namespace MSFSClubManager.WebApi.Services {
 
 
         }
-        public AuthenticateResponse RefreshToken(string token, string ipAddress) {
+        public AuthenticateResponse RefreshToken(string token, string ipAddress)
+        {
             var user = _users.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
 
             // return null if no user found with token
@@ -69,15 +74,17 @@ namespace MSFSClubManager.WebApi.Services {
         }
 
 
-        private string generateJwtToken(User user) {
+        private string generateJwtToken(User user)
+        {
             var tokenHandler = new JwtSecurityTokenHandler();
             var secret = _configRoot.GetValue<string>("JWTSecret");
 
-            
-            _logger.Log(LogLevel.Information,$"JWT Secret from Everleap={secret}" );
+
+            _logger.Log(LogLevel.Information, $"JWT Secret from Everleap={secret}");
 
             var key = Encoding.ASCII.GetBytes(secret);
-            var tokenDescriptor = new SecurityTokenDescriptor {
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString())
@@ -89,11 +96,14 @@ namespace MSFSClubManager.WebApi.Services {
             return tokenHandler.WriteToken(token);
         }
 
-        private RefreshToken generateRefreshToken(string ipAddress) {
-            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider()) {
+        private RefreshToken generateRefreshToken(string ipAddress)
+        {
+            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
+            {
                 var randomBytes = new byte[64];
                 rngCryptoServiceProvider.GetBytes(randomBytes);
-                return new RefreshToken {
+                return new RefreshToken
+                {
                     Token = Convert.ToBase64String(randomBytes),
                     Expires = DateTime.UtcNow.AddDays(7),
                     Created = DateTime.UtcNow,
@@ -101,19 +111,23 @@ namespace MSFSClubManager.WebApi.Services {
                 };
             }
         }
-        public   AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress) {
+        public AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress)
+        {
             //var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-            var user = _userManager.Users.Where(w=>w.UserName ==model.Username ).FirstOrDefault();
+            var user = _userManager.Users.Where(w => w.UserName == model.Username).FirstOrDefault();
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result =  _signInManager.PasswordSignInAsync(model.Username, model.Password, true, lockoutOnFailure: false);
+            var result = _signInManager.PasswordSignInAsync(model.Username, model.Password, true, lockoutOnFailure: false);
 
             User users = new User();
             users.Username = model.Username;
             users.Password = model.Password;
-          
+            users.FirstName = user.FirstName;
+            users.LastName = user.LastName;
+
+
             if (result.Result.Succeeded)
             {
                 // return null if user not found
@@ -123,24 +137,27 @@ namespace MSFSClubManager.WebApi.Services {
 
             // authentication successful so generate jwt and refresh tokens
             var jwtToken = generateJwtToken(users);
-          //  var refreshToken = generateRefreshToken(ipAddress);
+            var refreshToken = generateRefreshToken(ipAddress);
 
             // save refresh token
-            //user.RefreshTokens.Add(refreshToken);
+            users.RefreshTokens.Add(refreshToken);
 
             return new AuthenticateResponse(users, jwtToken, null);
 
         }
 
 
-        public IdentityUser GetById(string id) {
-            return _userManager.Users.Where(w=>w.Id==id).FirstOrDefault();
+        public IdentityUser GetById(string id)
+        {
+            return _userManager.Users.Where(w => w.Id == id).FirstOrDefault();
         }
-        public IEnumerable<IdentityUser> GetAll() {
+        public IEnumerable<IdentityUser> GetAll()
+        {
             return (IEnumerable<IdentityUser>)_userManager.Users;
         }
 
-        public bool RevokeToken(string token, string ipAddress) {
+        public bool RevokeToken(string token, string ipAddress)
+        {
             var user = _users.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
 
             // return false if no user found with token
@@ -154,13 +171,13 @@ namespace MSFSClubManager.WebApi.Services {
             // revoke token and save
             refreshToken.Revoked = DateTime.UtcNow;
             refreshToken.RevokedByIp = ipAddress;
-            
+
 
             return true;
         }
 
-       
 
-      
+
+
     }
 }

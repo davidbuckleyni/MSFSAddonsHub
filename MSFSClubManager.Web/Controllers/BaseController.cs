@@ -103,7 +103,6 @@ namespace MSFSClubManager.Web.Controllers
             base.OnActionExecuting(filterContext);
 
         }
-        public bool isClubAdmin { get; set; }
         
 
     }
