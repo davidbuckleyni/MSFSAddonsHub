@@ -1,0 +1,139 @@
+﻿@model MSFSClubManager.Dal.ViewModels.UsersViewModel
+@using MSFSClubManager.Dal.ViewModels;
+@using MSFSClubManager.Web.Helpers;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Themes/DashBoard/_Layout.cshtml";
+
+}
+<style>
+    .modal-body {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }
+</style>
+
+<div class="pull-right">
+    @if (User.IsInAnyRole(Constants.ClubUser, Constants.ClubMod))
+    {
+        <a onclick="showInPopup('@Url.Action("CreateOrEdit", "Users", new { id = 0 }, Context.Request.Scheme)','Create User')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i>Create User</a>
+    }
+    else
+    {
+        <a class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Only Admins Create Users</a>
+    }
+
+
+    <button type="button" class="btn bg-purple" data-toggle="modal" data-target="#inviteModal">
+        <i class="fa fa-envelope-open-text"></i>
+        Delete Users
+
+    </button>
+
+    <button type="button" class="btn bg-orange" data-toggle="modal" data-target="#inviteModal">
+        <i class="fa fa-envelope-open-text"></i>
+        API Call For Clubs
+    </button>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-success">
+            <i class="fa fa-download"></i>
+            Export
+        </button>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">&nbsp;</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <button type="submit" name="exportxml-all" formaction="/Admin/Product/ExportToXml">
+                    <i class="fa fa-file-code-o"></i>
+                    Export to XML (all found)
+                </button>
+            </li>
+            <li>
+                <button type="button" id="exportxml-selected">
+                    <i class="fa fa-file-code-o"></i>
+                    Export to XML (selected)
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+<table   id="clubs-table" class="table table-strip">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.First().FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.First().LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.First().Email)
+            </th>
+            <th>
+                Clubs Memebers of 
+            </th>
+        </tr>
+    </thead>
+
+
+    @foreach (var item in Model.Users)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </td>
+
+
+    <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.Users.First().Email)
+    </td>
+
+    <td>
+        <a asp-action="Index" asp-controller="Users" asp-route-id="@item.Id"> <span class="fa fa-club fa-2x"></span> View Clubs</a>
+    </td>
+    
+    <td>
+
+        <form asp-action="BlockUser" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+            <input type="hidden" asp-for="@item.Id" />
+            <input type="submit" value="Block User" class="btn btn-orange" />
+        </form>
+        <form asp-action="Delete" asp-route-id="@item.Id" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+            <input type="hidden" asp-for="@item.Id" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+        <a onclick="showInPopup('@Url.Action("CreateOrEdit","Users",new {id=item.Id},Context.Request.Scheme)','Edit User')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit User</a>
+
+    </td>
+</tr>
+
+    }
+    @if (Model.Users.Count == 0)
+    {
+        <div class="alert alert-primary" role="alert">
+            <p>Sorry no Users have been created Yet.</p>
+        </div>
+
+    }
+</table>
+
+<style>
+</style>
+<script>
+    $(document).ready(function () {
+        $('#clubs-table').dataTable();
+
+        if ($('#clubs-table > tbody > tr').length == 0) {
+            $('#clubs-table > thead > th').css('display', 'none');
+        }
+    });
+</script>

@@ -1,0 +1,120 @@
+﻿@model MSFSClubManager.Dal.Models.Mods
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Themes/FrontEnd/_MyProfile.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>UserAddon</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+         
+            <div class="form-group">
+                <label asp-for="TeannatId" class="control-label"></label>
+                <input asp-for="TeannatId" class="form-control" />
+                <span asp-validation-for="TeannatId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConflictId" class="control-label"></label>
+                <input asp-for="ConflictId" class="form-control" />
+                <span asp-validation-for="ConflictId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThumbNail" class="control-label"></label>
+                <input asp-for="ThumbNail" class="form-control" />
+                <span asp-validation-for="ThumbNail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Version" class="control-label"></label>
+                <input asp-for="Version" class="form-control" />
+                <span asp-validation-for="Version" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalDownloads" class="control-label"></label>
+                <input asp-for="TotalDownloads" class="form-control" />
+                <span asp-validation-for="TotalDownloads" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DownloadUrl" class="control-label"></label>
+                <input asp-for="DownloadUrl" class="form-control" />
+                <span asp-validation-for="DownloadUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="isZipFile" class="control-label"></label>
+                <input asp-for="isZipFile" class="form-control" />
+                <span asp-validation-for="isZipFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="isJsonFile" class="control-label"></label>
+                <input asp-for="isJsonFile" class="form-control" />
+                <span asp-validation-for="isJsonFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DownloadJson" class="control-label"></label>
+                <input asp-for="DownloadJson" class="form-control" />
+                <span asp-validation-for="DownloadJson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="isDisplayHomePage" class="control-label"></label>
+                <input asp-for="isDisplayHomePage" class="form-control" />
+                <span asp-validation-for="isDisplayHomePage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="isFeatured" class="control-label"></label>
+                <input asp-for="isFeatured" class="form-control" />
+                <span asp-validation-for="isFeatured" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="isActive" class="control-label"></label>
+                <input asp-for="isActive" class="form-control" />
+                <span asp-validation-for="isActive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="isDeleted" class="control-label"></label>
+                <input asp-for="isDeleted" class="form-control" />
+                <span asp-validation-for="isDeleted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <input asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
