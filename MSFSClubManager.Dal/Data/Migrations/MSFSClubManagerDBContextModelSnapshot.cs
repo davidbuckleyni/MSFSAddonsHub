@@ -115,7 +115,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         {
                             Id = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3a7b0c2d-471f-4bbb-95e1-24d85593ee45",
+                            ConcurrencyStamp = "efda9b4d-c6e6-44b3-bc05-d4e9b4038a99",
                             Email = "davidbuckleyweb@outlook.com",
                             EmailConfirmed = true,
                             FirstName = "David",
@@ -123,7 +123,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "davidbuckleyweb@outlook.com",
                             NormalizedUserName = "davidbuckleyweb@outlook.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEENl13k6I321b8OLWLs+N/SLCf/mg4g9Wu8IF0ZVoy0nsmuQx4E1kTq/3+MiT4EA6g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENGeIjv9r1IwI0bXlbCp7d5v42RCNvKDedfD4uIpzzMTvnVz8dFHRKAgIhjdpY//8A==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
@@ -135,7 +135,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         {
                             Id = "7796F3F2-5600-40A8-99B4-832EE57DC7E1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f9e9346b-b5a1-442e-b29f-0c98d70983fa",
+                            ConcurrencyStamp = "5ef533c3-7dd9-45a5-bbd0-bdf77a7dc0e7",
                             Email = "test1@msfsaddonshub.com",
                             EmailConfirmed = true,
                             FirstName = "Martha",
@@ -143,7 +143,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "test1@msfsaddonshub.com",
                             NormalizedUserName = "test1@msfsaddonshub.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENx8pZMiJ+yz0BwMTrzOX6MNWrMAV+XUbh1iUUUAZfL5KRPYOf61evquGIetmFPObw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDTO0NwZYO+Gz0kvwCOGUSSkTnsniMoNzStSfnyHkCd/6X5F93T/WAOjUryMk1Kn0w==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
@@ -155,7 +155,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         {
                             Id = "4F75BBA1-1CDF-44A7-84DF-D0C617E5E19D",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3ca4c8bf-5703-4fd1-8c8f-9651320a46d4",
+                            ConcurrencyStamp = "c7924648-e9d0-4245-80df-5f60d1a0a482",
                             Email = "test2@msfsaddonshub.com",
                             EmailConfirmed = true,
                             FirstName = "The",
@@ -163,7 +163,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "test2@msfsaddonshub.com",
                             NormalizedUserName = "test2@msfsaddonshub.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJoF1ON9KzcxzmZpIg1GAgwvceyFLLkrK5RjPHqc+bAFTPqaODtWZunvgO74xlxhZg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECbkYoh9XdjdFEMqQOM0VZmuppRWLil5VZrJMrYtXf9vpFISOKmUrt2h7fgTFYrbjA==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
@@ -690,6 +690,9 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Author")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("ClubId")
                         .HasColumnType("int");
 
@@ -699,8 +702,20 @@ namespace MSFSClubManager.Dal.Data.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DestAirportCode")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DislikeCount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DownloadCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<TimeSpan?>("EndTime")
                         .HasColumnType("time");
@@ -715,6 +730,12 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FlightPlanXML")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("LikedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StartAirportCode")

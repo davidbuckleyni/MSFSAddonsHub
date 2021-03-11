@@ -12,7 +12,8 @@
 
 
 <div class="pull-right">
-    @if ((bool)Model.IsClubAdmin)
+
+    @if (((System.Security.Claims.ClaimsIdentity)User.Identity).IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod))
     {
         <a onclick="showInPopup('@Url.Action("CreateOrEdit", "Clubs", new { id = 0 }, Context.Request.Scheme)','Create Club')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i>Create Club</a>
     }

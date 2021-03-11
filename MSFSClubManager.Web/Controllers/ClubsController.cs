@@ -51,22 +51,18 @@ namespace MSFSClubManager.Web.Controllers
 
         }
 
-        public bool isClubAdmin()
-        {
-            return User.IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod);
-
-
-        }
+    
         public async Task<IActionResult> Index()
         {
-           var test =_context.Clubs;
-            var clubs =  _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToList();
-            ClubsViewModel clubViewModel = new ClubsViewModel();
-            clubViewModel.Clubs = clubs;
-            clubViewModel.IsClubAdmin = isClubAdmin();
+            var test = _context.Clubs;
+            var clubs = _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToList();
+            ClubsViewModel clubsViewModel = new ClubsViewModel();
+
+
+            clubsViewModel.Clubs= clubs;
             var userRoles = roleManager.Roles.ToList();
 
-            return View(clubViewModel);
+            return View(clubsViewModel);
         }
 
         public ClubsViewModel PopulateViewModel()
@@ -74,7 +70,6 @@ namespace MSFSClubManager.Web.Controllers
             var clubs = _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToList();
             ClubsViewModel clubViewModel = new ClubsViewModel();
             clubViewModel.Clubs = clubs;
-            clubViewModel.IsClubAdmin = isClubAdmin();
             var userRoles = roleManager.Roles.ToList();
             return clubViewModel;
         }
@@ -206,9 +201,8 @@ namespace MSFSClubManager.Web.Controllers
             //when we are submitting a new record we wont have an id we need to trap for this.
 
             //only admin and aboves should be allowed ot create a club even mods are not
-            if (User.IsInAnyRole(Constants.ClubUser,Constants.ClubMod) )
-            {
-
+            if(((System.Security.Claims.ClaimsIdentity)User.Identity).IsInAnyRole(Constants.ClubUser))
+            { 
 
                 ModelState.AddModelError("Error", "A Club user cannot create a club");
                 ClubViewModel clubView = new ClubViewModel();
@@ -217,24 +211,22 @@ namespace MSFSClubManager.Web.Controllers
 
             }
             User.IsInRole("ClubMod");
-             if(club.Id==0)
+            if (club.Id == 0)
                 ModelState.Remove("Club.Id");
 
             if (ModelState.IsValid)
             {
                 try
                 {
-
-
                     //if id = zero we always want to create a new club
                     if (id == 0)
                     {
 
 
-
                         club.UserId = UserId;
                         club.isActive = true;
                         club.isDeleted = false;
+                        club.Url = HelperMethods.SanitizeclubName(club.Name);
                         club.CreatedDate = DateTime.Now;
                         club.CreatedBy = await GetUserName();
                         _context.Clubs.Add(club);
@@ -261,7 +253,7 @@ namespace MSFSClubManager.Web.Controllers
                         clubMembers.Club = club;
                         clubMembers.isActive = true;
                         clubMembers.isDeleted = false;
-                        
+
                         _context.ClubMembers.Add(clubMembers);
                         await _context.SaveChangesAsync();
                         _toast.AddSuccessToastMessage($"Club created {club.Name})");
@@ -301,9 +293,9 @@ namespace MSFSClubManager.Web.Controllers
             }
 
 
-           
-            
-            
+
+
+
 
 
         }

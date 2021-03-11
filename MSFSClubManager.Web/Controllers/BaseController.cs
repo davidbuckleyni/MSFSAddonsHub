@@ -30,18 +30,18 @@ namespace MSFSClubManager.Web.Controllers
         private IHttpContextAccessor httpContextAccessor;
 
         public ApplicationUser? AppUser { get; set; }
-        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager,  RoleManager<IdentityRole> roleMgr)
+        public BaseController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleMgr)
         {
             _httpContextAccessor = httpContextAccessor;
             roleManager = roleMgr;
 
             _context = context;
             _userManager = userManager;
-            
+
             GetUserId();
             GetEmailAddress();
-           
-          }
+
+        }
 
         public BaseController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userMrg, IToastNotification toast, RoleManager<IdentityRole> roleMgr)
         {
@@ -54,47 +54,57 @@ namespace MSFSClubManager.Web.Controllers
 
         protected async Task<Guid>? GetTennantId()
         {
-            var tennantId =  _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.TennantId;
+            var tennantId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.TennantId;
             return ((Guid)(tennantId));
         }
         protected async Task<string> GetUserName()
         {
+            if (_httpContextAccessor.HttpContext.User.Identity.Name == null)
+                return "Not Loged In";
+
             var userName = await _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name);
             return (userName.FirstName + " " + userName.LastName);
         }
         public Guid UserId { get; set; }
         protected void GetUserId()
         {
-            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.Id;
+            if (_httpContextAccessor.HttpContext.User.Identity.Name != null)
+            {
+                var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.Id;
 
-            Guid.TryParse(userId, out Guid userIdResult);
-            UserId = userIdResult;
+                Guid.TryParse(userId, out Guid userIdResult);
+                UserId = userIdResult;
+            }
 
         }
-      
-   
+
+
         public Guid? ClubId { get; set; }
         protected void GetClubId()
         {
-            var clubId =  _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.ClubId;
+            var clubId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.ClubId;
             ClubId = clubId;
-            
+
 
         }
- 
-      
+
+
 
         public string Email { get; set; }
         protected void GetEmailAddress()
         {
-            Email = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.NormalizedEmail.ToLower();
+            if (_httpContextAccessor.HttpContext.User.Identity.Name != null)
+                Email = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.NormalizedEmail.ToLower();
 
-            
-            
+
+
 
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (_httpContextAccessor.HttpContext.User.Identity.Name == null)
+                return;
+
             var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.Id;
             var FirstName = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.FirstName;
             var LastName = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name).Result.LastName;
@@ -103,7 +113,7 @@ namespace MSFSClubManager.Web.Controllers
             base.OnActionExecuting(filterContext);
 
         }
-        
+
 
     }
 }

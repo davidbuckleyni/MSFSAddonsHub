@@ -4,6 +4,7 @@ using MSFSClubManager.Dal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
@@ -38,9 +39,30 @@ namespace MSFSClubManager.Web.Helpers
             }
             return rc;
         }
-        public static bool IsInAnyRole(this IPrincipal principal, params string[] roles)
+
+        public static string SanitizeclubName(string clubName, char replacementChar = '_')
         {
-            return roles.Any(principal.IsInRole);
+            var blackList = new HashSet<char>(System.IO.Path.GetInvalidFileNameChars());
+            var output = clubName.ToCharArray();
+            for (int i = 0, ln = output.Length; i < ln; i++)
+            {
+                if (blackList.Contains(output[i]))
+                {
+                    output[i] = replacementChar;
+                }
+            }
+            return new String(output);
+        }
+        public static bool IsInAnyRole(this ClaimsIdentity principal, params string[] roles)
+        {
+            foreach (var role in roles)
+            {
+                if (principal.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == role))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

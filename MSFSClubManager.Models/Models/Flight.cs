@@ -16,6 +16,10 @@ namespace MSFSClubManager.Dal.Models
 
 
         public Guid? UserId { get; set; }
+        public string? Name { get; set; }
+
+        public string? Description { get; set; }
+
         public string? StartAirportCode { get; set; }
 
 
@@ -24,6 +28,7 @@ namespace MSFSClubManager.Dal.Models
         
         public DateTime? FlightDate { get; set; }
         public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public int? TimeinMins { get; set; }
         public string? TimeInFluent { get; set; }
@@ -41,6 +46,13 @@ namespace MSFSClubManager.Dal.Models
         public virtual List<Mods>? Addons { get; set; }
         //This will be the club id or the Teannant Id dont no which to use as of yet.
         public int? ClubId { get; set; }
+        public string? Author { get; set; }
+
+        public int? LikedCount { get; set; }
+
+        public int? DislikeCount  { get; set; }
+
+        public int? DownloadCount { get; set; }
 
         public string? ThumbNail { get; set; }
         public int? Version { get; set; }

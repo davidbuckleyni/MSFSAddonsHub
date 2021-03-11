@@ -171,6 +171,15 @@ namespace MSFSClubManager.Web
 
 
         endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
+        endpoints.MapControllerRoute(name: "Club",
+            pattern: "Club/{clubname?}",
+            defaults: new { controller = "Club", action = "Club" });
+
+        endpoints.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
         endpoints.MapRazorPages();

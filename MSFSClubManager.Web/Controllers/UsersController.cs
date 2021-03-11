@@ -93,18 +93,12 @@ namespace Warehouse.Web.Controllers
 
             }
         }
-        private bool isClubAdmin()
-        {
-            return User.IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubMod);
-
-        }
-
+        
         public UsersViewModel PopulateViewModel()
         {
 
             UsersViewModel usersViewModel = new UsersViewModel();
-            usersViewModel.IsClubAdmin = isClubAdmin();
-            usersViewModel.Users = _userManager.Users.ToList();
+             usersViewModel.Users = _userManager.Users.ToList();
             return usersViewModel;
         }
         public async Task<IActionResult> Index()
@@ -112,8 +106,7 @@ namespace Warehouse.Web.Controllers
 
 
             UsersViewModel usersViewModel = new UsersViewModel();
-            usersViewModel.IsClubAdmin = isClubAdmin();
-            usersViewModel.Users = _userManager.Users.ToList();
+              usersViewModel.Users = _userManager.Users.ToList();
             return View(usersViewModel);
         }
         public ViewResult Assign() => View();
@@ -140,7 +133,7 @@ namespace Warehouse.Web.Controllers
         public async Task<IActionResult> Submit(UserModalViewModel userModalViewModel)
         {
 
-            if (!isClubAdmin())
+            if (((System.Security.Claims.ClaimsIdentity)User.Identity).IsInAnyRole(Constants.ClubSuperAdmin, Constants.ClubAdmin))
             {
                 _toast.AddErrorToastMessage("Only Club Admins can create members");
             }
