@@ -174,6 +174,9 @@ namespace MSFSClubManager.Web
         name: "areas",
         pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
+        endpoints.MapControllerRoute(name: "TimeLine",
+        pattern: "TimeLine",
+        defaults: new { controller = "Club", action = "ClubTimeLine" });
 
         endpoints.MapControllerRoute(name: "Club",
             pattern: "Club/{clubname?}",

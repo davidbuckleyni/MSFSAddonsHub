@@ -48,7 +48,14 @@ namespace MSFSClubManager.Web.Controllers
             var club = _context.Clubs.Where(w => w.isActive == true && w.Url== clubname && w.isDeleted == false).FirstOrDefault();
             return View(club);
         }
- 
+        public async Task<IActionResult> ClubTimeLine()
+        {
+            var club = _context.Clubs.FirstOrDefault();
+            return View("~/Views/Club/ClubTimeLine.cshtml", club);
+
+        }
+
+
 
         public ClubsViewModel PopulateViewModel()
         {
