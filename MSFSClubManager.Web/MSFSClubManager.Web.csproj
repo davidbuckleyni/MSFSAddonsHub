@@ -18,49 +18,51 @@
     <None Remove="AutoMapper\**" />
   </ItemGroup>
 
-  <ItemGroup>    
-    
-  </ItemGroup>
- 
- 
-
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="FileHelpers" Version="3.4.2" />
-    <PackageReference Include="MegaApiClient" Version="1.8.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.3" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
-    <PackageReference Include="MimeTypes" Version="2.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="NToastNotify" Version="7.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.0.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.0.2" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.0.0-preview1-final" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.3">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.3" NoWarn="NU1605" />
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.3" NoWarn="NU1605" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
-
-
+    <Content Remove="Views\Club\Pilot.cshtml" />
+    <Content Remove="Views\Club\PilotAbout.cshtml" />
   </ItemGroup>
 
-  <ItemGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+		<PackageReference Include="FileHelpers" Version="3.4.2" />
+		<PackageReference Include="MegaApiClient" Version="1.8.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.3" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+		<PackageReference Include="MimeTypes" Version="2.1.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="NToastNotify" Version="7.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.0.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.0.0-preview1-final" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.3" NoWarn="NU1605" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.3" NoWarn="NU1605" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+
+
+	</ItemGroup>
+
+
+	<ItemGroup>
     <Content Update="wwwroot\images\comingSoon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1921,6 +1923,8 @@
     <None Include="Views\Clubs\Index.cshtml" />
     <None Include="Views\Clubs\Manage.cshtml" />
     <None Include="Views\Clubs\ProfilePage.cshtml" />
+    <None Include="Views\Club\PilotAbout.cshtml" />
+    <None Include="Views\Club\Pilot.cshtml" />
     <None Include="Views\Club\ClubTimeLine.cshtml" />
     <None Include="Views\Club\Club.cshtml" />
     <None Include="Views\FileManager\Create.cshtml" />

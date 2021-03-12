@@ -1,7 +1,7 @@
 ﻿
 Be in Default Warehouse.Domain Project
 
-Add-Migration SomeChanges1 -OutputDir "Data/Migrations" -Context MSFSClubManagerDBContext
+Add-Migration PilotAdditionsProfile -OutputDir "Data/Migrations" -Context MSFSClubManagerDBContext
 
 
  than one DbContext was found. Specify which one to use. Use the '-Context' parameter for PowerShell commands and the '--context' parameter for dotnet commands.

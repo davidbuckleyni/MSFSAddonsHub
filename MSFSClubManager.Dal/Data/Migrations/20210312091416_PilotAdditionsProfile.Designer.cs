@@ -4,14 +4,16 @@ using MSFSClubManager.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSClubManager.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSClubManagerDBContext))]
-    partial class MSFSClubManagerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210312091416_PilotAdditionsProfile")]
+    partial class PilotAdditionsProfile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

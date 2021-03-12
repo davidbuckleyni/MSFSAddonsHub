@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MSFSClubManager.Models
+namespace MSFSClubManager.Dal.Models
 {
   public  class Badges
     {
