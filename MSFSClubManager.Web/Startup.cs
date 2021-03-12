@@ -179,7 +179,7 @@ namespace MSFSClubManager.Web
         defaults: new { controller = "Club", action = "ClubTimeLine" });
 
         endpoints.MapControllerRoute(name: "Club",
-            pattern: "Club/{clubname?}",
+            pattern: "Club/{url?}",
             defaults: new { controller = "Club", action = "Club" });
 
         endpoints.MapControllerRoute(

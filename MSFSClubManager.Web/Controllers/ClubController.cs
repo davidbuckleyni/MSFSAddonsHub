@@ -43,9 +43,13 @@ namespace MSFSClubManager.Web.Controllers
             ViewBag.UserName = userName;
         }
 
-        public async Task<IActionResult> Club(string clubname)
+      
+        public async Task<IActionResult> Club(string url)
         {
-            var club = _context.Clubs.Where(w => w.isActive == true && w.Url== clubname && w.isDeleted == false).FirstOrDefault();
+            var club = _context.Clubs.Where(w => w.isActive == true && w.Url== url && w.isDeleted == false).FirstOrDefault();
+            ViewBag.ClubName = club.Name;
+            ViewBag.AvatarImage = club.AvatarImage;
+            ViewBag.CoverImage = club.CoverImage;
             return View(club);
         }
         public async Task<IActionResult> ClubTimeLine()

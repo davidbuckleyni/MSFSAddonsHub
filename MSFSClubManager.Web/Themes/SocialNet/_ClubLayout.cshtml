@@ -3790,7 +3790,7 @@
         <div class="profile-header v2">
             <!-- PROFILE HEADER COVER -->
             <figure class="profile-header-cover liquid">
-                <img src="/themes/social/img/cover/29.jpg" alt="cover-29">
+                <img src="@ViewBag.CoverImage" alt="cover-29">
             </figure>
             <!-- /PROFILE HEADER COVER -->
             <!-- PROFILE HEADER INFO -->
@@ -3809,7 +3809,7 @@
                         <!-- USER AVATAR CONTENT -->
                         <div class="user-avatar-content">
                             <!-- HEXAGON -->
-                            <div class="hexagon-image-124-136" data-src="/themes/social/img/avatar/24.jpg"></div>
+                            <div class="hexagon-image-124-136" data-src="@ViewBag.AvatarImage"></div>
                             <!-- /HEXAGON -->
                         </div>
                         <!-- /USER AVATAR CONTENT -->
@@ -3834,7 +3834,7 @@
                     </a>
                     <!-- /USER SHORT DESCRIPTION AVATAR -->
                     <!-- USER SHORT DESCRIPTION TITLE -->
-                    <p class="user-short-description-title"><a href="group-timeline.html">Cosplayers of the World</a></p>
+                    <p class="user-short-description-title"><a href="group-timeline.html">@ViewBag.ClubName</a></p>
                     <!-- /USER SHORT DESCRIPTION TITLE -->
                     <!-- USER SHORT DESCRIPTION TEXT -->
                     <p class="user-short-description-text">All cosplayers welcome!</p>
@@ -3931,7 +3931,7 @@
             <!-- SECTION MENU -->
             <div id="section-navigation-medium-slider" class="section-menu secondary">
                 <!-- SECTION MENU ITEM -->
-                <a class="section-menu-item" href="/Club/ClubTimeLine">
+                <a class="section-menu-item" href="/Club/TimeLine/Test">
                     <!-- SECTION MENU ITEM ICON -->
                     <svg class="section-menu-item-icon icon-timeline">
                         <use xlink:href="#svg-timeline"></use>
@@ -3943,7 +3943,7 @@
                 </a>
                 <!-- /SECTION MENU ITEM -->
                 <!-- SECTION MENU ITEM -->
-                <a class="section-menu-item active" href="group-info.html">
+                <a class="section-menu-item active" href="/Club/Test">
                     <!-- SECTION MENU ITEM ICON -->
                     <svg class="section-menu-item-icon icon-info">
                         <use xlink:href="#svg-info"></use>

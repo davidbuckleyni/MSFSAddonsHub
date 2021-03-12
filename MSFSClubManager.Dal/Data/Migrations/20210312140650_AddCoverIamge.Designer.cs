@@ -4,14 +4,16 @@ using MSFSClubManager.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSFSClubManager.Dal.Data.Migrations
 {
     [DbContext(typeof(MSFSClubManagerDBContext))]
-    partial class MSFSClubManagerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210312140650_AddCoverIamge")]
+    partial class AddCoverIamge
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,7 +162,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         {
                             Id = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "96b0f3b5-ca61-40bb-9802-e8bed1747f7a",
+                            ConcurrencyStamp = "d2da1944-03a2-4c09-8976-c8b3f26fa00c",
                             Email = "davidbuckleyweb@outlook.com",
                             EmailConfirmed = true,
                             FirstName = "David",
@@ -168,7 +170,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "davidbuckleyweb@outlook.com",
                             NormalizedUserName = "davidbuckleyweb@outlook.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO43z01Dtf4YNWWZsJds7lKEINoLIiHVTojur4wXydZb+MAxvN196YIln4HotwunKg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKOrcomAm0l+tugP/bIR7XnGck7SBq3hUfKgnMG+8uOs7B/2E7EnSPLNTDq5n3maCQ==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
@@ -180,7 +182,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         {
                             Id = "7796F3F2-5600-40A8-99B4-832EE57DC7E1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "49326f82-670f-4c8c-8259-3a5907990992",
+                            ConcurrencyStamp = "8986b2b3-44b7-4d91-9222-ff67e1c5fd28",
                             Email = "test1@msfsaddonshub.com",
                             EmailConfirmed = true,
                             FirstName = "Martha",
@@ -188,7 +190,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "test1@msfsaddonshub.com",
                             NormalizedUserName = "test1@msfsaddonshub.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH+IsRII+nZvoiv5HHZ0FMmGhpnTy36cfOdznhJkPmxX1V8dBb3QEF4FS+zg7zexkQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELbTE4CRl4EHPYOFYi1oephGCHsHuj55VV2KYnAIzJouQsJHGbJwjjfqy2hTReteSg==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
@@ -200,7 +202,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         {
                             Id = "4F75BBA1-1CDF-44A7-84DF-D0C617E5E19D",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fe853564-1c86-4819-bda3-3d0d169c33f3",
+                            ConcurrencyStamp = "266a48d2-9ae6-4af5-b3f0-735d5951e06f",
                             Email = "test2@msfsaddonshub.com",
                             EmailConfirmed = true,
                             FirstName = "The",
@@ -208,7 +210,7 @@ namespace MSFSClubManager.Dal.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "test2@msfsaddonshub.com",
                             NormalizedUserName = "test2@msfsaddonshub.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAECgO9Oht4L3v5DJSWzQC6JzdbkOW+Cyz8QXHP00CdFb2Rf3FHAV3TDTtjrVPGSo7zg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEEM5+2vBOD/JfKoZOTBUh6yIxpm0Ro+E/xNVGMDpGvyGWCWtIRZrfjUwhgSjNO7HQ==",
                             PhoneNumber = "XXXXXXXXXXXXX",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "00000000-0000-0000-0000-000000000000",
@@ -309,9 +311,6 @@ namespace MSFSClubManager.Dal.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AvatarImage")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<TimeSpan?>("BanPeriod")
                         .HasColumnType("time");
