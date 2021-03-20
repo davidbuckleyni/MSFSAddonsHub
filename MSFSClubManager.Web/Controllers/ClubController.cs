@@ -14,6 +14,7 @@ using MSFSClubManager.Dal;
 using MSFSClubManager.Dal.Models;
 using MSFSClubManager.Web.Helpers;
 using NToastNotify;
+using Microsoft.Extensions.Configuration;
 
 namespace MSFSClubManager.Web.Controllers
 {
@@ -28,11 +29,13 @@ namespace MSFSClubManager.Web.Controllers
 
         private RoleManager<IdentityRole> roleManager;
 
+        private IConfiguration _configRoot;
 
 
-        public ClubController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr) : base(httpContextAccessor, context, userManager, roleMgr)
+        public ClubController(IHttpContextAccessor httpContextAccessor, MSFSClubManagerDBContext context, UserManager<ApplicationUser> userManager, IToastNotification toast, RoleManager<IdentityRole> roleMgr, IConfiguration configRoot) : base(httpContextAccessor, context, userManager, roleMgr)
         {
             roleManager = roleMgr;
+            _configRoot = (IConfigurationRoot)configRoot;
 
             _context = context;
             _userManager = userManager;
@@ -41,26 +44,36 @@ namespace MSFSClubManager.Web.Controllers
 
             userName = GetUserName().Result.ToString();
             ViewBag.UserName = userName;
+            
         }
 
-      
+        public string? RootUrl { get; set; }
         public async Task<IActionResult> Club(string url)
         {
             var club = _context.Clubs.Where(w => w.isActive == true && w.Url== url && w.isDeleted == false).FirstOrDefault();
-            ViewBag.ClubName = club.Name;
-            ViewBag.AvatarImage = club.AvatarImage;
-            ViewBag.CoverImage = club.CoverImage;
+            PopulateViewBag(club);
             return View(club);
         }
         public async Task<IActionResult> ClubTimeLine()
         {
             var club = _context.Clubs.FirstOrDefault();
-            return View("~/Views/Club/ClubTimeLine.cshtml", club);
+
+             PopulateViewBag(club);
+             return View("~/Views/Club/ClubTimeLine.cshtml", club);
 
         }
 
 
+        public void PopulateViewBag(Club club)
+        {
+            this.RootUrl = _configRoot.GetValue<string>("AppSettings:UploadsUrl");
 
+            ViewBag.ClubName = club.Name;
+            ViewBag.AvatarImage = RootUrl + club.AvatarImage;
+            ViewBag.CoverImage = RootUrl + club.CoverImage;
+
+
+        }
         public ClubsViewModel PopulateViewModel()
         {
             var clubs = _context.Clubs.Where(w => w.isActive == true && w.isDeleted == false).ToList();

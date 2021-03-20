@@ -15,8 +15,11 @@ namespace MSFSClubManager.Web
         public const string ClubAdmin = "Admin";
         public const string ClubUser = "ClubUser";
         public const string ClubSuperAdmin = "ClubSuperAdmin";
-      
 
+        public const string RootUrl = "https://www.msfsclubmanager.com/";
+        public const string UploadsDir= "https://www.msfsclubmanager.com/Uploads/";
+
+        //public const string UploadsDir= "https://www.msfsclubmanager.com/Uploads/";
 
 
     }

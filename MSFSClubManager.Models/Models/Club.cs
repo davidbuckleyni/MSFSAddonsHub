@@ -40,6 +40,7 @@ namespace MSFSClubManager.Dal.Models
         public DateTime? CreatedDate { get; set; }
         public string? CreatedBy { get; set; }
         public virtual List<ClubMembers> ClubUsers { get; set; }
+        public virtual List<SocialMediaLinks> SocialMediaLinks { get; set; }
 
     }
 }

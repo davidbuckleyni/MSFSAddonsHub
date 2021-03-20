@@ -31,6 +31,8 @@ namespace MSFSClubManager.Dal
         public DbSet<Pilot> Pilots { get; set; }
 
         public DbSet<Club> Clubs { get; set; }
+
+        public DbSet<SocialMediaLinks> SocialMediaLinks { get; set; }
         public DbSet<ClubDownloads> ClubsDownloads { get; set; }
         public DbSet<ClubInvites> ClubInvites { get; set; }
         public DbSet<FriendRequest> FriendsRequest { get; set; }
