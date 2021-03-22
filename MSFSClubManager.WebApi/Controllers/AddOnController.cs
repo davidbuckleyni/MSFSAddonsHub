@@ -9,7 +9,7 @@ using MSFSClubManager.Dal;
 using MSFSClubManager.Dal.Models;
 
 namespace MSFSClubManager.WebApi.Controllers
-{
+{ 
     public class AddOnController : Controller
     {
         private readonly MSFSClubManagerDBContext _context;

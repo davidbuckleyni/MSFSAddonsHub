@@ -1,5 +1,4 @@
-﻿using MSFSClubManager.Models;
-using MSFSClubManager.Dal.Models;
+﻿using MSFSClubManager.Dal.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

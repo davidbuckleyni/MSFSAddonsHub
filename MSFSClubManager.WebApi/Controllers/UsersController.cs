@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 
 namespace MSFSClubManager.WebApi.Controllers
 {
+    [ApiVersion("1")]
+    [ApiController]
+    [Route("v{version:apiVersion}/[controller]")]
+
     public class UsersController : ControllerBase
     {
         private IUserService _userService;

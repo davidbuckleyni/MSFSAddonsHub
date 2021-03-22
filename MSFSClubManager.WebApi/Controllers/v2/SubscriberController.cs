@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 
 namespace MSFSClubManager.WebApi.Controllers
 {
+    [ApiVersion("2")]
+    [ApiController]
+    [Route("v{version:apiVersion}/[controller]")]
+
     public class SubscriberController : Controller
     {
         private readonly MSFSClubManagerDBContext _context;
@@ -46,9 +50,6 @@ namespace MSFSClubManager.WebApi.Controllers
             return Ok();
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+       
     }
 }

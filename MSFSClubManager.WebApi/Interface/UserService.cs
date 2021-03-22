@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.Extensions.Configuration;
@@ -74,20 +75,36 @@ namespace MSFSClubManager.WebApi.Services
         }
 
 
-        private string generateJwtToken(User user)
+
+        public  string  GetUserAsync(User model)
+        {
+            // Resolve the user via their email
+            var user = Task.Run(() => _userManager.FindByEmailAsync(model.Username)).Result;
+            // Get the roles for the user
+            var uroles = Task.Run(() => _userManager.GetRolesAsync(user)).Result;
+            return  String.Join(",", uroles);           
+        }
+
+            private string generateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var secret = _configRoot.GetValue<string>("JWTSecret");
 
-
+            
             _logger.Log(LogLevel.Information, $"JWT Secret from Everleap={secret}");
 
+            string roles =  GetUserAsync(user);
             var key = Encoding.ASCII.GetBytes(secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
+
+
+            Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                     new Claim("CreatedBy", user.FirstName.Substring(0,1).ToUpper() + ""  + user.LastName.Substring(0,1).ToUpper()),
+                    new Claim(ClaimTypes.Email, user.Username),
+                    new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
+                     new Claim(ClaimTypes.Role,roles)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -140,7 +157,7 @@ namespace MSFSClubManager.WebApi.Services
             var refreshToken = generateRefreshToken(ipAddress);
 
             // save refresh token
-            users.RefreshTokens.Add(refreshToken);
+           // users.RefreshTokens.Add(refreshToken);
 
             return new AuthenticateResponse(users, jwtToken, null);
 
