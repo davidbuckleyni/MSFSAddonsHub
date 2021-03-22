@@ -17,6 +17,10 @@ using System.Threading.Tasks;
 
 namespace MSFSClubManager.WebApi.Controllers
 {
+  
+    [ApiController]
+    [Route("v{version:apiVersion}/")]
+
     public class Authentication : Controller
     {
 

@@ -66,7 +66,7 @@ namespace MSFSClubManager.WebApi
                 using (var serviceProvider = services.BuildServiceProvider())
                 {
                     var provider = serviceProvider.GetRequiredService<IApiVersionDescriptionProvider>();
-                    String assemblyDescription = typeof(Startup).Assembly.GetCustomAttribute<AssemblyDescriptionAttribute>().Description;
+                    String assemblyDescription = "MSFS Club Api ";
 
                     foreach (var description in provider.ApiVersionDescriptions)
                     {

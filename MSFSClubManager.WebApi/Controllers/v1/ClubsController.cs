@@ -19,6 +19,7 @@ using System.IdentityModel.Tokens.Jwt;
 namespace MSFSClubManager.WebApi.Controllers.v1
 {
     [ApiVersion("1")]
+    [ApiVersion("2")]
     [ApiController]
     [Route("v{version:apiVersion}/")]
 
@@ -115,6 +116,7 @@ namespace MSFSClubManager.WebApi.Controllers.v1
             {
 
                 _context.Clubs.Remove(club);
+                await _context.SaveChangesAsync();
                 return Ok();
             }
             else

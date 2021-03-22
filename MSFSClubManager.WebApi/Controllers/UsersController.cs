@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace MSFSClubManager.WebApi.Controllers
 {
     [ApiVersion("1")]
+    [ApiVersion("2")]
     [ApiController]
     [Route("v{version:apiVersion}/[controller]")]
 
