@@ -14,7 +14,8 @@ namespace MSFSClubManager.WebApi.Controllers
 {
     [ApiVersion("2")]
     [ApiController]
-    [Route("v{version:apiVersion}/[controller]")]
+    [Route("v{version:apiVersion}/")]
+
 
     public class SubscriberController : Controller
     {

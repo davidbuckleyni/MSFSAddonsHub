@@ -20,7 +20,7 @@ namespace MSFSClubManager.WebApi.Controllers.v1
 {
     [ApiVersion("1")]
     [ApiController]
-    [Route("v{version:apiVersion}/[controller]")]
+    [Route("v{version:apiVersion}/")]
 
     public class ClubsController : Controller
     {
